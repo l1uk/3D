@@ -189,9 +189,8 @@ body_ext_pts = [
     [body_r(zbell_tip),                     bell_z_to_mute_z(zbell_tip)]
 ];
 
-// Profilo interno: offset costante wall_t. I punti 0..7 delimitano l'ARIA della camera
-// (dalla punta del collo fino alla sommità del collare pieno del fondello);
-// i punti 8..9 sono la sede del collare.
+// Profilo interno: offset costante wall_t (1.6 mm = 4 perimetri pieni ovunque fino al piatto!)
+// Nessuno sbalzo interno a 90° e nessuna parete fragile da 0.65 mm.
 body_int_pts = [
     [body_r(zbell_tip)    - wall_t,                  bell_z_to_mute_z(zbell_tip)],
     [body_r(zbell_ch_top) - wall_t,                  bell_z_to_mute_z(zbell_ch_top)],
@@ -200,9 +199,7 @@ body_int_pts = [
     [body_r(zbell_ch_bot) - wall_t,                  bell_z_to_mute_z(zbell_ch_bot)],
     [neck_r_base - wall_t,                           z_taper_top],
     [inner_r_cyl,                                    z_chamber_cyl_top],
-    [inner_r_cyl,                                    z_joint_step + lip_height],
-    [cap_recess_r,                                   z_joint_step + lip_height],
-    [cap_recess_r,                                   z_joint_step]
+    [inner_r_cyl,                                    z_joint_step]
 ];
 
 
@@ -226,7 +223,7 @@ function area_mm2(d) = PI * d * d / 4;
 
 // somma dei tronchi di cono del profilo interno, punti 0..7
 function vol_sum(i = 0) =
-    (i >= 7) ? 0 :
+    (i >= len(body_int_pts) - 1) ? 0 :
     frustum_vol(body_int_pts[i][0], body_int_pts[i+1][0],
                 abs(body_int_pts[i][1] - body_int_pts[i+1][1])) + vol_sum(i + 1);
 
@@ -290,14 +287,15 @@ module upper_body() {
 //  GEOMETRIA MODULARE: 3. BASE / FONDELLO CON TUBO COASSIALE & SFIATI
 // =============================================================================
 module cap_base() {
-    cap_lip_r = (chamber_od/2) - (wall_t/2) - (joint_clearance/2);
+    cap_lip_r    = inner_r_cyl - (joint_clearance / 2);
+    cap_lip_in_r = cap_lip_r - wall_t;
 
     difference() {
         union() {
             // Piatto di base esterno
             cylinder(r = chamber_od/2, h = cap_base_t);
 
-            // Collare maschio di inserimento nella camera (PIENO)
+            // Collare maschio di inserimento (manicotto cilindrico)
             translate([0, 0, cap_base_t])
                 cylinder(r = cap_lip_r, h = lip_height);
 
@@ -305,17 +303,20 @@ module cap_base() {
             cylinder(r = (stem_id/2) + stem_wall, h = cap_base_t + stem_len);
         }
 
+        // Svuotamento interno del collare per lasciare la camera aperta (parete 1.6 mm)
+        translate([0, 0, cap_base_t])
+            cylinder(r = cap_lip_in_r, h = lip_height + 1);
+
         // Foro passante assiale del tubo coassiale
         translate([0, 0, -1])
             cylinder(r = stem_id/2, h = cap_base_t + stem_len + 2);
 
-        // Fori di sfiato PASSANTI: attraversano piastra + collare pieno.
-        // (v1: h = cap_base_t + 2 -> i fori si fermavano a z = 4.2, dentro il collare)
+        // Fori di sfiato passanti attraverso la piastra di base
         if (bleed_count > 0)
             for (i = [0 : bleed_count - 1])
                 rotate([0, 0, i * 360 / bleed_count])
                     translate([bleed_pitch_dia/2, 0, -1])
-                        cylinder(r = bleed_dia/2, h = cap_base_t + lip_height + 2);
+                        cylinder(r = bleed_dia/2, h = cap_base_t + 2);
 
         // Smusso di guida 45° sul labbro di inserimento per facilitare l'innesto
         translate([0, 0, cap_base_t + lip_height - 1.0])
