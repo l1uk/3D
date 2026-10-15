@@ -83,7 +83,7 @@ stem_len          = 48.0;  // [mm] Lunghezza del tubo che entra nella camera dal
 // Fori di sfiato sul fondello (ora PASSANTI).
 // ATTENZIONE: ogni foro aperto aggiunge un percorso d'uscita per il suono, alza la
 // frequenza di Helmholtz e riduce l'attenuazione (vedi report in console).
-bleed_count       = 4;     // 0 = nessun foro (variante A)  |  4 = variante B
+bleed_count       = 0;     // 0 = nessun foro (variante A, MAX SILENZIO)  |  4 = variante B
 bleed_dia         = 3.2;   // [mm] Diametro singoli fori di sfiato
 bleed_pitch_dia   = 40.0;  // [mm] Diametro di circonferenza fori
 
@@ -429,8 +429,9 @@ else if (mode == "cross_section") {
     }
 }
 else if (mode == "body_only") {
-    // Pronto per esportazione STL del corpo principale
-    upper_body();
+    // Pronto per esportazione STL del corpo principale: poggia sul piatto a Z=0
+    translate([0, 0, -z_joint_step])
+        upper_body();
 }
 else if (mode == "cap_only") {
     // Pronto per esportazione STL del fondello
