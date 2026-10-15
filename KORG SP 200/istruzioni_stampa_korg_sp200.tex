@@ -1,0 +1,112 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin=1.8cm]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{tcolorbox}
+
+\definecolor{primary}{RGB}{30, 60, 110}
+\definecolor{accent}{RGB}{200, 70, 40}
+\definecolor{success}{RGB}{35, 125, 60}
+
+\title{\textbf{\Large Specifiche di Stampa 3D — Ricambi Korg SP-200}\\\large Leggio a telaio v3 e Copri-Fader parametrico}
+\author{\textbf{Istruzioni Tecniche per lo Slicer e Montaggio}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{tcolorbox}[colback=primary!5!white,colframe=primary,title=\textbf{Sintesi del Progetto — Versione v3}]
+I modelli sono calibrati sulle misure reali del pianoforte digitale \textbf{Korg SP-200} e dimensionati specificamente per piatti di stampa standard come \textbf{Bambu Lab} ($256\times 256$\,mm, con $11$\,mm di margine di sicurezza anti-interferenza da bordi/purge line), \textbf{Prusa} e \textbf{Creality}.
+
+\textbf{Migliorie introdotte nella versione v3}:
+\begin{itemize}
+    \item \textbf{Larghezza aumentata a 490\,mm} ($245$\,mm per metà): il leggio va in fuori sporgendo di $30$\,mm per lato oltre gli attacchi, ospitando comodamente due fogli A4 o album aperti.
+    \item \textbf{Inclinazione anti-spanciamento a $24^\circ$}: reclinazione naturale che sfrutta la gravità per far aderire i fogli singoli allo schienale.
+    \item \textbf{Mensolina profonda 33\,mm}: spazio maggiorato per libri di spartiti rilegati e spessi.
+    \item \textbf{Parapetto svasato a $105^\circ$}: ribassato a $10$\,mm con cresta arrotondata per consentire la voltata fluida delle pagine senza attriti o intoppi.
+\end{itemize}
+Tutti i file sono già esportati in formato \textbf{STL} pronti per lo slicer.
+\end{tcolorbox}
+
+\section{Materiale Consigliato}
+\begin{itemize}
+    \item \textbf{PLA o PETG}: Colore consigliato \textbf{Nero opaco (Black Matte)} o Grafite scuro.
+    \item Il PLA garantisce massima rigidità alla flessione per sostenere libri pesanti; il PETG offre maggiore resilienza termica ed elastica.
+\end{itemize}
+
+\section{Elenco File STL da Stampare}
+\begin{table}[h!]
+\centering
+\begin{tabular}{@{}llcc@{}}
+\toprule
+\textbf{File STL} & \textbf{Descrizione} & \textbf{Q.tà} & \textbf{Tempo} \\
+\midrule
+\texttt{leggio\_provino\_test.stl} & \textbf{Test rapido d'inserimento e mensola 33mm} & \textbf{1 pezzo} & \textbf{$\sim$12 min} \\
+\texttt{copri\_fader.stl} & Copri-fader volume/brilliance & 2 pezzi & $\sim$12 min \\
+\texttt{leggio\_meta\_sinistra.stl} & Metà sinistra leggio v3 (largh. 245\,mm) & 1 pezzo & $\sim$1h 50m \\
+\texttt{leggio\_meta\_destra.stl} & Metà destra leggio v3 (largh. 245\,mm) & 1 pezzo & $\sim$1h 50m \\
+\texttt{leggio\_spine\_giunzione.stl} & Set 3 spine (1 corta 16\,mm, 2 standard 22\,mm) & 1 set & $\sim$3 min \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{tcolorbox}[colback=success!5!white,colframe=success,title=\textbf{Stampa di Prova Rapida Raccomandata: Provino di Test (12 Minuti)}]
+Prima di stampare le due metà grandi del leggio (circa 3 ore e mezza di stampa), \textbf{è vivamente consigliato stampare prima il file \texttt{leggio\_provino\_test.stl}}:
+\begin{itemize}
+    \item \textbf{Cosa contiene}: Solo l'angolo inferiore sinistro: il perno orizzontale a L da 26\,mm, il montante di battuta e i primi 8.5\,cm di mensolina profonda 33\,mm con bordino svasato a $105^\circ$. Consuma pochissimi grammi di filo.
+    \item \textbf{Verifica sul pianoforte}:
+    \begin{enumerate}
+        \item Inserire il perno nel foro posteriore del pianoforte: scorre liscio fino in fondo per 26\,mm, arrestandosi a filo con la boccola Korg.
+        \item Verificare la mensolina: grazie all'inclinazione a $24^\circ$, si adagia a circa $1.5\text{--}2$\,mm d'aria sopra la scocca, con ampio spazio frontale e perfetto disimpegno dai comandi.
+    \end{enumerate}
+\end{itemize}
+\end{tcolorbox}
+
+\section{Impostazioni Slicer Consigliate}
+
+\subsection{1. Copri-Fader (\texttt{copri\_fader.stl})}
+\begin{itemize}
+    \item \textbf{Altezza Layer}: $0.12$\,mm o $0.16$\,mm (layer fine per definire l'incastro elastico a croce interno).
+    \item \textbf{Orientamento sul piatto}: Base di inserimento adagiata piatta sul piatto ($Z=0$), tacca superiore verso l'alto.
+    \item \textbf{Pareti (Wall loops)}: $4$ o $5$ perimetri (il pezzo risulterà solido e resistente).
+    \item \textbf{Supporti}: \textbf{Disattivati} (nessun supporto richiesto).
+\end{itemize}
+
+\subsection{2. Metà Leggio (\texttt{leggio\_meta\_sinistra.stl} e \texttt{leggio\_meta\_destra.stl}) e Test}
+\begin{itemize}
+    \item \textbf{Altezza Layer}: $0.20$\,mm.
+    \item \textbf{Pareti (Wall loops / Perimeters)}: \textbf{4 o 5 pareti} (\textit{fondamentale per la rigidità strutturale dei tubolari da 9\,mm}).
+    \item \textbf{Riempimento (Infill)}: $20\%$--$25\%$ con motivo \textbf{Giroide (Gyroid)}.
+    \item \textbf{Top / Bottom Layers}: 4 o 5 strati solidi.
+    \item \textbf{Orientamento}: Sdraiato piatto sul dorso/schiena.
+    \item \textbf{Supporti}: Supporti ad albero (\textit{Tree supports}) raccomandati solo per il perno a gomito posteriore.
+\end{itemize}
+
+\subsection{3. Spine di Giunzione (\texttt{leggio\_spine\_giunzione.stl})}
+\begin{itemize}
+    \item \textbf{Geometria}: Il file contiene già 3 spine pronte adagiate orizzontalmente sul piatto:
+    \begin{itemize}
+        \item \textbf{1 spina corta da 16\,mm} ($\varnothing\,4.6$\,mm): calibrata per il nodo della V superiore (foro profondo 10\,mm per lato).
+        \item \textbf{2 spine standard da 22\,mm} ($\varnothing\,4.6$\,mm): calibrate per la traversa intermedia e per la mensolina inferiore (fori profondi 18\,mm per lato).
+    \end{itemize}
+    \item \textbf{Tolleranze}: I fori femmina sul leggio sono alesati a $\varnothing\,5.4$\,mm (gioco radiale $0.4$\,mm) con ampio margine di profondità cieca: le spine scorrono dolcemente e non possono mai toccare il fondo a pacco, garantendo un combaciamento a filo perfetto tra le due metà.
+    \item \textbf{Riempimento}: $100\%$ o 4 pareti (funzione di spinotti strutturali).
+    \item \textbf{Orientamento}: Sdraiate in orizzontale sul piatto con eventuale \textit{Brim} (bordo di aderenza).
+\end{itemize}
+
+\section{Istruzioni di Post-Stampa e Montaggio}
+\begin{enumerate}
+    \item Rimuovere eventuali residui di supporto dal gomito del perno posteriore.
+    \item Eseguire una prova a secco inserendo la spina corta ($16$\,mm) nel foro della V superiore e le due spine standard ($22$\,mm) nella traversa intermedia e nella mensolina inferiore.
+    \item Applicare alcune gocce di colla cianoacrilica (tipo Super Attak) all'interno dei fori e sulle superfici di battuta della giunzione centrale.
+    \item Unire e premere saldamente le due metà per 30--60 secondi fino a presa avvenuta.
+    \item (\textit{Opzionale}): Applicare due piccoli feltrini o gommini adesivi da 1\,mm sotto la mensolina inferiore per garantire un contatto morbido con la carrozzeria del pianoforte.
+\end{enumerate}
+
+\end{document}
