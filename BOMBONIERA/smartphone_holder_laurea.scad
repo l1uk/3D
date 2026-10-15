@@ -4,10 +4,10 @@
 // =====================================================================
 
 /* [Personalizzazione Testo (Audience Generalista)] */
-titolo_superiore = "LAUREA MAGISTRALE";
-nome_laureato    = "NOME E COGNOME";
-corso_o_data     = "Cybersecurity & IoT - 2026";
-frase_ricordo    = "Grazie per festeggiare con me!";
+titolo_superiore = "BRUXELLES 2026";
+nome_laureato    = "LAUREA LUCA";
+corso_o_data     = "BIRRA & WAFFLES";
+frase_ricordo    = "Grazie di tutto!";
 
 /* [Icona e Decorazione] */
 mostra_tocco_laurea = true;
