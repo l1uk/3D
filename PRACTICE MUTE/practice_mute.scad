@@ -17,7 +17,7 @@
 // "body_only"     : Solo Corpo Superiore (orientato sul piatto per slicing)
 // "cap_only"      : Solo Fondello / Base con Tubo Coassiale (orientato per slicing)
 // "test_ring"     : Provino rapido calibrato (conicità esatta + base anti-distacco)
-mode = "test_ring"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring"]
+mode = "cross_section"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring"]
 
 // Risoluzione curve
 $fn = $preview ? 48 : 120;
