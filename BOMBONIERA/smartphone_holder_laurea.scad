@@ -4,10 +4,10 @@
 // =====================================================================
 
 /* [Personalizzazione Testo (Audience Generalista)] */
-titolo_superiore = "LUCA 2026";
-nome_laureato    = "BRUXELLES";
-corso_o_data = "";
-frase_ricordo    = "Gianotti Family";
+titolo_superiore = "LAUREA MAGISTRALE";
+nome_laureato    = "NOME E COGNOME";
+corso_o_data     = "Cybersecurity & IoT - 2026";
+frase_ricordo    = "Grazie per festeggiare con me!";
 
 /* [Icona e Decorazione] */
 mostra_tocco_laurea = true;
