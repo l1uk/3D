@@ -49,19 +49,18 @@ bell_profile = [
 
 // ── 2. PARAMETRI SEDE SUGHERO & POSIZIONAMENTO ─────────────────────────────
 // Profondità nominale del centro del sughero dal bordo campana [mm]
-// NOTA ACUSTICA: a 50 mm di profondità, il Ø campana interpolato è ~41.67 mm.
-//                Se si volesse Ø ~38.2 mm, la profondità corrispondente è ~60.4 mm.
-cork_depth_target = 50.0;  // [mm] Profondità target del centro guarnizione
+// NOTA ACUSTICA & MECCANICA: a quota 65 mm il cono ha semi-angolo ~3.5° (autobloccante).
+cork_depth_target = 65.0;  // [mm] Profondità target del centro guarnizione (zona conica dolce)
 
 cork_thick        = 2.0;   // [mm] Spessore striscia sughero non compressa
 cork_width        = 10.0;  // [mm] Larghezza nominale striscia sughero
 cork_seat_w       = 10.5;  // [mm] Larghezza fondo piano gola (+0.5 mm tolleranza assiale)
-cork_seat_d       = 0.8;   // [mm] Profondità gola (il sughero sporge di 1.2 mm a riposo)
-cork_compress     = 0.25;  // [mm] Compressione radiale desiderata a battuta
+cork_seat_d       = 1.1;   // [mm] Profondità gola (il sughero sporge di 0.9 mm a riposo)
+cork_compress     = 0.20;  // [mm] Compressione radiale voluta a battuta (0.7 mm aria residua)
 
 // Raccordo FDM anti-sbalzo: smusso a 45° (in altezza pari alla profondità)
 // Rende la gola 100% stampabile senza supporti, eliminando qualsiasi sbalzo a 90°
-cork_chamfer      = cork_seat_d; // [mm] dz = dr = 0.8 mm -> pendenza 45° perfetta
+cork_chamfer      = cork_seat_d; // [mm] dz = dr = 1.1 mm -> pendenza 45° perfetta
 
 
 // ── 3. PARAMETRI MECCANICI & DI STAMPA FDM ─────────────────────────────────
@@ -133,7 +132,7 @@ echo(str("Ø spalla corpo sordina   : ", 2 * body_r_cork, " mm (raggio = ", body
 echo(str("Ø fondo gola sughero     : ", 2 * groove_r_cork, " mm (raggio = ", groove_r_cork, " mm)"));
 echo(str("Gioco radiale plastica-ottone: ", clearance_plastic_brass, " mm (SICUREZZA ANTI-GRAFFIO: OK)"));
 echo(str("Compressione sughero prevista: ", cork_compress, " mm"));
-echo("Raccordo sbalzo FDM: smusso a 45° (dz = 0.8 mm, dr = 0.8 mm) -> 0 SUPPORTI");
+echo(str("Raccordo sbalzo FDM: smusso a 45° (dz = dr = ", cork_chamfer, " mm) -> 0 SUPPORTI"));
 echo(str("Spessore parete nominale: costante ", wall_t, " mm su tutta la superficie (4 perimetri)"));
 echo("=================================================================");
 
@@ -378,11 +377,8 @@ module test_ring_v2() {
     zm_top         = h_ring;
 
     poly_ext = [
-        // Flangia brim integrata di aderenza al piatto (spessore 0.6 mm, +4 mm larghezza)
-        [r_bot_ext - wall_t, zm_bot],
-        [r_bot_ext + 4.0,    zm_bot],
-        [r_bot_ext + 4.0,    0.6],
-        [r_bot_ext,          0.6],
+        // Appoggio piatto sul piatto (brim esterno impostabile liberamente in Cura)
+        [r_bot_ext,          zm_bot],
 
         // Corpo conico inferiore
         [r_chamfer_bot_ext, zm_chamfer_bot],
