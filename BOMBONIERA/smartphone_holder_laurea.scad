@@ -22,7 +22,7 @@ altezza_becco    = 14.0; // Altezza del gancio frontale ferma-telefono
 luce_cavo_usb    = 24.0; // Larghezza intaglio centrale per cavetto di ricarica
 
 /* [Tolleranze Incastro Ender 3 V2] */
-clearance        = 0.40; // Gioco meccanico (0.35-0.45mm ideale per scorrimento senza gioco)
+clearance        = 0.25; // Gioco meccanico (0.35-0.45mm ideale per scorrimento senza gioco)
 profondita_testo = 0.80; // Profondità incisione testo (4 layer da 0.2mm, ottima visibilità)
 
 /* [Modalità di Visualizzazione] */
@@ -39,7 +39,7 @@ quota_z_fessura = 36.0; // Posizione della fessura sullo schienale
 
 w_piede_base = 64.0;
 lunghezza_corpo_piede = 56.0;
-lunghezza_linguetta = 20.0;
+lunghezza_linguetta = 3.4;
 w_linguetta = w_fessura - clearance*2; // 41.2 mm
 
 // =====================================================================
@@ -112,33 +112,13 @@ module schienale() {
 
 // Ganci laterali simmetrici che tengono lo smartphone in posizione
 module ganci_frontali() {
-    w_gancio = (larghezza_stand - luce_cavo_usb) / 2;
-    
-    // Modulo singolo gancio (lato destro: da X = luce_cavo_usb/2 a larghezza_stand/2)
-    module un_gancio() {
-        translate([luce_cavo_usb/2, 0, 0])
-        rotate([0, -90, 0])
-        translate([-altezza_becco, 0, -w_gancio])
-        linear_extrude(w_gancio)
-        polygon([
-            [0, 0],
-            [altezza_becco, 0],
-            [altezza_becco, 4.0],
-            [5.0, 4.0],
-            [5.0, profondita_culla + 4.0],
-            [altezza_becco, profondita_culla + 4.0],
-            [altezza_becco, profondita_culla + 7.5],
-            [2.0, profondita_culla + 7.5],
-            [0, 10.0]
-        ]);
-    }
-    
-    // Gancio destro
-    un_gancio();
-    
-    // Gancio sinistro: simmetria perfetta rispetto all'asse X
-    mirror([1, 0, 0])
-        un_gancio();
+    // ripiano semplice: nessun overhang, parte dal piatto
+    x_i = luce_cavo_usb/2;
+    x_e = larghezza_stand/2 - 6;   // resta dentro gli angoli arrotondati
+    for (s = [-1, 1])
+        scale([s, 1, 1])
+            translate([x_i, 0, 0])
+                cube([x_e - x_i, 5, spessore_piastra + profondita_culla]);
 }
 
 // Decorazioni e testi incisi sulla superficie superiore
