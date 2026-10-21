@@ -289,41 +289,45 @@ module upper_body() {
 module cap_base() {
     cap_lip_r    = inner_r_cyl - (joint_clearance / 2);
     cap_lip_in_r = cap_lip_r - wall_t;
+    stem_r_ext   = (stem_id / 2) + stem_wall;
+    stem_r_in    = stem_id / 2;
+    z_stem_top   = cap_base_t + stem_len;
+    z_lip_top    = cap_base_t + lip_height;
+
+    // Profilo 2D monolitico: un solo volume chiuso continuo, zero parti sospese!
+    cap_poly = [
+        // Base piatta a Z=0 sul piatto
+        [chamber_od / 2, 0],
+        [chamber_od / 2, cap_base_t],
+        // Spalla piana di battuta del corpo
+        [cap_lip_r, cap_base_t],
+        // Parete esterna collare maschio
+        [cap_lip_r, z_lip_top - 1.0],
+        [cap_lip_r - 1.0, z_lip_top], // smusso di guida 45°
+        // Bordo superiore collare
+        [cap_lip_in_r, z_lip_top],
+        // Parete interna collare
+        [cap_lip_in_r, cap_base_t],
+        // Pavimento aperto della camera
+        [stem_r_ext, cap_base_t],
+        // Parete esterna stelo centrale
+        [stem_r_ext, z_stem_top],
+        // Bordo superiore stelo
+        [stem_r_in, z_stem_top],
+        // Condotto centrale interno passante
+        [stem_r_in, 0]
+    ];
 
     difference() {
-        union() {
-            // Piatto di base esterno
-            cylinder(r = chamber_od/2, h = cap_base_t);
+        rotate_extrude()
+            polygon(cap_poly);
 
-            // Collare maschio di inserimento (manicotto cilindrico)
-            translate([0, 0, cap_base_t])
-                cylinder(r = cap_lip_r, h = lip_height);
-
-            // Tubo Coassiale Interno (Inlet Stem)
-            cylinder(r = (stem_id/2) + stem_wall, h = cap_base_t + stem_len);
-        }
-
-        // Svuotamento interno del collare per lasciare la camera aperta (parete 1.6 mm)
-        translate([0, 0, cap_base_t])
-            cylinder(r = cap_lip_in_r, h = lip_height + 1);
-
-        // Foro passante assiale del tubo coassiale
-        translate([0, 0, -1])
-            cylinder(r = stem_id/2, h = cap_base_t + stem_len + 2);
-
-        // Fori di sfiato passanti attraverso la piastra di base
+        // Fori di sfiato passanti attraverso la piastra di base (se bleed_count > 0)
         if (bleed_count > 0)
             for (i = [0 : bleed_count - 1])
                 rotate([0, 0, i * 360 / bleed_count])
-                    translate([bleed_pitch_dia/2, 0, -1])
-                        cylinder(r = bleed_dia/2, h = cap_base_t + 2);
-
-        // Smusso di guida 45° sul labbro di inserimento per facilitare l'innesto
-        translate([0, 0, cap_base_t + lip_height - 1.0])
-            difference() {
-                cylinder(r = cap_lip_r + 1, h = 2);
-                cylinder(r1 = cap_lip_r, r2 = cap_lip_r - 1.0, h = 2);
-            }
+                    translate([bleed_pitch_dia / 2, 0, -1])
+                        cylinder(r = bleed_dia / 2, h = cap_base_t + 2);
     }
 }
 
