@@ -33,15 +33,7 @@
 //      2. due nervature a lieve interferenza (ridge_interf): tengono in modo CONTROLLATO
 //      3. cap_flange_od : piastra piu' larga del corpo -> bordo da afferrare / fare leva
 //    Per tarare l'innesto senza stampare il fondello intero: mode = "lip_test" (anello di
-//    prova, ~20 min).
-//
-//    TASCA IMBOTTITURA NEL CORPO (nuovo)
-//    L'imbottitura NON va piu' infilata attorno allo stelo del fondello. Ora la camera larga
-//    del CORPO fa da tasca: a fondello smontato, il corpo e' una ciotola aperta dal basso e
-//    ci si appoggia dentro l'ovatta a manciate. Una griglia di razze radiali stampata in alto
-//    nel corpo (pocket_grid) impedisce all'imbottitura di risalire verso il collo, pur
-//    lasciando passare suono e aria. ATTENZIONE: questo cambia il CORPO -> va ristampato
-//    (mode = "body_only"). Il fondello torna liscio attorno allo stelo.
+//    prova, ~20 min). Il corpo che hai gia' stampato resta valido.
 // =============================================================================
 
 // ── SELETTORE MODALITÀ DI VISUALIZZAZIONE / ESPORTAZIONE ────────────────────
@@ -51,7 +43,9 @@
 // "cap_only"      : Solo Fondello / Base con Tubo Coassiale (orientato per slicing)
 // "test_ring"     : Provino rapido calibrato (conicità esatta + base anti-distacco)
 // "lip_test"      : Anello di prova del collare (con nervature) per tarare l'innesto: ~20 min
-mode = "body_only"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test"]
+// "cartuccia"     : Vano imbottitura sospeso (pezzo separato, si infila sullo stelo)
+// "cartuccia_lid" : Coperchio della cartuccia
+mode = "cartuccia"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test", "cartuccia", "cartuccia_lid"]
 
 // Risoluzione curve
 $fn = $preview ? 48 : 120;
@@ -102,6 +96,27 @@ ridge_z0          = 2.0;   // [mm] quota della prima nervatura sopra la piastra
 ridge_flat        = 0.6;   // [mm] larghezza della cima piatta
 cap_flange_od     = 92.0;  // [mm] diametro della piastra del fondello (il corpo e' 84): bordo da afferrare
 
+// -- Cestello per l'imbottitura (stampato sul collare, attorno allo stelo): niente collant
+//    Parete forata a rombi (sono 0 supporti), bordo di ritenzione inclinato a 45° in cima.
+//    L'imbottitura si infila dall'alto, nell'anello tra stelo e parete.
+pad_cage          = false;   // (disattivato di default: vedi la cartuccia qui sotto)
+pad_r_out         = 38.0;  // [mm] raggio esterno (la camera ha raggio 40.4: restano ~2 mm)
+pad_wall          = 1.2;   // [mm] spessore parete (3 perimetri da 0.4)
+pad_h             = 28.0;  // [mm] altezza sopra il collare (lascia libero lo sbocco dello stelo)
+pad_lip           = 4.0;   // [mm] sporgenza del bordo di ritenzione verso l'interno (45°)
+pad_hole          = 8.0;   // [mm] diagonale dei fori a rombo
+
+// -- CARTUCCIA IMBOTTITURA: vano sospeso nella camera, pezzo SEPARATO (nessuna modifica a corpo e fondello)
+//    Si infila sullo stelo (che passa nel manicotto centrale), sta centrata nella camera con aria tutt'attorno.
+//    Si apre dall'alto, si riempie IN UNA VOLTA con l'imbottitura (anche un blocco unico) e si chiude col
+//    coperchio. Si sfila per asciugare/pulire. Modalita': "cartuccia" e "cartuccia_lid".
+cart_r_out        = 37.6;  // [mm] raggio esterno (camera 40.4: restano ~2.8 mm di aria)
+cart_h            = 26.0;  // [mm] altezza del vano (+1.2 del coperchio): lascia libero lo sbocco dello stelo
+cart_wall         = 1.2;   // [mm] spessore pareti
+cart_fit          = 0.25;  // [mm] gioco manicotto-stelo (0.15-0.2 = a frizione, 0.35 = libero)
+cart_hole         = 8.0;   // [mm] diagonale dei fori a rombo nella parete
+cart_lid_h        = 6.0;   // [mm] altezza del bordo del coperchio
+
 
 // ── 4. PARAMETRI ACUSTICI & CAMERA DI RISONANZA ────────────────────────────
 // Camera esterna (fuori dalla campana)
@@ -136,7 +151,13 @@ lip_r_eff = (chamber_od/2) - (wall_t/2) - (joint_clearance/2) - lip_trim;   // r
 ridge_h   = joint_clearance + lip_trim + ridge_interf;                      // sporgenza nervature
 assert(ridge_z0 + (ridge_count - 1) * ridge_pitch + 2 * ridge_h + ridge_flat <= lip_height - 1.2,
        "Nervature troppo alte sul collare: riduci ridge_count, ridge_pitch o ridge_z0");
-
+assert(!pad_cage || pad_h <= (stem_len - lip_height) - 8,
+       "Cestello troppo alto: deve restare libero lo sbocco dello stelo (riduci pad_h)");
+assert(!pad_cage || pad_r_out <= chamber_od/2 - wall_t - 1.5,
+       "Cestello troppo largo per la camera: riduci pad_r_out");
+assert(cart_h + cart_wall <= (stem_len - lip_height) - 10,
+       "Cartuccia troppo alta: deve restare libero lo sbocco dello stelo (riduci cart_h)");
+assert(cart_r_out <= chamber_od/2 - wall_t - 1.5, "Cartuccia troppo larga per la camera: riduci cart_r_out");
 
 // =============================================================================
 //  FUNZIONI DI INTERPOLAZIONE E CALCOLO GEOMETRICO
@@ -301,33 +322,15 @@ echo("=== REPORT ACUSTICO (parametri concentrati) ===");
 echo(str("Volume d'aria della camera : ", round(V_chamber / 100) / 10, " cm³"));
 echo(str("Giunto: collare Ø ", round(2 * lip_r_eff * 100) / 100, " mm (gioco radiale ", joint_clearance + lip_trim,
          " mm), ", ridge_count, " nervature con interferenza ", ridge_interf, " mm, flangia Ø ", cap_flange_od, " mm"));
-if (pocket_grid) {
-    // Tasca = anello della camera cilindrica tra la cima del collare e la griglia,
-    // meno il volume occupato dallo stelo che la attraversa.
-    pocket_h   = pocket_top - (cap_base_t + lip_height);
-    pocket_vol = PI * (pow(inner_r_cyl, 2) - pow(stem_id/2 + stem_wall, 2)) * pocket_h / 1000; // cm³
-    echo(str("Tasca imbottitura (nel corpo): altezza ~", round(pocket_h), " mm, volume utile ~",
-             round(pocket_vol), " cm³ -> circa ", round(pocket_vol * 0.02 * 10) / 10,
-             " g a riempimento morbido (20 g/L), ", round(pocket_vol * 0.04 * 10) / 10, " g sodo (40 g/L), ",
-             round(pocket_vol * 0.06 * 10) / 10, " g molto sodo (60 g/L)"));
-    echo("  (L'imbottitura si mette nel corpo a fondello smontato; la griglia le impedisce di salire nel collo.)");
-    // cella piu' grande = quella all'anello esterno: corda tra due razze x passo radiale
-    cell_chord = 2 * inner_r_cyl * sin(180 / grid_spokes) - grid_spoke_w;   // [mm] lato circonferenziale
-    cell_rad   = (inner_r_cyl - grid_hub_r) / (grid_rings + 1) - grid_spoke_w; // [mm] lato radiale
-    echo(str("  Griglia a maglia: ", grid_spokes, " razze x ", grid_rings, " anelli -> cella max ~",
-             round(cell_chord * 10) / 10, " x ", round(cell_rad * 10) / 10,
-             " mm (piu' razze/anelli = maglia piu' fitta per ovatta vaporosa)"));
+if (pad_cage) {
+    pad_vol = PI * (pow(pad_r_out - pad_wall, 2) - pow(stem_id/2 + stem_wall, 2)) * pad_h / 1000;   // cm³ (stima)
+    echo(str("Cestello imbottitura: volume utile ~", round(pad_vol), " cm³ -> circa ", round(pad_vol * 0.02 * 10) / 10,
+             " g a riempimento morbido (20 g/L), ", round(pad_vol * 0.04 * 10) / 10, " g sodo (40 g/L), ",
+             round(pad_vol * 0.06 * 10) / 10, " g molto sodo (60 g/L)"));
 }
-// Verifiche di posizionamento della griglia nella zona cilindrica del corpo.
-// La griglia e' un ripiano forato: lo stelo le passa attraverso il mozzo centrale (che e'
-// solo un anello di razze, con un foro centrale piu' largo dello stelo), quindi puo' stare
-// anche piu' in basso della punta dello stelo.
-assert(!pocket_grid || pocket_top <= z_chamber_cyl_top - 2,
-       "Griglia troppo in alto: supera la zona cilindrica del corpo (riduci pocket_top)");
-assert(!pocket_grid || pocket_top >= cap_base_t + lip_height + 6,
-       "Griglia troppo in basso: lascia spazio alla tasca sopra il collare (aumenta pocket_top)");
-assert(!pocket_grid || grid_hub_r >= stem_id/2 + stem_wall + 1.0,
-       "Mozzo griglia troppo stretto: lo stelo ci passa attraverso (aumenta grid_hub_r)");
+echo(str("Cartuccia imbottitura: volume utile ~",
+         round(PI * (pow(cart_r_out - cart_wall, 2) - pow(stem_id/2 + stem_wall + cart_fit + cart_wall, 2)) * cart_h / 1000), " cm³",
+         " -> ~2-3 g (morbido), ~5 g (sodo), ~7 g (molto sodo); altezza totale con coperchio ", cart_h + cart_wall, " mm"));
 echo(str("Variante fondello          : ", cap_variant, "  (stelo Ø ", stem_id, " x ", stem_len, " mm)"));
 echo(str("Aperture d'uscita          : ", bleed_count > 0 ? str("stelo + ", bleed_count, " fori da ", bleed_dia, " mm") : "solo stelo"));
 echo(str("Frequenza di Helmholtz f_H : ", round(f_helm), " Hz"));
@@ -360,67 +363,99 @@ module upper_body_2d_profile() {
     polygon(concat(body_ext_pts, body_int_pts));
 }
 
-// Griglia di ritenzione dell'imbottitura, integrata nel corpo.
-// E' una MAGLIA alla quota pocket_top: razze radiali + anelli concentrici. Chiude il
-// passaggio verso il collo (l'ovatta non risale) e, essendo a maglia fine, trattiene anche
-// l'imbottitura vaporosa senza farla sbuffare attraverso aperture grandi.
-// Razze e anelli hanno sezione a PUNTA (rombo): i fianchi scendono a 45°, quindi la faccia
-// inferiore e' autoportante in stampa (il corpo si stampa campana in su: niente supporti).
-module body_grid() {
-    z0    = pocket_top;                // quota del ripiano (centro della punta a rombo)
-    r_in  = grid_hub_r;                // foro centrale (passa lo stelo)
-    r_out = inner_r_cyl + 0.3;         // razze e ultimo anello annegano nella parete
-    half  = grid_rib_h;                // mezza-altezza -> pendenza 45° sui fianchi a rombo
-    w     = grid_spoke_w;              // larghezza di razze e anelli
-
-    // Una RAZZA: prisma lungo il raggio, sezione a rombo (punta su +z e -z, largo w in y).
-    module spoke() {
-        translate([r_in, 0, z0])
-            rotate([0, 90, 0])                 // asse lungo il raggio
-                linear_extrude(height = r_out - r_in)
-                    polygon([[ half, 0], [0, w/2], [-half, 0], [0, -w/2]]);
-    }
-
-    // Un ANELLO concentrico di raggio r: toro a sezione a rombo (stessa punta autoportante).
-    module ring(r) {
-        rotate_extrude()
-            translate([r, z0])
-                polygon([[0, half], [w/2, 0], [0, -half], [-w/2, 0]]);
-    }
-
-    // Mozzo centrale attorno al foro dello stelo (anello di raggio r_in).
-    ring(r_in);
-
-    // Razze radiali
-    for (i = [0 : grid_spokes - 1])
-        rotate([0, 0, i * 360 / grid_spokes]) spoke();
-
-    // Anelli concentrici, spaziati uniformemente tra il mozzo e la parete
-    if (grid_rings > 0)
-        for (k = [1 : grid_rings])
-            ring(r_in + k * (inner_r_cyl - r_in) / (grid_rings + 1));
-
-    // Anello esterno a filo parete (chiude la maglia contro il corpo)
-    ring(inner_r_cyl);
-}
-
 module upper_body() {
-    union() {
-        rotate_extrude()
-            upper_body_2d_profile();
-        if (pocket_grid)
-            intersection() {
-                body_grid();
-                // confina la griglia dentro la camera cilindrica (evita sbordi)
-                cylinder(r = inner_r_cyl + 0.3, h = z_chamber_cyl_top + 5);
-            }
-    }
+    rotate_extrude()
+        upper_body_2d_profile();
 }
 
 
 // =============================================================================
 //  GEOMETRIA MODULARE: 3. BASE / FONDELLO CON TUBO COASSIALE & SFIATI
 // =============================================================================
+// ── Cartuccia imbottitura (pezzo separato) ─────────────────────────────────
+// z locale 0 = sommita' del collare del fondello (la cartuccia appoggia li' attorno allo stelo)
+module cartuccia() {
+    r_si = stem_id/2 + stem_wall + cart_fit;      // foro del manicotto
+    r_so = r_si + cart_wall;
+    r_o  = cart_r_out;  r_i = r_o - cart_wall;
+    r_m  = (r_so + r_i) / 2;
+    nrow = floor((cart_h - cart_wall - 2) / (cart_hole + 2));
+    difference() {
+        cylinder(r = r_o, h = cart_h);
+        // vano anulare tra manicotto e parete (aperto in alto)
+        translate([0, 0, cart_wall])
+            difference() {
+                cylinder(r = r_i, h = cart_h);
+                translate([0, 0, -1]) cylinder(r = r_so, h = cart_h + 2);
+            }
+        // foro per lo stelo
+        translate([0, 0, -1]) cylinder(r = r_si, h = cart_h + 2);
+        // fori del fondo (cerchi: il fondo si stampa sul piatto)
+        for (a = [0 : 11]) {
+            rotate([0, 0, a * 30])        translate([r_m,     0, -1]) cylinder(d = 7, h = cart_wall + 2, $fn = 24);
+            rotate([0, 0, a * 30 + 15])   translate([r_m + 8, 0, -1]) cylinder(d = 7, h = cart_wall + 2, $fn = 24);
+        }
+        // fori a rombo sulla parete esterna (fianchi a 45°: 0 supporti), file sfalsate
+        for (j = [0 : nrow - 1])
+            for (i = [0 : 23])
+                rotate([0, 0, (i + (j % 2) * 0.5) * 360 / 24])
+                    translate([r_i - 2, 0, cart_wall + 1 + cart_hole/2 + j * (cart_hole + 2)])
+                        rotate([0, 90, 0]) cylinder(r = cart_hole/2, h = cart_wall + 4, $fn = 4);
+    }
+}
+
+// Coperchio: si stampa a piastra in basso (bordo in su); si monta capovolto sul bordo della cartuccia
+module cartuccia_lid() {
+    r_si = stem_id/2 + stem_wall + cart_fit + 0.6;   // gioco largo attorno allo stelo
+    r_o  = cart_r_out;
+    rim_in  = r_o + 0.2;
+    rim_out = rim_in + cart_wall;
+    r_so = stem_id/2 + stem_wall + cart_fit + cart_wall;
+    r_i  = r_o - cart_wall;
+    r_m  = (r_so + r_i) / 2;
+    difference() {
+        union() {
+            cylinder(r = rim_out, h = cart_wall);
+            difference() {
+                cylinder(r = rim_out, h = cart_lid_h);
+                translate([0, 0, -1]) cylinder(r = rim_in, h = cart_lid_h + 2);
+            }
+            // 3 tacche a frizione sul bordo interno (interferenza ~0.1 mm con la parete della cartuccia)
+            for (a = [0, 120, 240])
+                rotate([0, 0, a]) translate([rim_in - 0.3, -1.5, 0]) cube([0.31, 3, cart_lid_h]);
+        }
+        translate([0, 0, -1]) cylinder(r = r_si, h = cart_lid_h + 2);
+        for (a = [0 : 11]) {
+            rotate([0, 0, a * 30])        translate([r_m,     0, -1]) cylinder(d = 7, h = cart_wall + 2, $fn = 24);
+            rotate([0, 0, a * 30 + 15])   translate([r_m + 8, 0, -1]) cylinder(d = 7, h = cart_wall + 2, $fn = 24);
+        }
+    }
+}
+
+// Cestello dell'imbottitura. z locale 0 = sommita' del collare (si fonde 0.3 mm nel collare)
+module pad_cage() {
+    r_in  = pad_r_out - pad_wall;
+    nrow  = floor((pad_h - pad_lip - 1) / (pad_hole + 2));
+    nang  = 24;
+    difference() {
+        rotate_extrude()
+            polygon([
+                [r_in,           -0.3],
+                [pad_r_out,      -0.3],
+                [pad_r_out,      pad_h],
+                [r_in - pad_lip, pad_h],      // bordo di ritenzione: sotto inclinato a 45°
+                [r_in,           pad_h - pad_lip]
+            ]);
+        // fori a rombo (vertici in alto/in basso -> fianchi a 45°, autoportanti), file sfalsate
+        for (j = [0 : nrow - 1])
+            for (i = [0 : nang - 1])
+                rotate([0, 0, (i + (j % 2) * 0.5) * 360 / nang])
+                    translate([r_in - 2, 0, 1 + pad_hole/2 + j * (pad_hole + 2)])
+                        rotate([0, 90, 0])
+                            cylinder(r = pad_hole/2, h = pad_wall + 4, $fn = 4);
+    }
+}
+
 // Nervature di attrito sul collare: trapezio con fianchi a 45° (0 supporti). r0 = raggio del collare
 module lip_ridges(r0) {
     for (k = [0 : ridge_count - 1]) {
@@ -467,6 +502,10 @@ module cap_base() {
 
             // Nervature di attrito sul collare (interferenza controllata)
             translate([0, 0, cap_base_t]) lip_ridges(cap_lip_r);
+
+            // Cestello per l'imbottitura attorno allo stelo
+            if (pad_cage)
+                translate([0, 0, cap_base_t + lip_height]) pad_cage();
 
             // Tubo Coassiale Interno (Inlet Stem)
             cylinder(r = (stem_id/2) + stem_wall, h = cap_base_t + stem_len);
@@ -613,4 +652,11 @@ else if (mode == "test_ring") {
 else if (mode == "lip_test") {
     // Anello di prova del collare per tarare l'innesto (~20 min)
     lip_test();
+}
+else if (mode == "cartuccia") { cartuccia(); }
+else if (mode == "cartuccia_lid") { cartuccia_lid(); }
+else if (mode == "cartuccia_montata") {      // solo per controlli: fondello + cartuccia + coperchio
+    cap_base();
+    translate([0, 0, cap_base_t + lip_height]) cartuccia();
+    translate([0, 0, cap_base_t + lip_height + cart_h + cart_wall]) mirror([0, 0, 1]) cartuccia_lid();
 }
