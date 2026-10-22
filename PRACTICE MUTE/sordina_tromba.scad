@@ -51,7 +51,7 @@
 // "cap_only"      : Solo Fondello / Base con Tubo Coassiale (orientato per slicing)
 // "test_ring"     : Provino rapido calibrato (conicità esatta + base anti-distacco)
 // "lip_test"      : Anello di prova del collare (con nervature) per tarare l'innesto: ~20 min
-mode = "cross_section"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test"]
+mode = "body_only"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test"]
 
 // Risoluzione curve
 $fn = $preview ? 48 : 120;
@@ -101,22 +101,6 @@ ridge_pitch       = 2.5;   // [mm] distanza tra le nervature
 ridge_z0          = 2.0;   // [mm] quota della prima nervatura sopra la piastra
 ridge_flat        = 0.6;   // [mm] larghezza della cima piatta
 cap_flange_od     = 92.0;  // [mm] diametro della piastra del fondello (il corpo e' 84): bordo da afferrare
-
-// -- Tasca per l'imbottitura, INTEGRATA NEL CORPO (non nel fondello): niente collant.
-//    L'idea: quando togli il fondello, il corpo e' una "ciotola" aperta dal basso. La
-//    camera cilindrica larga diventa la TASCA dove appoggi l'imbottitura, a manciate, senza
-//    doverla infilare da nessuna parte. Poi richiudi il fondello: lo stelo e la piastra del
-//    fondello fanno da "pavimento" e la tengono dentro.
-//    Perche' non scappi verso il collo/campana quando maneggi la tromba, il corpo ha in alto
-//    una GRIGLIA di ritenzione stampata: razze radiali (autoportanti, 0 supporti) che
-//    chiudono il passaggio verso il collo ma lasciano passare il suono e l'aria.
-//    NB: questo cambia il CORPO -> va ristampato (mode = "body_only").
-pocket_grid       = true;  // true = stampa la griglia di ritenzione nel corpo
-pocket_top        = 40.0;  // [mm] quota (dal fondo del fondello) del ripiano-griglia: tetto della tasca
-grid_spokes       = 6;     // numero di razze radiali della griglia
-grid_spoke_w      = 2.4;   // [mm] larghezza delle razze (6 perimetri da 0.4)
-grid_hub_r        = 9.0;   // [mm] raggio del foro centrale della griglia (lo stelo ci passa)
-grid_rib_h        = 3.0;   // [mm] altezza (spessore) delle razze: sezione a punta -> autoportante
 
 
 // ── 4. PARAMETRI ACUSTICI & CAMERA DI RISONANZA ────────────────────────────
@@ -327,6 +311,12 @@ if (pocket_grid) {
              " g a riempimento morbido (20 g/L), ", round(pocket_vol * 0.04 * 10) / 10, " g sodo (40 g/L), ",
              round(pocket_vol * 0.06 * 10) / 10, " g molto sodo (60 g/L)"));
     echo("  (L'imbottitura si mette nel corpo a fondello smontato; la griglia le impedisce di salire nel collo.)");
+    // cella piu' grande = quella all'anello esterno: corda tra due razze x passo radiale
+    cell_chord = 2 * inner_r_cyl * sin(180 / grid_spokes) - grid_spoke_w;   // [mm] lato circonferenziale
+    cell_rad   = (inner_r_cyl - grid_hub_r) / (grid_rings + 1) - grid_spoke_w; // [mm] lato radiale
+    echo(str("  Griglia a maglia: ", grid_spokes, " razze x ", grid_rings, " anelli -> cella max ~",
+             round(cell_chord * 10) / 10, " x ", round(cell_rad * 10) / 10,
+             " mm (piu' razze/anelli = maglia piu' fitta per ovatta vaporosa)"));
 }
 // Verifiche di posizionamento della griglia nella zona cilindrica del corpo.
 // La griglia e' un ripiano forato: lo stelo le passa attraverso il mozzo centrale (che e'
@@ -371,47 +361,47 @@ module upper_body_2d_profile() {
 }
 
 // Griglia di ritenzione dell'imbottitura, integrata nel corpo.
-// E' un ripiano di razze radiali alla quota pocket_top: chiude il passaggio verso il collo
-// (cosi' l'ovatta non risale) ma lascia ampie aperture per il suono e l'aria.
-// Ogni razza ha sezione a PUNTA (tetto a V): i due fianchi scendono a 45°, quindi la faccia
-// inferiore e' autoportante in stampa (il corpo si stampa campana in su, griglia inclusa:
-// niente supporti). Un anello-mozzo centrale collega le razze attorno al foro dello stelo.
+// E' una MAGLIA alla quota pocket_top: razze radiali + anelli concentrici. Chiude il
+// passaggio verso il collo (l'ovatta non risale) e, essendo a maglia fine, trattiene anche
+// l'imbottitura vaporosa senza farla sbuffare attraverso aperture grandi.
+// Razze e anelli hanno sezione a PUNTA (rombo): i fianchi scendono a 45°, quindi la faccia
+// inferiore e' autoportante in stampa (il corpo si stampa campana in su: niente supporti).
 module body_grid() {
-    z0    = pocket_top;                // quota del ripiano (baricentro della punta a V)
+    z0    = pocket_top;                // quota del ripiano (centro della punta a rombo)
     r_in  = grid_hub_r;                // foro centrale (passa lo stelo)
-    r_out = inner_r_cyl + 0.3;         // le razze annegano nella parete del corpo
-    half  = grid_rib_h;                // mezza-altezza -> pendenza 45° sui fianchi a V
+    r_out = inner_r_cyl + 0.3;         // razze e ultimo anello annegano nella parete
+    half  = grid_rib_h;                // mezza-altezza -> pendenza 45° sui fianchi a rombo
+    w     = grid_spoke_w;              // larghezza di razze e anelli
 
-    // sezione trasversale a V (nel piano r-z, poi ruotata/estrusa): punta in alto e in basso
-    //   larghezza orizzontale = grid_spoke_w, altezza totale = 2*half
-    // una razza = prisma lungo il raggio con questa sezione a rombo
+    // Una RAZZA: prisma lungo il raggio, sezione a rombo (punta su +z e -z, largo w in y).
     module spoke() {
         translate([r_in, 0, z0])
-            rotate([0, 90, 0])                 // asse lungo il raggio (ex X)
+            rotate([0, 90, 0])                 // asse lungo il raggio
                 linear_extrude(height = r_out - r_in)
-                    polygon([
-                        [ half, 0],            // punta in alto (ex +Z)
-                        [ 0,  grid_spoke_w/2],
-                        [-half, 0],            // punta in basso
-                        [ 0, -grid_spoke_w/2]
-                    ]);
+                    polygon([[ half, 0], [0, w/2], [-half, 0], [0, -w/2]]);
     }
 
-    // anello-mozzo attorno al foro dello stelo, con la stessa sezione a rombo
-    module hub() {
+    // Un ANELLO concentrico di raggio r: toro a sezione a rombo (stessa punta autoportante).
+    module ring(r) {
         rotate_extrude()
-            translate([r_in, z0])
-                polygon([
-                    [0,     half],
-                    [grid_spoke_w, 0],
-                    [0,    -half],
-                    [-grid_spoke_w, 0]
-                ]);
+            translate([r, z0])
+                polygon([[0, half], [w/2, 0], [0, -half], [-w/2, 0]]);
     }
 
-    hub();
+    // Mozzo centrale attorno al foro dello stelo (anello di raggio r_in).
+    ring(r_in);
+
+    // Razze radiali
     for (i = [0 : grid_spokes - 1])
         rotate([0, 0, i * 360 / grid_spokes]) spoke();
+
+    // Anelli concentrici, spaziati uniformemente tra il mozzo e la parete
+    if (grid_rings > 0)
+        for (k = [1 : grid_rings])
+            ring(r_in + k * (inner_r_cyl - r_in) / (grid_rings + 1));
+
+    // Anello esterno a filo parete (chiude la maglia contro il corpo)
+    ring(inner_r_cyl);
 }
 
 module upper_body() {
