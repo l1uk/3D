@@ -1,66 +1,74 @@
 // =============================================================================
-// PROGETTO: PRESSORE A BASSO PROFILO CON SERRAGGIO TRAMITE BLOCCO A C ORIGINALE
-// - Il foro e' largo (5.2mm): la vite entra libera e senza forzature (NO lock-in)
-// - Si blocca/serra con il blocco a C originale (la E-clip in metallo)
-// - La clip alloggia in una tasca centrale a scomparsa (non tocca la scrivania)
-// - Spessore totale 2.4mm: perfetto per far entrare la scrivania da 51mm
+// PROGETTO: PRESSORE A BASSO PROFILO CON CANALE GUIDA PER BLOCCO A C
+// CALIBRATO AL DECIMO DI MILLIMETRO SULLE MISURE REALI FORNITE:
+// - Linguetta a C: larghezza max 9.0mm, apertura 4.0mm, spessore 0.8mm
+// - Vite: scavo ("fosso") 4.5mm, testa ~6.0-6.2mm, filetto M8
 // =============================================================================
 
 $fn = 120;
 
 /* [Dimensioni Piattello] */
-// Diametro del piattello di appoggio sulla scrivania
+// Diametro d'appoggio sulla scrivania
 diametro_piattello = 32.0;
 
-// Spessore totale del piattello
+// Spessore totale piattello (2.4mm: garantisce passaggio su scrivania da 51mm in cast da 54mm)
 spessore_totale = 2.4;
 
-// Smusso perimetrale esterno per non graffiare la scrivania
+// Smusso perimetrale superiore anti-graffio
 raggio_smusso = 0.6;
 
 /* [Passaggio Perno Vite] */
-// Diametro foro centrale (vite ~4.5mm -> foro 5.2mm per ingresso immediato e liscio)
-diametro_foro_passante = 5.2;
+// Diametro foro passante: 6.6mm (permette alla testa da ~6.0-6.2mm di passare libera, 
+// lasciando 1.2mm di solido dente di battuta per la clip da 9.0mm)
+diametro_foro_passante = 6.6;
 
-// Spessore del collarino interno su cui appoggia la clip
-spessore_battuta = 1.2;
+// Spessore della base d'appoggio per la clip (battuta)
+spessore_battuta = 1.3;
 
-/* [Tasca Incassata per Blocco a C (E-Clip)] */
-// Diametro della tasca superiore che accoglie la clip a C (clip ~8.5mm -> tasca 10.5mm)
-diametro_tasca_clip = 10.5;
+/* [Tasca e Canale per la Linguetta a C] */
+// Diametro tasca centrale: 11.2mm (la clip da 9mm ha spazio per allargarsi durante lo scatto)
+diametro_tasca_clip = 11.2;
 
-// Profondita della tasca (clip spessa 0.8mm -> profondita 1.2mm, cosi la clip resta incassata sotto il piano)
-profondita_tasca_clip = spessore_totale - spessore_battuta; // 1.2mm
+// Larghezza del canale di scorrimento laterale: 9.8mm (la clip da 9.0mm scivola senza attrito)
+larghezza_canale_clip = 9.8;
+
+// Profondita della tasca/canale: 1.1mm (la clip da 0.8mm resta incassata di 0.3mm sotto il piano)
+profondita_tasca = spessore_totale - spessore_battuta; // 1.1mm
 
 
-module pressore_con_blocco_c() {
+module pressore_calibrato() {
     difference() {
-        // 1. Corpo principale del piattello
+        // 1. Corpo esterno del piattello
         union() {
-            // Cilindro base
-            cylinder(h = spessore_totale - raggio_smusso, d = diametro_piattello);
+            // Smusso a contatto con il legno
+            cylinder(h = raggio_smusso, d1 = diametro_piattello - 2 * raggio_smusso, d2 = diametro_piattello);
             
-            // Smusso superiore verso la scrivania
-            translate([0, 0, spessore_totale - raggio_smusso])
-                cylinder(h = raggio_smusso, d1 = diametro_piattello, d2 = diametro_piattello - 2 * raggio_smusso);
+            // Corpo cilindrico
+            translate([0, 0, raggio_smusso])
+                cylinder(h = spessore_totale - raggio_smusso, d = diametro_piattello);
         }
         
-        // 2. Foro passante largo per la punta della vite (da Z=0 a salire)
+        // 2. Foro passante per la vite (da Z=0 a salire fino alla tasca)
         translate([0, 0, -0.1])
             cylinder(h = spessore_battuta + 0.2, d = diametro_foro_passante);
             
-        // 3. Tasca centrale superiore incassata per il blocco a C (E-clip)
-        // La clip entra qui dentro, si innesta nella scanalatura della vite e blocca il piattello
+        // 3. Tasca centrale per alloggiare la clip
         translate([0, 0, spessore_battuta])
-            cylinder(h = profondita_tasca_clip + 0.5, d = diametro_tasca_clip);
+            cylinder(h = profondita_tasca + 0.5, d = diametro_tasca_clip);
             
-        // Smusso d'invito all'ingresso inferiore della vite
+        // 4. Canale di scorrimento laterale dal bordo fino al centro
+        translate([0, diametro_piattello / 4, spessore_battuta + (profondita_tasca + 0.5) / 2])
+            cube([larghezza_canale_clip, diametro_piattello / 2 + 1, profondita_tasca + 0.5], center = true);
+            
+        // 5. Invito svasato per agevolare l'ingresso della vite dal basso
         translate([0, 0, -0.1])
-            cylinder(h = 0.5, d1 = diametro_foro_passante + 1.0, d2 = diametro_foro_passante);
+            cylinder(h = 0.4, d1 = diametro_foro_passante + 1.0, d2 = diametro_foro_passante);
+            
+        // 6. Invito d'ingresso per la clip sul bordo esterno
+        translate([0, diametro_piattello / 2 - 1.5, spessore_battuta + (profondita_tasca + 0.5) / 2])
+            cylinder(h = profondita_tasca + 0.5, d = larghezza_canale_clip + 2.0, center = true);
     }
 }
 
-// Visualizzazione orientata per la stampa:
-// - Piatto a Z=0
-// - La tasca per la clip e' in alto, stampa pulitissima senza supporti!
-pressore_con_blocco_c();
+// Visualizzazione orientata per la stampa (senza supporti)
+pressore_calibrato();
