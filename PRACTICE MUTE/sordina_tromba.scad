@@ -45,7 +45,7 @@
 // "lip_test"      : Anello di prova del collare (con nervature) per tarare l'innesto: ~20 min
 // "cartuccia"     : Vano imbottitura sospeso (pezzo separato, si infila sullo stelo)
 // "cartuccia_lid" : Coperchio della cartuccia
-mode = "cross_section"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test", "cartuccia", "cartuccia_lid"]
+mode = "cap_only"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test", "cartuccia", "cartuccia_lid"]
 
 // Risoluzione curve
 $fn = $preview ? 48 : 120;
@@ -89,7 +89,7 @@ lip_height        = 8.0;   // [mm] Altezza collare di innesto tra corpo e fondel
 
 // -- Giunto facile da smontare (solo fondello; il corpo non cambia)
 lip_trim          = 0.2;   // [mm] riduzione di raggio del collare (0 = come la v2)
-ridge_interf      = 0.08;  // [mm] interferenza radiale delle nervature: 0 = nessuna presa, 0.15 = molto dura
+ridge_interf      = 0.05;  // [mm] interferenza radiale delle nervature: 0 = nessuna presa, 0.15 = molto dura (0.08 era un po' dura da aprire)
 ridge_count       = 2;     // numero di nervature
 ridge_pitch       = 2.5;   // [mm] distanza tra le nervature
 ridge_z0          = 2.0;   // [mm] quota della prima nervatura sopra la piastra
@@ -135,7 +135,8 @@ assert(cap_variant == "A" || cap_variant == "B" || cap_variant == "C", "cap_vari
 
 // Tubo coassiale interno (Inlet Stem) = l'UNICA uscita acustica
 stem_id           = (cap_variant == "A") ? 9.5 : 12.0;   // [mm] Diametro interno condotto centrale
-stem_wall         = 1.6;   // [mm] Spessore parete del condotto (4 perimetri da 0.4)
+stem_wall         = 2.0;   // [mm] Spessore parete del condotto (5 perimetri da 0.4). 1.6 si e' spezzato
+stem_fillet       = 5.0;   // [mm] raccordo conico alla base dello stelo (45°, 0 supporti): evita la rottura alla base
 stem_len          = (cap_variant == "C") ? 70.0 : 48.0;  // [mm] Lunghezza del tubo che entra nella camera dal fondello
 
 // Fori di sfiato sul fondello (ora PASSANTI).
@@ -380,16 +381,23 @@ module cartuccia() {
     r_o  = cart_r_out;  r_i = r_o - cart_wall;
     r_m  = (r_so + r_i) / 2;
     nrow = floor((cart_h - cart_wall - 2) / (cart_hole + 2));
+    stem_or = stem_id/2 + stem_wall;                       // raggio esterno dello stelo
+    rc0     = stem_or + stem_fillet + 0.35 + 1.8;          // raggio del colletto conico alla base
+    zc      = rc0 - r_so;                                  // altezza a cui il colletto si fonde col manicotto
     difference() {
         cylinder(r = r_o, h = cart_h);
-        // vano anulare tra manicotto e parete (aperto in alto)
+        // vano anulare tra manicotto e parete (aperto in alto); il colletto conico resta pieno
         translate([0, 0, cart_wall])
             difference() {
                 cylinder(r = r_i, h = cart_h);
                 translate([0, 0, -1]) cylinder(r = r_so, h = cart_h + 2);
+                translate([0, 0, -cart_wall]) rotate_extrude()
+                    polygon([[0, -0.01], [rc0, -0.01], [r_so, zc], [0, zc]]);
             }
-        // foro per lo stelo
+        // foro per lo stelo + cavita' conica che accoglie il raccordo (gioco 0.35 mm)
         translate([0, 0, -1]) cylinder(r = r_si, h = cart_h + 2);
+        rotate_extrude()
+            polygon([[0, -1], [stem_or + stem_fillet + 0.35 + 1, -1], [stem_or + 0.35, stem_fillet], [0, stem_fillet]]);
         // fori del fondo (cerchi: il fondo si stampa sul piatto)
         for (a = [0 : 11]) {
             rotate([0, 0, a * 30])        translate([r_m,     0, -1]) cylinder(d = 7, h = cart_wall + 2, $fn = 24);
@@ -458,7 +466,7 @@ module pad_cage() {
 
 // Nervature di attrito sul collare: trapezio con fianchi a 45° (0 supporti). r0 = raggio del collare
 module lip_ridges(r0) {
-    for (k = [0 : ridge_count - 1]) {
+    if (ridge_count > 0) for (k = [0 : ridge_count - 1]) {
         z = ridge_z0 + k * ridge_pitch;
         rotate_extrude()
             polygon([
@@ -502,6 +510,17 @@ module cap_base() {
 
             // Nervature di attrito sul collare (interferenza controllata)
             translate([0, 0, cap_base_t]) lip_ridges(cap_lip_r);
+
+            // Raccordo conico alla base dello stelo (rinforza il punto dove si e' spezzato)
+            translate([0, 0, cap_base_t + lip_height])
+                rotate_extrude()
+                    polygon([
+                        [stem_id/2 + stem_wall - 0.5, -0.3],
+                        [stem_id/2 + stem_wall + stem_fillet, -0.3],
+                        [stem_id/2 + stem_wall + stem_fillet, 0],
+                        [stem_id/2 + stem_wall, stem_fillet],
+                        [stem_id/2 + stem_wall - 0.5, stem_fillet]
+                    ]);
 
             // Cestello per l'imbottitura attorno allo stelo
             if (pad_cage)
