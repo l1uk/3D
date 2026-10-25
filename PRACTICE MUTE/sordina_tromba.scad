@@ -45,7 +45,7 @@
 // "lip_test"      : Anello di prova del collare (con nervature) per tarare l'innesto: ~20 min
 // "cartuccia"     : Vano imbottitura sospeso (pezzo separato, si infila sullo stelo)
 // "cartuccia_lid" : Coperchio della cartuccia
-mode = "cartuccia"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test", "cartuccia", "cartuccia_lid"]
+mode = "cross_section"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test", "cartuccia", "cartuccia_lid"]
 
 // Risoluzione curve
 $fn = $preview ? 48 : 120;
