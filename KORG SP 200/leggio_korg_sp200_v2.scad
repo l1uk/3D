@@ -18,8 +18,12 @@ peg_edge_r    = 0.6;   // arrotondamento spigoli perno (mm)
 
 // --- TELAIO PRINCIPALE ---
 stand_height  = 200;   // altezza totale telaio dal centro fori (mm)
-stand_width   = 490;   // larghezza totale del telaio (mm) — 245mm per metà: massima larghezza sicura al 100% su Bambu Lab (piatto 256x256)
+stand_width   = 600;   // larghezza totale del telaio (mm) — 60cm (+15cm sbalzo), diviso in 3 pezzi da 200mm per Ender 3 V2
 bar_thickness = 9;     // diametro/sezione tubolari (mm) — 9mm dà ottima rigidità in PLA/PETG
+
+// --- QUOTA TAGLI MODULARI PER PIATTI 220x220 (ENDER 3 V2) ---
+cut_x = 100;           // i 2 tagli di giunzione sono a X = -100 e X = +100 mm:
+                       // Centro = 200 mm (da -100 a +100), Ala SX = 200 mm (da -300 a -100), Ala DX = 200 mm (da +100 a +300)
 
 // --- INCLINAZIONE ALL'INDIETRO ---
 tilt_angle = 24.0;     // gradi di inclinazione dello schienale (standard pianoforti a coda/orchestra, la gravità tiene i fogli aderenti)
@@ -45,21 +49,20 @@ show_piano_preview = false; // true = mostra la carrozzeria reale del piano sott
                            // false = mostra solo il leggio isolato
 
 // --- SELEZIONE PARTE DA MOSTRARE / STAMPARE ---
-part = "both";         // "test"  = PROVINO DI TEST (10 min): stampa solo il perno + angolo mensolina per verificare l'inserimento
-                       // "left"  = metà sinistra con fori femmina (per stampante 3D)
-                       // "right" = metà destra con fori femmina (per stampante 3D)
-                       // "pin"   = 3 spine di giunzione cilindriche a parte
-                       // "both"  = telaio completo montato sul pianoforte (anteprima montaggio)
-                       // "piano" = SOLO il pianoforte simulato (senza leggio, per ispezione)
+part = "both";         // "center" = CORPO CENTRALE 200mm (rientranza a V continua e solida, senza giunzioni al centro)
+                       // "left"   = ALA SINISTRA 200mm (con perno Korg a -215 e montante esterno SX)
+                       // "right"  = ALA DESTRA 200mm (con perno Korg a +215 e montante esterno DX)
+                       // "pins"   = 6 spine di giunzione cilindriche calibrate da 22mm
+                       // "test"   = PROVINO DI TEST (10-12 min): stampa perno + angolo mensola 33mm
+                       // "both"   = telaio intero montato da 600mm (anteprima montaggio)
+                       // "piano"  = solo pianoforte simulato (senza leggio, per ispezione)
 
 // --- SPINE DI GIUNZIONE SEPARATE (a scomparsa totale) ---
-pin_diameter     = 4.6;   // diametro spina (mm)
-hole_diameter    = 5.4;   // diametro fori femmina (mm) — gioco radiale 0.4mm anti-bloccaggio
-hole_depth_top   = 10;    // profondità foro superiore a V per lato (mm)
-pin_length_top   = 16;    // lunghezza spina superiore (mm) — entra 8mm per lato, 2mm di aria fondo foro
-hole_depth_lower = 18;    // profondità fori traversa intermedia e mensolina per lato (mm)
-pin_length_lower = 22;    // lunghezza spine inferiori (mm) — entra 11mm per lato, 7mm di margine aria fondo foro
-pin_chamfer      = 1.0;   // smusso d'invito d'estremità a 45° per inserimento guidato senza attrito (mm)
+pin_diameter  = 4.6;   // diametro nominale spina (mm)
+hole_diameter = 5.4;   // diametro fori femmina (mm) — gioco radiale 0.4mm anti-bloccaggio
+hole_depth    = 18;    // profondità fori femmina per lato (mm) nei tubi orizzontali a X = ±100
+pin_length    = 22;    // lunghezza spine (mm) — entra 11mm per lato, 7mm di margine aria fondo foro
+pin_chamfer   = 1.0;   // smusso d'invito d'estremità a 45° per inserimento guidato senza attrito (mm)
 
 
 /* ================================================================
@@ -202,38 +205,57 @@ module leggio_full() {
     peg_at( peg_spacing/2);
 }
 
-// ---- Fori femmina di centraggio (3 fori perfettamente annegati e ciechi) ----
-module alignment_holes_left() {
-    // 1. Foro superiore (linea a V, profondo 10mm in -X)
-    translate(v_bottom_3d)
-        rotate([0, -90, 0])
-            translate([0, 0, -0.01])
-                cylinder(d = hole_diameter, h = hole_depth_top + 0.01, $fn = 32);
+// Punti di giunzione sulle sezioni di taglio (X = -cut_x e X = +cut_x)
+p_top_left    = tilt3d([-cut_x, stand_height - hb]);
+p_mid_left    = tilt3d([-cut_x, mid_bar_y]);
+p_shelf_left  = tilt3d([-cut_x, shelf_y]);
 
-    // 2. Fori inferiori (traversa intermedia e mensolina, profondi 18mm in -X)
-    for (pos = [mid_bar_3d, shelf_center_3d])
-        translate(pos)
-            rotate([0, -90, 0])
-                translate([0, 0, -0.01])
-                    cylinder(d = hole_diameter, h = hole_depth_lower + 0.01, $fn = 32);
-}
+p_top_right   = tilt3d([cut_x, stand_height - hb]);
+p_mid_right   = tilt3d([cut_x, mid_bar_y]);
+p_shelf_right = tilt3d([cut_x, shelf_y]);
 
-module alignment_holes_right() {
-    // 1. Foro superiore (linea a V, profondo 10mm in +X)
-    translate(v_bottom_3d)
-        rotate([0, 90, 0])
-            translate([0, 0, -0.01])
-                cylinder(d = hole_diameter, h = hole_depth_top + 0.01, $fn = 32);
+holes_left_pts  = [p_top_left, p_mid_left, p_shelf_left];
+holes_right_pts = [p_top_right, p_mid_right, p_shelf_right];
 
-    // 2. Fori inferiori (traversa intermedia e mensolina, profondi 18mm in +X)
-    for (pos = [mid_bar_3d, shelf_center_3d])
+// ---- Fori femmina di centraggio ciechi (diametro 5.4mm, profondità 18mm) ----
+
+// Fori a X = -100 per il corpo centrale (forano verso +X, all'interno del centro)
+module holes_center_left() {
+    for (pos = holes_left_pts)
         translate(pos)
             rotate([0, 90, 0])
                 translate([0, 0, -0.01])
-                    cylinder(d = hole_diameter, h = hole_depth_lower + 0.01, $fn = 32);
+                    cylinder(d = hole_diameter, h = hole_depth + 0.01, $fn = 32);
 }
 
-// ---- Modulo spine di giunzione stampabili ----
+// Fori a X = +100 per il corpo centrale (forano verso -X, all'interno del centro)
+module holes_center_right() {
+    for (pos = holes_right_pts)
+        translate(pos)
+            rotate([0, -90, 0])
+                translate([0, 0, -0.01])
+                    cylinder(d = hole_diameter, h = hole_depth + 0.01, $fn = 32);
+}
+
+// Fori a X = -100 per l'ala sinistra (forano verso -X, all'interno dell'ala SX)
+module holes_left_wing() {
+    for (pos = holes_left_pts)
+        translate(pos)
+            rotate([0, -90, 0])
+                translate([0, 0, -0.01])
+                    cylinder(d = hole_diameter, h = hole_depth + 0.01, $fn = 32);
+}
+
+// Fori a X = +100 per l'ala destra (forano verso +X, all'interno dell'ala DX)
+module holes_right_wing() {
+    for (pos = holes_right_pts)
+        translate(pos)
+            rotate([0, 90, 0])
+                translate([0, 0, -0.01])
+                    cylinder(d = hole_diameter, h = hole_depth + 0.01, $fn = 32);
+}
+
+// ---- Modulo spine di giunzione stampabili (6 spine da 22mm) ----
 module single_pin(length) {
     ch = pin_chamfer;
     body = length - 2*ch;
@@ -246,34 +268,30 @@ module single_pin(length) {
 }
 
 module printable_pins() {
-    // 3 spine adagiate orizzontalmente sul piatto lungo l'asse X, distanziate lungo Y
-    // Spina 1: superiore corta per rientranza a V (16mm)
-    translate([0, -15, pin_diameter/2])
-        rotate([0, 90, 0])
-            translate([0, 0, -pin_length_top/2])
-                single_pin(pin_length_top);
-
-    // Spina 2: traversa intermedia (22mm)
-    translate([0, 0, pin_diameter/2])
-        rotate([0, 90, 0])
-            translate([0, 0, -pin_length_lower/2])
-                single_pin(pin_length_lower);
-
-    // Spina 3: mensolina inferiore (22mm)
-    translate([0, 15, pin_diameter/2])
-        rotate([0, 90, 0])
-            translate([0, 0, -pin_length_lower/2])
-                single_pin(pin_length_lower);
+    // 6 spine cilindriche identiche da 22mm, disposte in 2 file da 3 adagiate sul piatto
+    for (row = [-1, 1]) {
+        for (col = [-1, 0, 1]) {
+            translate([col * 28, row * 10, pin_diameter/2])
+                rotate([0, 90, 0])
+                    translate([0, 0, -pin_length/2])
+                        single_pin(pin_length);
+        }
+    }
 }
 
-// ---- Scatole di taglio piano x = 0 ----
+// ---- Scatole di taglio piano modulare ----
+module center_box() {
+    translate([-cut_x, -500, -500])
+        cube([2 * cut_x, 1500, 1500]);
+}
+
 module left_box() {
     translate([-1000, -500, -500])
-        cube([1000, 1500, 1500]);
+        cube([1000 - cut_x, 1500, 1500]);
 }
 
 module right_box() {
-    translate([0, -500, -500])
+    translate([cut_x, -500, -500])
         cube([1000, 1500, 1500]);
 }
 
@@ -346,30 +364,38 @@ module test_box() {
 
 // ---- Render della parte selezionata ----
 module render_part() {
-    if (part == "test") {
+    if (part == "center") {
+        difference() {
+            intersection() { leggio_full(); center_box(); }
+            holes_center_left();
+            holes_center_right();
+        }
+    } else if (part == "left") {
+        translate([200, 0, 0]) // centra in X sul piatto da stampa (X in [-100, +100])
+            difference() {
+                intersection() { leggio_full(); left_box(); }
+                holes_left_wing();
+            }
+    } else if (part == "right") {
+        translate([-200, 0, 0]) // centra in X sul piatto da stampa (X in [-100, +100])
+            difference() {
+                intersection() { leggio_full(); right_box(); }
+                holes_right_wing();
+            }
+    } else if (part == "pins" || part == "pin") {
+        printable_pins();
+    } else if (part == "test") {
         intersection() {
             leggio_full();
             test_box();
         }
-    } else if (part == "piano") {
-        piano_simulation();
     } else if (part == "both") {
         leggio_full();
         if (show_piano_preview) {
             piano_simulation();
         }
-    } else if (part == "left") {
-        difference() {
-            intersection() { leggio_full(); left_box(); }
-            alignment_holes_left();
-        }
-    } else if (part == "right") {
-        difference() {
-            intersection() { leggio_full(); right_box(); }
-            alignment_holes_right();
-        }
-    } else if (part == "pin") {
-        printable_pins();
+    } else if (part == "piano") {
+        piano_simulation();
     }
 }
 
