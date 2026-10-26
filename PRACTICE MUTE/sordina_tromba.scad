@@ -43,9 +43,11 @@
 // "cap_only"      : Solo Fondello / Base con Tubo Coassiale (orientato per slicing)
 // "test_ring"     : Provino rapido calibrato (conicità esatta + base anti-distacco)
 // "lip_test"      : Anello di prova del collare (con nervature) per tarare l'innesto: ~20 min
+// "fit_test"      : Maschio + femmina affiancati per tarare l'accoppiamento prima del corpo: ~30 min
+// "fit_test_female": Solo la femmina (sede del corpo): ci provi il collare del fondello gia' stampato: ~15 min
 // "cartuccia"     : Vano imbottitura sospeso (pezzo separato, si infila sullo stelo)
 // "cartuccia_lid" : Coperchio della cartuccia
-mode = "cap_only"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test", "cartuccia", "cartuccia_lid"]
+mode = "fit_test_female"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test", "cartuccia", "cartuccia_lid"]
 
 // Risoluzione curve
 $fn = $preview ? 48 : 120;
@@ -84,7 +86,7 @@ cork_chamfer      = cork_seat_d; // [mm] dz = dr = 0.8 mm -> pendenza 45° perfe
 
 // ── 3. PARAMETRI MECCANICI & DI STAMPA FDM ─────────────────────────────────
 wall_t            = 1.6;   // [mm] Spessore parete nominale (4 perimetri pieni da 0.4 mm)
-joint_clearance   = 0.3;   // [mm] Gioco radiale per innesto maschio-femmina FDM
+joint_clearance   = 0.4;   // [mm] Gioco radiale innesto maschio-femmina FDM (0.3 -> non entrava: l'ABS rende ~0.3 mm in piu')
 lip_height        = 8.0;   // [mm] Altezza collare di innesto tra corpo e fondello
 
 // -- Giunto facile da smontare (solo fondello; il corpo non cambia)
@@ -496,6 +498,39 @@ module lip_test() {
     }
 }
 
+// FEMMINA di prova: solo l'anello che riproduce la SEDE del corpo (foro = cap_recess_r).
+// Serve se hai GIA' il fondello stampato: ci provi dentro il collare vero del fondello.
+//   entra con lieve pressione e tiene -> il corpo nuovo andra' bene
+//   troppo duro  -> aumenta joint_clearance | lasco -> riducilo (o alza ridge_interf)
+module fit_test_female() {
+    h = lip_height + 2;
+    difference() {
+        cylinder(r = cap_recess_r + wall_t + 1.5, h = h);
+        translate([0, 0, -1]) cylinder(r = cap_recess_r, h = h + 2);
+    }
+}
+
+// FIT TEST: maschio (collare+nervature, come il fondello) + femmina (sede, come il corpo),
+// stampati affiancati. Serve a tarare l'accoppiamento reale in ABS in ~30 min, PRIMA di
+// stampare il corpo intero. Si prova a infilare il maschio nella femmina:
+//   troppo duro -> aumenta joint_clearance (p.es. 0.4) o riduci ridge_interf
+//   lasco       -> riduci joint_clearance o aumenta ridge_interf
+module fit_test() {
+    h = lip_height + 2;
+    // MASCHIO (come il collare del fondello)
+    translate([-lip_r_eff - 3, 0, 0])
+        difference() {
+            union() {
+                cylinder(r = lip_r_eff, h = h);
+                lip_ridges(lip_r_eff);
+            }
+            translate([0, 0, -1]) cylinder(r = lip_r_eff - 4, h = h + 2);
+        }
+    // FEMMINA (come la sede del corpo): anello con foro interno = cap_recess_r
+    translate([ cap_recess_r + 3 + 3, 0, 0])
+        fit_test_female();
+}
+
 module cap_base() {
     cap_lip_r = lip_r_eff;   // collare ridotto di lip_trim
 
@@ -671,6 +706,14 @@ else if (mode == "test_ring") {
 else if (mode == "lip_test") {
     // Anello di prova del collare per tarare l'innesto (~20 min)
     lip_test();
+}
+else if (mode == "fit_test") {
+    // Maschio + femmina affiancati: tara l'accoppiamento reale prima di stampare il corpo (~30 min)
+    fit_test();
+}
+else if (mode == "fit_test_female") {
+    // Solo la femmina (sede del corpo): ci provi dentro il collare del fondello che hai gia' (~15 min)
+    fit_test_female();
 }
 else if (mode == "cartuccia") { cartuccia(); }
 else if (mode == "cartuccia_lid") { cartuccia_lid(); }
