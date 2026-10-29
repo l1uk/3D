@@ -255,9 +255,26 @@ function body_r(zb) = bell_r(zb) - clearance_plastic_brass;
 inner_r_cyl  = (chamber_od/2) - wall_t;
 cap_recess_r = (chamber_od/2) - (wall_t/2) + (joint_clearance/2) - recess_tight;
 
+// FIX parete sede fondello: nei primi lip_height mm la sede interna e' a r = cap_recess_r
+// (41.4) e l'esterno a chamber_od/2 (42.0) -> parete di soli 0.6 mm (1.5 estrusioni), contro
+// i 1.6 mm dichiarati. Sede, chamber_od e camera interna sono vincolati dal giunto/acustica,
+// quindi si ispessisce SOLO l'esterno con un anello di rinforzo di seat_boost mm, che rientra
+// a 45° (faccia rivolta verso l'alto: nessun sbalzo) fino al diametro nominale.
+// seat_boost = 1.0 -> parete 1.6 mm = wall_t.   seat_boost = 0 -> geometria originale.
+seat_boost = cap_recess_r + wall_t - chamber_od/2;   // = 1.0 mm: porta la parete della sede a wall_t
+assert(seat_boost >= 0, "seat_boost negativo");
+assert(z_joint_step + lip_height + seat_boost < z_chamber_cyl_top, "rinforzo sede troppo alto");
+
 // Profilo esterno: transizioni a 45° per 0 supporti
-body_ext_pts = [
-    [chamber_od/2,                          z_joint_step],
+body_ext_pts = concat(
+    (seat_boost > 0) ? [
+        [chamber_od/2 + seat_boost,             z_joint_step],
+        [chamber_od/2 + seat_boost,             z_joint_step + lip_height],
+        [chamber_od/2,                          z_joint_step + lip_height + seat_boost]   // rientro 45°
+    ] : [
+        [chamber_od/2,                          z_joint_step]
+    ],
+  [
     [chamber_od/2,                          z_chamber_cyl_top],
     [neck_r_base,                           z_taper_top],
     [body_r(zbell_ch_bot),                  bell_z_to_mute_z(zbell_ch_bot)],
@@ -265,7 +282,8 @@ body_ext_pts = [
     [body_r(zbell_ck_top) - cork_seat_d,    bell_z_to_mute_z(zbell_ck_top)],  // fondo piano conico della gola
     [body_r(zbell_ch_top),                  bell_z_to_mute_z(zbell_ch_top)],  // rampa 45° verso l'esterno
     [body_r(zbell_tip),                     bell_z_to_mute_z(zbell_tip)]
-];
+  ]
+);
 
 // Profilo interno: offset costante wall_t. I punti 0..7 delimitano l'ARIA della camera
 // (dalla punta del collo fino alla sommità del collare pieno del fondello);

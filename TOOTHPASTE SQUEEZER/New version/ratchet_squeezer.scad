@@ -33,7 +33,7 @@
 
 /* [Main] */
 // pezzo da generare
-part = "assembly"; // [assembly, print_plate, body, shaft, handle, ratchet, pawl, detail_pawl, chk_beak_ratchet, chk_pawl_body, chk_ear_frame, chk_web_cheeks, chk_pawl_internal, chk_shaft_internal, chk_handle_internal, chk_ratchet_internal]
+part = "assembly"; // [assembly, print_plate, body, shaft, handle, ratchet, pawl, detail_pawl, chk_beak_ratchet, chk_pawl_body, chk_ear1_frame, chk_ear_frame, chk_web_cheeks, chk_pawl_internal, chk_shaft_internal, chk_handle_internal, chk_ratchet_internal]
 // larghezza piatta del tubo [mm]
 tube_width = 60; // [20:1:80]
 // solo assembly: rotazione dello shaft [deg]
@@ -46,6 +46,10 @@ cheek_t = 6;       // spessore guance
 cheek_size = 26;   // lato guance (Y e Z)
 web_t = 4;         // spessore del dorso
 side_gap = 2;      // gioco tra bordo tubo e guance (per lato)
+mirror_ear = true; // orecchia gemella (senza pawl) sulla guancia 1: corpo simmetrico
+feet = true;       // tacche sul dorso per piedini adesivi in gomma
+feet_d = 8;
+feet_depth = 1;
 
 /* [Shaft] */
 shaft_w = 15;      // larghezza barra
@@ -124,11 +128,11 @@ beak_top = va0 + 0.6;
 u_l = pawl_overlap - beak_w - 0.4;
 u_r = u_l + arm_len;
 blk_u0 = u_r - 1;  blk_u1 = u_r + blk_w;
-blk_v0 = va0 - 5;  blk_v1 = va0 + arm_t + 9;
+blk_v0 = 0;  blk_v1 = va0 + arm_t + 3.5;   // blocco basso: a quella distanza dal ratchet non c'e' ingombro
 peg_loc = [[(blk_u0+blk_u1)/2, blk_v0+3.5], [(blk_u0+blk_u1)/2, blk_v1-3.5]];
 peg_glb = [for (p = peg_loc) g2(p)];
 ear_u0 = cheek_size/2 - 3;  ear_u1 = blk_u1 + 1.5;
-ear_v0 = -cheek_size/2;     ear_v1 = blk_v1 + 1.5;   // v0 fino al letto di stampa (Y=0): niente sbalzi
+ear_v0 = -cheek_size/2;     ear_v1 = blk_v1 + 1.0;   // v0 fino al letto di stampa (Y=0): niente sbalzi
 
 ear_pts = [for (p=[[ear_u0,ear_v0],[ear_u1,ear_v0],[ear_u0,ear_v1],[ear_u1,ear_v1]]) g2(p)];
 zmin_b = min(0, min([for (p=ear_pts) p[1]]));
@@ -157,7 +161,8 @@ module arm2d(){ translate([u_l,va0]) square([u_r-u_l, arm_t]); }
 module block2d(){ translate([blk_u0,blk_v0]) square([blk_u1-blk_u0, blk_v1-blk_v0]); }
 module ear2d(){ pl() translate([ear_u0,ear_v0]) square([ear_u1-ear_u0, ear_v1-ear_v0]); }
 module knob2d(){
-  hull() for (s=[-1,1]) translate([s*(knob_len/2-knob_w/2),0]) circle(d=knob_w);
+  // ali lungo Z (orizzontali quando il corpo poggia sul dorso: non toccano il piano)
+  rotate(90) hull() for (s=[-1,1]) translate([s*(knob_len/2-knob_w/2),0]) circle(d=knob_w);
   circle(d=boss_d);
 }
 
@@ -170,9 +175,12 @@ module frame_asm(){   // telaio: cheek1 + cheek2 (quadrata) + dorso
   }
 }
 module ear_asm(){ yz(x2,cheek_t) ear2d(); }   // alloggiamento del pawl
+module ear1_asm(){ yz(0,cheek_t) ear2d(); }   // orecchia gemella (bilanciamento)
 module body_asm(){
   difference(){
-    union(){ frame_asm(); ear_asm(); }
+    union(){ frame_asm(); ear_asm(); if (mirror_ear) ear1_asm(); }
+    if (feet) for (fx=[12, Xc-12], fz=[6.5, cheek_size-6.5])
+      translate([fx,-eps,fz]) rotate([-90,0,0]) cylinder(d=feet_d, h=feet_depth+eps);
     translate([-1,cy,cz]) rotate([0,90,0]) cylinder(d=hole_d, h=Xc+2);
     for (p = peg_glb) translate([Xc-peg_len-0.4, p[0], p[1]]) rotate([0,90,0])
       cylinder(d=peg_d-peg_interf, h=peg_len+0.4+eps, $fn=32);
@@ -247,7 +255,7 @@ module body_print(){   translate([0, zmax_b, 0]) rotate([90,0,0]) body_asm(); }
 module shaft_print(){  translate([head_t, -(cy-head_w/2), -(cz-shaft_w/2)]) shaft_asm(); }
 module pawl_print(){   translate([-pZ0, -pY0, Xc+plate_t]) rotate([0,90,0]) pawl_asm(); }
 module ratchet_print(){ translate([cz+Rt, -(cy-Rt), -(Xc+ratchet_gap)]) rotate([0,-90,0]) ratchet_asm(); }
-module handle_print(){ kz=max(knob_w,boss_d); translate([-(cz-kz/2), -(cy-knob_len/2), xk+knob_t]) rotate([0,90,0]) handle_asm(); }
+module handle_print(){ ky=max(knob_w,boss_d); translate([-(cz-knob_len/2), -(cy-ky/2), xk+knob_t]) rotate([0,90,0]) handle_asm(); }
 
 module print_plate(){
   g = 6;
@@ -265,6 +273,7 @@ module chk_beak_ratchet(){ intersection(){ beak_asm(); ratchet_asm(); } }
 // perni del pawl (a interferenza) nei fori dell'orecchia; la piastra appoggia poi a filo sulla faccia della guancia
 module chk_pawl_body(){ intersection(){ pegs_asm(); body_asm(); } }
 module chk_ear_frame(){ intersection(){ ear_asm(); frame_asm(); } }
+module chk_ear1_frame(){ intersection(){ ear1_asm(); frame_asm(); } }
 module chk_web_cheeks(){ intersection(){ cube([Xc, web_t, cheek_size]); union(){ yz(0,cheek_t) square(cheek_size); yz(x2,cheek_t) square(cheek_size);} } }
 module chk_pawl_internal(){ union(){ intersection(){ beak_asm(); arm_asm(); } intersection(){ arm_asm(); block_asm(); } intersection(){ block_asm(); pegs_asm(); } } }
 module chk_shaft_internal(){ intersection(){ shaft_asm(); union(){ translate([x1-0.5,cy-9,cz-9]) cube([1.0,18,18]); translate([x2-0.5,cy-9,cz-9]) cube([1.0,18,18]); translate([-0.5,cy-12,cz-8]) cube([1.0,24,16]); } } }
@@ -283,6 +292,7 @@ else if (part == "detail_pawl")   { color("lightsteelblue") ear_asm(); color("li
 else if (part == "chk_beak_ratchet")    chk_beak_ratchet();
 else if (part == "chk_pawl_body")       chk_pawl_body();
 else if (part == "chk_ear_frame")       chk_ear_frame();
+else if (part == "chk_ear1_frame")      chk_ear1_frame();
 else if (part == "chk_web_cheeks")      chk_web_cheeks();
 else if (part == "chk_pawl_internal")   chk_pawl_internal();
 else if (part == "chk_shaft_internal")  chk_shaft_internal();
