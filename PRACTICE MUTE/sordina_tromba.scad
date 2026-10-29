@@ -94,7 +94,7 @@ lip_trim          = 0.2;   // [mm] riduzione di raggio del collare (0 = come la 
 // -- Restringimento della SOLA sede del corpo (femmina), per far mordere le nervature del
 //    fondello GIA' stampato. Riguarda solo corpo e fit_test_female; il fondello non cambia.
 //    0 = sede standard. 0.3 = sede stretta (imbocco lieve + presa sulle nervature).
-recess_tight      = 0.3;   // [mm] di raggio sottratti alla sede del corpo
+recess_tight      = 0.0;   // [mm] di raggio sottratti alla sede del corpo (0.3 e 0.15 ancora stretti: ABS ritira piu' del previsto)
 ridge_interf      = 0.05;  // [mm] interferenza radiale delle nervature: 0 = nessuna presa, 0.15 = molto dura (0.08 era un po' dura da aprire)
 ridge_count       = 2;     // numero di nervature
 ridge_pitch       = 2.5;   // [mm] distanza tra le nervature

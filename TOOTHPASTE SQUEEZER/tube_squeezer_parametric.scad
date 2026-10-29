@@ -377,3 +377,11 @@ else if (part == "pawl_test2d") {
     color("DarkOrange", 0.9)  linear_extrude(2) pawl_lamella_2d();
 }
 else if (part == "print_plate") print_plate();
+// --- diagnostica di coerenza (intersezioni; vuoto = pezzi staccati) ---------
+else if (part == "dbg_body")        body();
+else if (part == "dbg_pawl_placed") pawl_placed();
+else if (part == "dbg_ratchet_pl")  translate([roll_len/2+pin_len, 0, shaft_axis_z]) rotate([0,90,0]) ratchet();
+else if (part == "dbg_mount")       pawl_mount();
+else if (part == "dbg_int_pawl_mount")   intersection() { pawl_placed(); pawl_mount(); }
+else if (part == "dbg_int_pawl_ratchet") intersection() { pawl_placed(); translate([roll_len/2+pin_len, 0, shaft_axis_z]) rotate([0,90,0]) ratchet(); }
+else if (part == "dbg_int_mount_body")   intersection() { pawl_mount(); union() { base(); post(-1); post(+1); } }
