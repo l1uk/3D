@@ -47,7 +47,7 @@
 // "fit_test_female": Solo la femmina (sede del corpo): ci provi il collare del fondello gia' stampato: ~15 min
 // "cartuccia"     : Vano imbottitura sospeso (pezzo separato, si infila sullo stelo)
 // "cartuccia_lid" : Coperchio della cartuccia
-mode = "fit_test_female"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test", "cartuccia", "cartuccia_lid"]
+mode = "body_only"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test", "cartuccia", "cartuccia_lid"]
 
 // Risoluzione curve
 $fn = $preview ? 48 : 120;
@@ -91,6 +91,10 @@ lip_height        = 8.0;   // [mm] Altezza collare di innesto tra corpo e fondel
 
 // -- Giunto facile da smontare (solo fondello; il corpo non cambia)
 lip_trim          = 0.2;   // [mm] riduzione di raggio del collare (0 = come la v2)
+// -- Restringimento della SOLA sede del corpo (femmina), per far mordere le nervature del
+//    fondello GIA' stampato. Riguarda solo corpo e fit_test_female; il fondello non cambia.
+//    0 = sede standard. 0.3 = sede stretta (imbocco lieve + presa sulle nervature).
+recess_tight      = 0.3;   // [mm] di raggio sottratti alla sede del corpo
 ridge_interf      = 0.05;  // [mm] interferenza radiale delle nervature: 0 = nessuna presa, 0.15 = molto dura (0.08 era un po' dura da aprire)
 ridge_count       = 2;     // numero di nervature
 ridge_pitch       = 2.5;   // [mm] distanza tra le nervature
@@ -249,7 +253,7 @@ zbell_ch_bot = z_cork_bottom - cork_chamfer;// inizio rampa 45° bassa
 function body_r(zb) = bell_r(zb) - clearance_plastic_brass;
 
 inner_r_cyl  = (chamber_od/2) - wall_t;
-cap_recess_r = (chamber_od/2) - (wall_t/2) + (joint_clearance/2);
+cap_recess_r = (chamber_od/2) - (wall_t/2) + (joint_clearance/2) - recess_tight;
 
 // Profilo esterno: transizioni a 45° per 0 supporti
 body_ext_pts = [

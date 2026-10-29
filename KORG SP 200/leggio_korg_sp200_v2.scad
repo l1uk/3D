@@ -17,7 +17,7 @@ peg_length    = 26;    // profondità inserimento nel retro (foro 28mm)
 peg_edge_r    = 0.6;   // arrotondamento spigoli perno (mm)
 
 // --- TELAIO PRINCIPALE ---
-stand_height  = 200;   // altezza totale telaio dal centro fori (mm)
+stand_height  = 180;   // altezza totale telaio dal centro fori (mm) — 18cm (sostiene fogli A4 da 29.7cm con margine sicuro da 25mm sul piatto 220x220)
 stand_width   = 600;   // larghezza totale del telaio (mm) — 60cm (+15cm sbalzo), diviso in 3 pezzi da 200mm per Ender 3 V2
 bar_thickness = 9;     // diametro/sezione tubolari (mm) — 9mm dà ottima rigidità in PLA/PETG
 
@@ -42,7 +42,7 @@ lip_height  = 10;      // altezza del bordino frontale rialzato (mm)
 lip_angle   = 105;     // inclinazione bordino (105° = svasato in avanti per consentire alla pagina di scorrere fluida durante la voltata)
 
 // --- TRAVERSA ORIZZONTALE INTERMEDIA (Rigidità & Anti-caduta fogli) ---
-mid_bar_y = 105;       // quota a metà altezza (mm) — lega i montanti e sostiene la schiena dei fogli
+mid_bar_y = 98;        // quota a metà altezza (mm) — lega i montanti e sostiene la schiena dei fogli
 
 // --- SIMULAZIONE PIANOFORTE REALE KORG SP-200 ---
 show_piano_preview = false; // true = mostra la carrozzeria reale del piano sotto al leggio in 3D (F5)
@@ -362,33 +362,45 @@ module test_box() {
         cube([90, shelf_y + 45, 120]);
 }
 
+// ---- Modulo di orientamento per la stampa 3D (adagia il telaio piatto sul piatto Z=0) ----
+module orient_for_print() {
+    translate([0, 0, hb])
+        rotate([tilt_angle, 0, 0])
+            children();
+}
+
 // ---- Render della parte selezionata ----
 module render_part() {
     if (part == "center") {
-        difference() {
-            intersection() { leggio_full(); center_box(); }
-            holes_center_left();
-            holes_center_right();
-        }
+        orient_for_print()
+            difference() {
+                intersection() { leggio_full(); center_box(); }
+                holes_center_left();
+                holes_center_right();
+            }
     } else if (part == "left") {
-        translate([200, 0, 0]) // centra in X sul piatto da stampa (X in [-100, +100])
-            difference() {
-                intersection() { leggio_full(); left_box(); }
-                holes_left_wing();
-            }
+        orient_for_print()
+            translate([200, 0, 0]) // centra in X sul piatto da stampa (X in [-100, +100])
+                difference() {
+                    intersection() { leggio_full(); left_box(); }
+                    holes_left_wing();
+                }
     } else if (part == "right") {
-        translate([-200, 0, 0]) // centra in X sul piatto da stampa (X in [-100, +100])
-            difference() {
-                intersection() { leggio_full(); right_box(); }
-                holes_right_wing();
-            }
+        orient_for_print()
+            translate([-200, 0, 0]) // centra in X sul piatto da stampa (X in [-100, +100])
+                difference() {
+                    intersection() { leggio_full(); right_box(); }
+                    holes_right_wing();
+                }
     } else if (part == "pins" || part == "pin") {
         printable_pins();
     } else if (part == "test") {
-        intersection() {
-            leggio_full();
-            test_box();
-        }
+        orient_for_print()
+            translate([peg_spacing/2, 0, 0]) // centra sul piatto
+                intersection() {
+                    leggio_full();
+                    test_box();
+                }
     } else if (part == "both") {
         leggio_full();
         if (show_piano_preview) {
