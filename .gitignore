@@ -1,0 +1,3 @@
+# Ambiente Python per build123d/agentcad (si ricrea da requirements-cad.txt)
+.venv/
+__pycache__/
