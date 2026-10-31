@@ -11,10 +11,14 @@
 // Ender 3 V2 - PLA - stampa piatta, ZERO supporti
 //
 // STAMPA (STL in stl/, rigenerabili con tools/esporta_stl.sh)
-//  0. stl/test/test_giunti_ugello04.stl         -> tara clearance e gioco_manneken
-//  1. stl/piatti/piatto1_fianchi_ugello04.stl   -> 2 fianchi (142 x 217 mm)
-//  2. stl/piatti/piatto2_seduta_schienale_ugello04.stl
-//  3. stl/piatti/piatto3_manneken_ugello02.stl  -> 2 Manneken, ugello 0.2, layer 0.08-0.12
+//  0. stl/test/test_giunti_ugello04.stl -> tara clearance e gioco_manneken
+//  Una panchina:  stl/piatti/panchina_x1_ugello04.stl (fianchi, seduta, schienale)
+//                 + 1 coppia da stl/pezzi/manneken_coppia.stl (ugello 0.2)
+//  In serie (pezzi uguali per piatto):
+//     fianchi_x4_ugello04     = 2 panchine
+//     sedute_x8_ugello04      = 8 panchine
+//     schienali_x6_ugello04   = 6 panchine
+//     manneken_x10_coppie_ugello02 = 10 panchine (layer 0.08-0.12)
 // MONTAGGIO: linguette di seduta e schienale nei fianchi, poi i Manneken
 // dall'alto nelle fessure della terza doga (faccia incisa verso chi guarda).
 // Obiettivo zero colla: giochi tarati col provino.
@@ -78,7 +82,7 @@ m_panca   = 33;    // g (stampa reale, verifica in Cura)
 u_cg_panca = 9;    // baricentro panchina (dall'STL)
 
 /* [Vista] */
-modalita = "assemblato"; // [assemblato, piatto1_fianchi, piatto2_seduta_schienale, manneken, seduta, schienale, fianco, test_giunti, check]
+modalita = "assemblato"; // [assemblato, piatto_panchina_x1, piatto_fianchi_x4, piatto_sedute_x8, piatto_schienali_x6, piatto_manneken, manneken, seduta, schienale, fianco, test_giunti, check, check_piatti]
 telefono = true;
 $fn = 40;
 include <manneken_pis_data.scad>
@@ -329,22 +333,18 @@ if (modalita == "assemblato") {
     %cavo();
     %translate([-80, -70, -1]) cube([160, 200, 1]);
 }
-else if (modalita == "piatto1_fianchi") {
-    translate([0, 0, 0]) fianco();
-    translate([0, 112, 0]) fianco();
-}
-else if (modalita == "piatto2_seduta_schienale") {
-    translate([0, -w_front, 0]) seduta();
-    translate([0, 50, sp]) off_back() schienale_montato();
-}
-else if (modalita == "manneken") {   // 2 pezzi, stampali col piatto 2
-    // destro e sinistro sono speculari (il tenone sta sempre sul lato telefono)
-    translate([0, 4, 0]) manneken();
-    translate([16, 30, 0]) mirror([1, 0, 0]) manneken();
-}
-else if (modalita == "seduta")    seduta();
-else if (modalita == "schienale") translate([0, 0, sp]) off_back() schienale_montato();
-else if (modalita == "fianco")    fianco();
+// piatti di stampa (vedi sezione PIATTI DI STAMPA in fondo)
+else if (modalita == "piatto_panchina_x1")  piatto(layout_panchina_x1);
+else if (modalita == "piatto_fianchi_x4")   piatto(layout_fianchi_x4);
+else if (modalita == "piatto_sedute_x8")    griglia("seduta", 2, 4, 102, 44);
+else if (modalita == "piatto_schienali_x6") griglia("schienale", 2, 3, 102, 65);
+else if (modalita == "piatto_manneken")     griglia("coppia_manneken", mp_colonne,
+                                                    ceil(coppie_per_piatto/mp_colonne), 34, 56, coppie_per_piatto);
+// pezzi singoli
+else if (modalita == "manneken")  pezzo("coppia_manneken");
+else if (modalita == "seduta")    pezzo("seduta");
+else if (modalita == "schienale") pezzo("schienale");
+else if (modalita == "fianco")    pezzo("fianco");
 else if (modalita == "test_giunti") test_giunti();   // ugello 0.4, impostazioni definitive
 else if (modalita == "check") intersection() { panchina(); cavo(); }
 
@@ -386,3 +386,43 @@ module test_giunti() {
         }
     }
 }
+
+// =====================================================================
+// PIATTI DI STAMPA (Ender 3 V2, area utile ~212 x 212 mm, >= 2 mm tra i pezzi)
+// Le disposizioni dei fianchi sono incastrate (nesting): calcolate con una
+// ricerca su griglia da 0.5 mm e verificate con modalita = "check_piatti".
+// Se cambi la forma dei fianchi, ricontrolla con check_piatti.
+// =====================================================================
+coppie_per_piatto = 10;   // Manneken (coppie sx+dx) per piatto, ugello 0.2
+mp_colonne        = 5;
+
+module pezzo(nome) {
+    if (nome == "fianco") fianco();
+    else if (nome == "seduta") seduta();
+    else if (nome == "schienale") translate([0, 0, sp]) off_back() schienale_montato();
+    else if (nome == "coppia_manneken") {
+        // destro e sinistro sono speculari (il tenone sta sempre sul lato telefono)
+        translate([0, 4, 0]) manneken();
+        translate([16, 30, 0]) mirror([1, 0, 0]) manneken();
+    }
+}
+// [nome, rotazione, x, y]: translate([x, y]) rotate(rot) pezzo
+layout_panchina_x1 = [["fianco", 0, 45.84, 0.00], ["fianco", 0, 61.84, 75.00],
+                      ["seduta", 0, 146.20, 53.00], ["schienale", 0, 162.20, 92.00]];
+layout_fianchi_x4  = [["fianco", 0, 45.84, 0.00], ["fianco", -270, 210.96, 50.84],
+                      ["fianco", 0, 47.84, 89.00], ["fianco", -180, 135.69, 201.96]];
+module piatto(L) for (p = L) translate([p[2], p[3], 0]) rotate(p[1]) pezzo(p[0]);
+module griglia(nome, col, righe, dx, dy, n = -1)
+    for (r = [0:righe-1], c = [0:col-1]) if (n < 0 || r*col + c < n)
+        translate([c*dx, r*dy, 0]) pezzo(nome);
+
+// verifica: ogni coppia di pezzi del piatto, allargati di 1 mm, non si
+// tocca (render vuoto = distanza minima >= 2 mm)
+module check_piatto(L) {
+    for (i = [0:len(L)-1], j = [0:len(L)-1]) if (i < j)
+        intersection() {
+            linear_extrude(1) offset(r=1.0) projection() translate([L[i][2], L[i][3]]) rotate(L[i][1]) pezzo(L[i][0]);
+            linear_extrude(1) offset(r=1.0) projection() translate([L[j][2], L[j][3]]) rotate(L[j][1]) pezzo(L[j][0]);
+        }
+}
+if (modalita == "check_piatti") { check_piatto(layout_panchina_x1); check_piatto(layout_fianchi_x4); }
