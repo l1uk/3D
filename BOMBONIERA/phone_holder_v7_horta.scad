@@ -9,6 +9,15 @@
 //  - schienale piu' alto (62 mm) per accompagnare meglio il telefono
 // Stesso sistema di incastri, cavo e seduta della v6.
 // Ender 3 V2 - PLA - stampa piatta, ZERO supporti
+//
+// STAMPA (STL in stl/, rigenerabili con tools/esporta_stl.sh)
+//  0. stl/test/test_giunti_ugello04.stl         -> tara clearance e gioco_manneken
+//  1. stl/piatti/piatto1_fianchi_ugello04.stl   -> 2 fianchi (142 x 217 mm)
+//  2. stl/piatti/piatto2_seduta_schienale_ugello04.stl
+//  3. stl/piatti/piatto3_manneken_ugello02.stl  -> 2 Manneken, ugello 0.2, layer 0.08-0.12
+// MONTAGGIO: linguette di seduta e schienale nei fianchi, poi i Manneken
+// dall'alto nelle fessure della terza doga (faccia incisa verso chi guarda).
+// Obiettivo zero colla: giochi tarati col provino.
 // =====================================================================
 
 /* [Testi] */
