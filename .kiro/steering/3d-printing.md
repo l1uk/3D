@@ -9,7 +9,7 @@ Workspace di progetti 3D parametrici per stampa FDM. Una cartella per progetto (
 ## Stampante e slicer
 
 - Creality Ender 3 V2: piatto in vetro, estrusore Bowden, Professional Firmware (mriscoc), slicer Cura 5.12.
-- Filamento principale: PLA Bambu Lab. Alcuni progetti vecchi (BOMBONIERA v2/v4/v5) erano pensati per ABS.
+- Filamento principale: PLA Bambu Lab. Ugello 0.4 di serie; ugello 0.2 per dettagli fini (es. Manneken della BOMBONIERA, layer 0.08–0.12).
 - Volume utile: considerare circa 220 × 220 × 250 mm. Pezzi più grandi vanno divisi con un incastro (es. leggio KORG in metà).
 - Calibrazione e profilo Cura: vedi `CALIBRATION/README.md` e `CALIBRATION/GUIDA_FILE.md`. Line width 0.42 mm, layer 0.2 mm.
 - Tolleranze: convenzione `diametro_foro = diametro_perno + gioco` (gioco diametrale). Valori in uso: 0.25–0.30 mm per incastri a pressione o linguette, 0.5 mm per rotazione libera o sedi. Il valore misurato per questa macchina si ricava da `CALIBRATION/stl/02_tolleranze.stl`; se l'utente lo comunica, aggiornare questa sezione.
@@ -19,7 +19,7 @@ Workspace di progetti 3D parametrici per stampa FDM. Una cartella per progetto (
 | Uso | Strumento |
 |---|---|
 | Progetti nuovi (es. corpo revolver GUN/corpo) | build123d + agentcad (MCP o CLI) |
-| Manutenzione dei 41 `.scad` esistenti (provino GUN, BOMBONIERA, ...) | OpenSCAD nightly |
+| Manutenzione dei `.scad` esistenti (provino GUN, BOMBONIERA v7, ...) | OpenSCAD nightly |
 | Stampabilità e interferenze tra STL | `tools/check_stampa.py` (trimesh + manifold3d) |
 | Tempo di stampa, filamento, supporti | `tools/slice_stima.py` (CuraEngine 5.12 da CLI) |
 | Parti scultoree, render fotografici | Blender 4.0.2 (`blender -b -P script.py`) |
@@ -33,7 +33,7 @@ Workspace di progetti 3D parametrici per stampa FDM. Una cartella per progetto (
   - menu: `~/.local/share/applications/openscad-nightly.desktop`; i file `.scad` (MIME `application/x-openscad`, definito in `~/.local/share/mime/packages/openscad.xml`) si aprono con la nightly
   - il pacchetto apt 2021.01 è stato rimosso dall'utente
 - Backend predefinito: **Manifold**. Su `phone_holder_v7_horta.scad` il render scende da 31,6 s (2021.01, CGAL) a 0,76 s, con geometria identica (stesse dimensioni e massa).
-- Compatibilità verificata su tutti i 41 `.scad` del workspace: nessun errore o warning. Restituiscono "top level object is empty" solo `GUN/lib.scad` e `GUN/params.scad` (librerie) e `KORG SP 200/leggio_korg_sp200.scad` (riga 44, `part = "left    "` con spazi finali; versione superata dalla v2).
+- Compatibilità verificata il 31/10/2026 su tutti i `.scad` allora presenti (41; dopo il riordino di BOMBONIERA, che ha tenuto solo la v7 Horta, sono 33): nessun errore o warning. Restituiscono "top level object is empty" solo `GUN/lib.scad` e `GUN/params.scad` (librerie) e `KORG SP 200/leggio_korg_sp200.scad` (riga 44, `part = "left    "` con spazi finali; versione superata dalla v2).
 - Aggiornamento: scaricare il nuovo AppImage da `https://files.openscad.org/snapshots/`, verificare il `.sha256`, `chmod +x`, poi rifare `ln -sf <nuovo file> ~/.local/bin/openscad` (e `openscad-nightly`). Aggiornare `Exec`/versione qui. La nightly non si aggiorna da sola.
 
 ### Comandi utili
