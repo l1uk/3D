@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "agentcad": {
+      "command": "/home/luc/Documents/3D/.venv/bin/python",
+      "args": ["-m", "agentcad.mcp"],
+      "env": { "AGENTCAD_NO_LOG": "1" },
+      "disabled": false,
+      "disabledTools": [
+        "cloud_create_project", "cloud_projects", "cloud_project", "cloud_run",
+        "cloud_import", "cloud_measure", "cloud_inspect", "cloud_check_spec",
+        "cloud_render", "cloud_diff", "cloud_job", "cloud_download"
+      ]
+    }
+  }
+}

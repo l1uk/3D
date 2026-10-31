@@ -14,7 +14,15 @@ Workspace di progetti 3D parametrici per stampa FDM. Una cartella per progetto (
 - Calibrazione e profilo Cura: vedi `CALIBRATION/README.md` e `CALIBRATION/GUIDA_FILE.md`. Line width 0.42 mm, layer 0.2 mm.
 - Tolleranze: convenzione `diametro_foro = diametro_perno + gioco` (gioco diametrale). Valori in uso: 0.25–0.30 mm per incastri a pressione o linguette, 0.5 mm per rotazione libera o sedi. Il valore misurato per questa macchina si ricava da `CALIBRATION/stl/02_tolleranze.stl`; se l'utente lo comunica, aggiornare questa sezione.
 
-## OpenSCAD (strumento attuale)
+## Setup in breve
+
+| Uso | Strumento |
+|---|---|
+| Progetti nuovi (es. corpo revolver GUN/corpo) | build123d + agentcad (MCP o CLI) |
+| Manutenzione dei 41 `.scad` esistenti (provino GUN, BOMBONIERA, ...) | OpenSCAD nightly |
+| Metriche STL (ingombro, massa) | `GUN/tools/stl_info.py` |
+
+## OpenSCAD (manutenzione dei progetti esistenti)
 
 - Installata la nightly **2026.10.31** come AppImage, senza sudo:
   - binario: `~/.local/opt/openscad/OpenSCAD-2026.10.31-x86_64.AppImage` (SHA-256 verificato)
@@ -49,7 +57,7 @@ python3 GUN/tools/stl_info.py file.stl                     # ingombro (mm) e mas
 ## Flusso di lavoro "linguaggio naturale → 3D"
 
 1. Raccogliere i requisiti: misure reali (calibro o foto con righello), materiale, orientamento di stampa, dove agiscono le forze, priorità (estetica, robustezza, tempo di stampa). Chiedere le quote mancanti invece di inventarle; se si deve stimare, dichiararlo.
-2. Scrivere il `.scad` parametrico secondo le convenzioni sopra.
+2. Scrivere lo script parametrico: build123d per i pezzi nuovi, `.scad` solo se si modifica un progetto OpenSCAD esistente. Stesse convenzioni (intestazione, parametri in testa, tolleranze esplicite, selezione della parte).
 3. Verificare prima di consegnare: export STL senza errori, solido manifold, render PNG da più viste (3/4, lato, orientamento di stampa), ingombro e massa con `stl_info.py`. Controllare sbalzi oltre ~55°, ponti oltre ~35 mm, pareti sotto 2 × line width (0.84 mm).
 4. Mostrare render e metriche, poi iterare sulle richieste dell'utente.
 5. Dopo la stampa, se un accoppiamento non funziona, correggere il parametro di tolleranza (non la geometria a mano).
@@ -63,7 +71,7 @@ Setup installato:
 - versioni fissate in `requirements-cad.txt`; ricreare con `uv venv --python 3.12 .venv && uv pip install --python .venv/bin/python -r requirements-cad.txt`
 - `build123d 0.10.0` (non 0.11+: agentcad 0.7.1 richiede `build123d<0.11`), `cadquery-ocp 7.8.1`, `agentcad 0.7.1`, `ocp-vscode 4.2.0`
 - agentcad non invia dati all'esterno, salvo i comandi `cloud`, `feedback`, `subscribe`: **non usarli**. Nel MCP sono disabilitati i tool `cloud_*`
-- server MCP in `.kiro/settings/mcp.json` (`.venv/bin/python -m agentcad.mcp`); va creato a mano dall'utente perché l'agente non può scrivere in `.kiro/settings/`. Se il server MCP non è disponibile, usare la CLI `.venv/bin/agentcad`, che fa le stesse cose
+- server MCP attivo, configurato in `.kiro/settings/mcp.json` (`.venv/bin/python -m agentcad.mcp`, `AGENTCAD_NO_LOG=1`, tool `cloud_*` disabilitati). L'agente non può modificare `.kiro/settings/`: eventuali cambi li fa l'utente. Tool disponibili: `run`, `render`, `measure`, `inspect`, `diff`, `export`, `check_spec`, `context`, `docs`, `import_cad`, `recover`, `view`. Se il server non risponde, usare la CLI `.venv/bin/agentcad`, che fa le stesse cose
 
 Ciclo di lavoro (verificato con un pezzo di prova):
 
@@ -97,7 +105,7 @@ Motivazioni:
 Passi previsti:
 1. Creare un virtualenv nel workspace (Python 3.12) con `build123d` e `agentcad[mcp]` a versioni fissate.
 2. Configurare agentcad in `.kiro/settings/mcp.json`.
-3. Pilota: riscrivere un progetto piccolo (TAPPO FLACONE o MORSETTO_MICROFONO) in build123d e confrontarlo con la versione OpenSCAD (leggibilità, tempo di sviluppo, qualità dei raccordi, stampa).
+3. Pilota: corpo finito del revolver in `GUN/corpo/` (build123d), con meccanica guidata da `GUN/params.scad` perché i test balistici non sono ancora fatti. Il provino OpenSCAD resta invariato. Valutare leggibilità, tempo di sviluppo, qualità dei raccordi, stampa. (In origine si pensava a TAPPO FLACONE o MORSETTO_MICROFONO; l'utente ha scelto GUN.)
 4. Decidere in base al pilota. Migrare un progetto esistente solo quando va modificato in modo sostanziale; non convertire in blocco.
 
-Passi 1 e 2 completati il 31/10/2026 (il `mcp.json` va aggiunto dall'utente). Dopo il pilota, aggiornare questa sezione con l'esito e le motivazioni.
+Passi 1 e 2 completati il 31/10/2026. Passo 3 in corso. Dopo il pilota, aggiornare questa sezione con l'esito e le motivazioni.
