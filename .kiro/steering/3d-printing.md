@@ -20,7 +20,10 @@ Workspace di progetti 3D parametrici per stampa FDM. Una cartella per progetto (
 |---|---|
 | Progetti nuovi (es. corpo revolver GUN/corpo) | build123d + agentcad (MCP o CLI) |
 | Manutenzione dei 41 `.scad` esistenti (provino GUN, BOMBONIERA, ...) | OpenSCAD nightly |
-| Metriche STL (ingombro, massa) | `GUN/tools/stl_info.py` |
+| Stampabilità e interferenze tra STL | `tools/check_stampa.py` (trimesh + manifold3d) |
+| Tempo di stampa, filamento, supporti | `tools/slice_stima.py` (CuraEngine 5.12 da CLI) |
+| Parti scultoree, render fotografici | Blender 4.0.2 (`blender -b -P script.py`) |
+| Metriche STL rapide (ingombro, massa) | `GUN/tools/stl_info.py` |
 
 ## OpenSCAD (manutenzione dei progetti esistenti)
 
@@ -44,6 +47,21 @@ openscad -o out.stl --summary all --summary-file s.json file.scad  # metriche JS
 python3 GUN/tools/stl_info.py file.stl                     # ingombro (mm) e massa (g)
 ```
 
+## Strumenti di verifica (root `tools/`, venv CAD)
+
+```bash
+.venv/bin/python tools/check_stampa.py pezzo.stl [...]            # stampabilita'
+.venv/bin/python tools/check_stampa.py --interf a.stl b.stl c.stl # volume di intersezione per coppia
+.venv/bin/python tools/slice_stima.py pezzo.stl [--supporti] [-s infill_sparse_density=30]
+```
+
+- `check_stampa.py`: Z del file = verso di stampa. Esce con 1 se non manifold, fuori piatto (220×220×250) o con interferenze; sbalzi, pareti sottili e corpi separati sono avvisi. Lo spessore pareti si misura con raggi tra facce quasi parallele, quindi ignora smussi e spigoli. Validato su casi noti e sugli STL del provino: ha trovato le pareti da 0.8 mm delle cartucce (`cart_parete = 0.8` < 0.84) e il `tappo` fatto di 2 corpi separati da 0.05 mm (flangia a `-L_tappo-1.55` con `h=1.5` in `provino_balistico.scad`).
+- `slice_stima.py`: usa il profilo PLA di `CALIBRATION/README.md` (dizionario `PROFILO_PLA` nello script, da aggiornare dopo la calibrazione) sulla definizione `creality_ender3` con piatto 220×220. Risolve le formule delle definizioni Cura perché CuraEngine da solo non le valuta. Tempo e grammi vengono dal log del motore (l'intestazione del G-code in CLI ha segnaposto). Indica se servono supporti. Le stime sono quelle di Cura, indicative.
+- CuraEngine 5.12: estratto da `~/.local/bin/cura.AppImage` in `~/.local/opt/curaengine/` (motore, librerie, definizioni, 31 MB), lanciato da `~/.local/bin/curaengine`, che usa il loader dell'AppImage con glibc/libstdc++ di sistema. Se si aggiorna Cura, rifare l'estrazione.
+- Il profilo attuale salvato in Cura (`~/.local/share/cura/5.12`) è ancora quello ABS (245 °C, piatto 100 °C, layer 0.28, ventola spenta, materiale ABS generico): non usarlo come riferimento per il PLA.
+- Blender 4.0.2 è installato di sistema: in background con `blender -b --factory-startup -P script.py`; import STL con `bpy.ops.wm.stl_import(filepath=...)` (verificato). Serve per forme scultoree (es. figure come i Manneken della BOMBONIERA, da importare poi come mesh) e render con materiali.
+- Visualizzazione dal vivo dei modelli build123d: estensione "OCP CAD Viewer" di Kiro (pacchetto `ocp-vscode` già nel venv); va installata dall'utente dal pannello Extensions. Senza, usare `preview.png` di agentcad o `agentcad view`.
+
 ## Convenzioni per i file .scad
 
 - Intestazione con commento: cosa fa il pezzo, materiale, orientamento di stampa, note di montaggio.
@@ -58,7 +76,7 @@ python3 GUN/tools/stl_info.py file.stl                     # ingombro (mm) e mas
 
 1. Raccogliere i requisiti: misure reali (calibro o foto con righello), materiale, orientamento di stampa, dove agiscono le forze, priorità (estetica, robustezza, tempo di stampa). Chiedere le quote mancanti invece di inventarle; se si deve stimare, dichiararlo.
 2. Scrivere lo script parametrico: build123d per i pezzi nuovi, `.scad` solo se si modifica un progetto OpenSCAD esistente. Stesse convenzioni (intestazione, parametri in testa, tolleranze esplicite, selezione della parte).
-3. Verificare prima di consegnare: export STL senza errori, solido manifold, render PNG da più viste (3/4, lato, orientamento di stampa), ingombro e massa con `stl_info.py`. Controllare sbalzi oltre ~55°, ponti oltre ~35 mm, pareti sotto 2 × line width (0.84 mm).
+3. Verificare prima di consegnare: export STL senza errori, render PNG da più viste (3/4, lato, orientamento di stampa), poi `tools/check_stampa.py` (manifold, piatto, corpi separati, sbalzi > 55°, pareti < 0.84 mm; `--interf` per i pezzi che si accoppiano) e `tools/slice_stima.py` (tempo, grammi, supporti necessari). Ponti oltre ~35 mm vanno ancora controllati a vista.
 4. Mostrare render e metriche, poi iterare sulle richieste dell'utente.
 5. Dopo la stampa, se un accoppiamento non funziona, correggere il parametro di tolleranza (non la geometria a mano).
 
@@ -69,7 +87,8 @@ Decisione dell'utente (31/10/2026): i **progetti nuovi** si fanno in build123d. 
 Setup installato:
 - virtualenv `.venv/` nella root del workspace (Python 3.12, creato con `uv`), ignorato da git
 - versioni fissate in `requirements-cad.txt`; ricreare con `uv venv --python 3.12 .venv && uv pip install --python .venv/bin/python -r requirements-cad.txt`
-- `build123d 0.10.0` (non 0.11+: agentcad 0.7.1 richiede `build123d<0.11`), `cadquery-ocp 7.8.1`, `agentcad 0.7.1`, `ocp-vscode 4.2.0`
+- `build123d 0.10.0` (non 0.11+: agentcad 0.7.1 richiede `build123d<0.11`), `cadquery-ocp 7.8.1`, `agentcad 0.7.1`, `ocp-vscode 4.2.0`, `trimesh 5.2.0`, `manifold3d 3.5.4`, `rtree 1.4.1` (ray casting di trimesh), `shapely 2.2.0` + `networkx 3.7` (geometria 2D: sezioni di mesh con `mesh.section(...).to_2D()`, offset/buffer, unioni e semplificazione di profili, controllo ponti e dettagli layer per layer)
+- Export verificati da build123d: STEP, STL, 3MF (`Mesher`), testo 3D, import SVG
 - agentcad non invia dati all'esterno, salvo i comandi `cloud`, `feedback`, `subscribe`: **non usarli**. Nel MCP sono disabilitati i tool `cloud_*`
 - server MCP attivo, configurato in `.kiro/settings/mcp.json` (`.venv/bin/python -m agentcad.mcp`, `AGENTCAD_NO_LOG=1`, tool `cloud_*` disabilitati). L'agente non può modificare `.kiro/settings/`: eventuali cambi li fa l'utente. Tool disponibili: `run`, `render`, `measure`, `inspect`, `diff`, `export`, `check_spec`, `context`, `docs`, `import_cad`, `recover`, `view`. Se il server non risponde, usare la CLI `.venv/bin/agentcad`, che fa le stesse cose
 
