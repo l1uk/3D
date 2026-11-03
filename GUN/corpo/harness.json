@@ -1,0 +1,24 @@
+{
+  "nome": "gun-corpo",
+  "build": "../../.venv/bin/python build.py",
+  "build_timeout_s": 900,
+  "livelli": ["funzione e ingombri", "forme principali", "raccordi e proporzioni", "ornamenti", "micro-dettagli"],
+  "plateau": 4,
+  "critico": "umano",
+  "modelli": {"designer-3d": "sonnet", "critico-3d": "opus"},
+  "pezzi": [
+    {"nome": "assieme", "stl": "stl/assieme.stl", "senza_supporti": false, "corpi_max": 20,
+     "max_minuti": 2000, "max_grammi": 400, "slice": []}
+  ],
+  "interferenze": [],
+  "spec": [],
+  "render": {
+    "pezzi": [{"stl": "stl/assieme.stl", "colore": "#4fa89a", "metallico": 0.1, "ruvidita": 0.5}],
+    "viste": {"lato": [0, 0], "lato_op": [180, 0], "3q": [35, 20], "sopra": [0, 89]},
+    "risoluzione": [1000, 700],
+    "campioni": 48
+  },
+  "budget": {"giri_totali": 80, "minuti_sessione": 900, "max_fallimenti_di_fila": 6, "checkpoint_ogni_accettati": 10},
+  "designer_timeout_min": 40,
+  "critico_timeout_min": 10
+}

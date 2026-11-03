@@ -6,3 +6,6 @@ tools/portfolio/output/
 
 # Stato dell'harness di design (nei worktree ../3D-harness-*)
 .harness/
+
+# STL generati del corpo revolver (artefatto di build)
+GUN/corpo/stl/
