@@ -389,6 +389,15 @@ class Harness:
     def kiro(self, agente, prompt, log, timeout_min):
         return self.agente_cli(agente, prompt, log, timeout_min)
 
+    def riferimenti(self):
+        """Percorsi assoluti delle immagini in <progetto>/riferimenti/, per il prompt."""
+        d = self.P / "riferimenti"
+        if not d.is_dir():
+            return "(nessuna immagine di riferimento)"
+        img = sorted(str(p) for p in d.iterdir()
+                     if p.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp"))
+        return "\n".join(f"  {p}" for p in img) or "(nessuna immagine di riferimento)"
+
     def designer(self, cartella, voce, ultimo_errore, variante=""):
         prompt = (QUI / "prompt_designer.md").read_text().format(
             progetto=self.rel, livello=self.stato["livello"],
@@ -396,7 +405,7 @@ class Harness:
             voce=voce or "(backlog vuoto per questo livello: scegli tu UNA modifica del livello corrente, "
                          "coerente con BRIEF.md e RUBRICA.md, e aggiungila al BACKLOG come [x])",
             build=self.conf["build"], ultimo_errore=ultimo_errore or "nessuno",
-            diario=self.coda_diario(), cartella=cartella)
+            diario=self.coda_diario(), cartella=cartella, riferimenti=self.riferimenti())
         if variante:
             prompt += "\n" + variante + "\n"
         (cartella / "prompt_designer.md").write_text(prompt)

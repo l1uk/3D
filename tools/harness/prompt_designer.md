@@ -11,11 +11,15 @@ Diario recente (cosa è già stato provato, non ripetere ciò che è stato rifiu
 {diario}
 
 Regole:
-- GUARDA le immagini in `{progetto}/riferimenti/` prima di decidere: la modifica deve avvicinare
-  il pezzo a quelle, non a un'idea generica.
-- Fai un cambiamento DECISO e ben visibile, non timido: il critico confronta prima/dopo sui render
-  e scarta ciò che non migliora in modo evidente. Una variazione di 1-2 mm o un raccordo appena
-  percettibile verrà rifiutato e avrai sprecato il giro. Cambia la forma sul serio.
+- APRI E GUARDA le immagini di riferimento prima di decidere, leggendo questi file come immagini:
+  {riferimenti}
+  La modifica deve avvicinare il pezzo a QUELLE forme reali, non a un'idea generica di "revolver".
+  Confronta mentalmente il render attuale con la reference e colma la differenza più evidente.
+- Fai un cambiamento GRANDE e ben visibile, non un ritocco. Pensa in termini di decine di mm e di
+  rifacimento di una forma, non di 1-2 mm o di un raccordo appena percettibile: il critico confronta
+  prima/dopo sui render e scarta ciò che non cambia in modo netto, quindi un intervento timido è un
+  giro sprecato. Se una voce lo richiede, riscrivi da capo il profilo di una parte invece di
+  limarne i vertici.
 - Fai solo la modifica indicata, al livello corrente. Niente dettagli di livelli successivi
   finché quelli attuali non sono a posto.
 - Modifica solo file dentro `{progetto}/`. Non toccare BRIEF.md, RUBRICA.md, harness.json,
