@@ -14,7 +14,7 @@ if "show_object" not in dir():
     def show_object(*a, **k):  # noqa: E306  (no-op fuori da agentcad)
         pass
 from build123d import (Align, Axis, Box, SortBy, Sketch, Rectangle, mirror, Cylinder, Pos, Rot, Torus, Polygon,
-                       Plane, extrude)
+                       Plane, extrude, fillet)
 import concetti as C
 import meccanica as M
 from concetti import p, q, arco, profilo, cil_x
@@ -23,8 +23,10 @@ from concetti import p, q, arco, profilo, cil_x
 COL_TELAIO, COL_OTTONE, COL_AVORIO, COL_VOLATA = "#4fa89a", "#d9a441", "#f2e3c6", "#ff7a00"
 W = 22                      # larghezza telaio
 za = q.z_asse_tamb
-x_bocca = C.x_bocca()
+CANNA_VISTA = 20.0          # canna oltre il frontale del telaio (snubnose; prima 40 mm)
 x_front = q.L_tel           # frontale del telaio (fine sede canna)
+x_bocca = x_front + CANNA_VISTA
+L_CANNA = x_bocca - (q.x_spal + p.t_sp)   # lunghezza canna accorciata (sede invariata)
 r_scudo = q.R_tamb + 1.0    # scudo posteriore tondo
 t_scudo = 4.0
 x_scudo1 = q.x_cam - p.g_tamb          # faccia anteriore dello scudo
@@ -37,15 +39,97 @@ slot_cane = 8 + p.gioco_rot             # cane spesso 8
 slot_gril = 6 + p.gioco_rot             # grilletto spesso 6
 z_fondo_cane = p.canale_D / 2 + p.parete_min   # sotto c'e' il canale del percussore
 
+# ---------------- IMPUGNATURA (profilo parametrico inclinato) ----------------
+# Coordinate locali dell'impugnatura: s lungo l'asse (verso il calcio), d di traverso
+# (+ verso il frontale). L'asse parte da (X_IMP0, Z_IMP0) ed e' inclinato all'indietro.
+ANG_IMP = 20.0              # inclinazione all'indietro rispetto alla verticale [gradi]
+X_IMP0, Z_IMP0 = 2.0, -40.0 # origine dell'asse, sotto il telaio
+L_IMP = 64.0                # lunghezza dell'asse fino al tallone
+F_IMP = 19.0                # semi-larghezza lato frontale (dita)
+B_IMP = 15.0                # semi-larghezza lato dorso, alle estremita'
+PANCIA = 12.0               # bombatura convessa del dorso (massima sotto il cane)
+PICCO_PANCIA = 0.7          # esponente: <1 sposta il massimo della pancia verso il telaio
+H_TALL = 5.0                # discesa del fondo oltre L_IMP
+R_PUNTA = 6.0               # raggio dello spigolo frontale del fondo (punta)
+R_TALL = 14.0               # raggio del tallone (spigolo posteriore del fondo)
+CONC_DITA = 8.0             # concavita' del frontale per le dita (profilo a S)
+PICCO_CONC = 0.75           # esponente: <1 sposta la gola verso il telaio, poi il frontale torna in avanti
+R_MIN = 1.0                 # raggio minimo dopo il rientro (guancette, campo)
+N_IMP = 16                  # punti per curva
+N_ARCO = 8                  # punti per raccordo del fondo
+_a = math.radians(ANG_IMP)
+_dir = (-math.sin(_a), -math.cos(_a))   # verso il calcio
+_nrm = (math.cos(_a), -math.sin(_a))    # verso il frontale
+
+def imp_xz(s, d):
+    """Da coordinate locali dell'impugnatura al piano XZ."""
+    return (X_IMP0 + s * _dir[0] + d * _nrm[0], Z_IMP0 + s * _dir[1] + d * _nrm[1])
+
+def dorso(s, rientro=0.0):
+    """Semi-larghezza del dorso: pancia convessa a seno, massima a meta'."""
+    return B_IMP + PANCIA * math.sin(math.pi * min(max(s / L_IMP, 0), 1) ** PICCO_PANCIA) - rientro
+
+def arco_imp(cs, cd, r, t0, t1, n=N_ARCO):
+    """Punti (s, d) di un arco di centro (cs, cd), angolo misurato da +d verso +s."""
+    return [(cs + r * math.sin(t0 + (t1 - t0) * i / n), cd + r * math.cos(t0 + (t1 - t0) * i / n))
+            for i in range(n + 1)]
+
+def profilo_imp(rientro=0.0, s0=0.0, s1=L_IMP):
+    """Contorno chiuso dell'impugnatura: frontale in discesa, punta raccordata,
+    fondo, tallone a grande raggio, dorso a pancia in salita."""
+    f = F_IMP - rientro
+    s_f = s1 + H_TALL                           # quota del fondo
+    r_p = max(R_PUNTA - rientro, R_MIN)
+    r_t = max(R_TALL - rientro, R_MIN)
+    s_t = s_f - r_t                             # inizio del tallone sul dorso
+    b_t = dorso(s_t, rientro)                   # il tallone prosegue la pancia senza scalino
+    s_p = s_f - r_p
+    def fronte_d(s):
+        u = min(max(s / s_p, 0), 1)
+        return f - CONC_DITA * math.sin(math.pi * u ** PICCO_CONC)
+    fronte = [(s0 + (s_p - s0) * i / N_IMP, fronte_d(s0 + (s_p - s0) * i / N_IMP))
+              for i in range(N_IMP + 1)]
+    punta = arco_imp(s_p, f - r_p, r_p, 0, math.pi / 2)[1:]
+    tallone = arco_imp(s_t, -b_t + r_t, r_t, math.pi / 2, math.pi)
+    retro = [(s_t - (s_t - s0) * i / N_IMP, -dorso(s_t - (s_t - s0) * i / N_IMP, rientro))
+             for i in range(1, N_IMP + 1)]
+    return [imp_xz(s, d) for (s, d) in fronte + punta + tallone + retro]
+
 # ---------------- TELAIO ----------------
+# Dorso del telaio: un quarto di ellisse convessa dal calcio (dietro il cane) alla cinghia superiore
+X_DORSO0, Z_DORSO0 = -28.0, -12.0    # dorso piu' pieno dietro il cane (prima -14,-8)
+X_DORSO1, Z_DORSO1 = 22.0, 12.3      # dove la curva si appiattisce sulla cinghia
+N_DORSO = 8
+dorso_telaio = [(X_DORSO0 + (X_DORSO1 - X_DORSO0) * (1 - math.cos(math.pi / 2 * i / N_DORSO)),
+                 Z_DORSO0 + (Z_DORSO1 - Z_DORSO0) * math.sin(math.pi / 2 * i / N_DORSO))
+                for i in range(N_DORSO + 1)]
+# Blocco sopra la canna: spigolo alto-anteriore raccordato con un quarto d'ellisse
+# (la cinghia scende dolcemente verso il frontale) e angolo basso-anteriore ad arco.
+A_FRONTE = 24.0             # lunghezza (X) del raccordo superiore anteriore
+Z_FRONTE = 9.5              # quota del frontale dove l'ellisse arriva verticale (> bordo sede canna)
+N_FRONTE = 8
+R_FONDO_F = 9.0             # raggio dell'angolo basso-anteriore del frontale
+fronte_alto = [(x_front - A_FRONTE + A_FRONTE * math.sin(math.pi / 2 * i / N_FRONTE),
+                Z_FRONTE + (12.5 - Z_FRONTE) * math.cos(math.pi / 2 * i / N_FRONTE))
+               for i in range(N_FRONTE + 1)]
+fronte_basso = [(x_front - R_FONDO_F + R_FONDO_F * math.cos(math.pi / 2 * i / N_FRONTE),
+                 -12.0 - R_FONDO_F * math.sin(math.pi / 2 * i / N_FRONTE))
+                for i in range(N_FRONTE + 1)]
 telaio_pts = (
-    [(-9, -2), (-6, 6), (0, 10), (16, 10.5), (30, 12), (q.x_cam - 1, 12.5),
-     (x_front - 3, 12.5), (x_front, 10), (x_front, -18), (x_front - 6, -21),
+    dorso_telaio + [(30, 12), (q.x_cam - 1, 12.5)] + fronte_alto + fronte_basso + [
      (q.x_spal + 3, -23), (q.x_spal + 1.5, -30), (q.x_spal, -37),
-     (26, -38), (21, -46), (16, -60), (13, -74), (12.5, -88), (14, -99), (11, -106),
-     (0, -108), (-14, -106), (-23, -100), (-25, -92), (-21, -74), (-16, -56),
-     (-12, -38), (-10, -20)])
+     (26, -38)] + profilo_imp() + [(-21, -31), (-27, -22)])
 telaio = profilo(telaio_pts, W, r2d=2.5, r3d=1.8)
+
+# Dorso bombato in sezione: il tetto del telaio e' una volta tonda (cilindro lungo X),
+# non una faccia piatta a spigoli vivi; i fianchi scendono verso il tamburo.
+R_VOLTA = 13.0              # raggio della volta in sezione (YZ)
+Z_TETTO = 12.5              # quota della cinghia superiore
+X_VOLTA0 = -30.0            # da dietro il cane fino al frontale
+volta = Box(x_front - X_VOLTA0 + 2, W + 8, 14, align=(Align.MIN, Align.CENTER, Align.MIN)) \
+    .translate((X_VOLTA0, 0, Z_TETTO - 9))
+volta -= cil_x(2 * R_VOLTA, X_VOLTA0 - 1, x_front - X_VOLTA0 + 4, z=Z_TETTO - R_VOLTA)
+telaio -= volta
 
 # ponticello tondo fuso nel frontale dell'impugnatura
 cx_p, cz_p = 36, -46
@@ -125,21 +209,16 @@ for i in range(10):
     a = 2 * math.pi * i / 10
     perno -= cil_x(1.2, x_front + 0.2, 4, z=za + 4.6 * math.cos(a), y=4.6 * math.sin(a))
 
-# ---------------- MANICOTTO DI VOLATA: mirino + alloggio astina ----------------
-x_m0, x_m1 = x_bocca - 24, x_bocca - 7
-y_a, z_a = -9.5, -7.0                     # alloggio astina, lato destro
-manicotto = cil_x(p.canna_D + 4, x_m0, x_m1 - x_m0) - cil_x(p.canna_D + p.gioco, x_m0 - 1, 30)
-z_m = (p.canna_D + p.gioco) / 2 + 0.6      # base del mirino dentro la parete del manicotto
-manicotto += profilo([(x_m1 - 12, z_m), (x_m1 - 1, z_m), (x_m1 - 2, 12.5), (x_m1 - 6, 12.5)], 2.4, r2d=0.8)
-alloggio = cil_x(8, x_front + 0.5, x_m1 - x_front - 0.5, z=z_a, y=y_a)
-alloggio -= cil_x(4, x_front, 40, z=z_a, y=y_a)
-alloggio -= cil_x(p.canna_D + p.gioco, x_front, x_m1, )    # non deve toccare la canna
-astina = cil_x(3.4, x_front + 3, 30, z=z_a, y=y_a)
-# pomello: gambo nella feritoia dell'alloggio + testa fuori
-astina += Pos(x_front + 14, y_a - 3, z_a) * Rot(90, 0, 0) * Cylinder(1.0, 6)
-astina += Pos(x_front + 14, y_a - 6, z_a) * Rot(90, 0, 0) * Cylinder(2.2, 2)
-alloggio -= Box(24, 6, 2.6, align=(Align.MIN, Align.MAX, Align.CENTER)).translate((x_front + 6, y_a, z_a))
-manicotto += alloggio
+# ---------------- MANICOTTO DI VOLATA SNUBNOSE: un solo manicotto corto, tozzo, tondo ----------------
+SP_MAN = 5.0                # spessore radiale del manicotto oltre la canna
+R_MAN = 4.0                 # raccordo delle due testate (tondeggiante)
+x_m0, x_m1 = x_front, x_bocca - 7          # dal frontale del telaio fin quasi alla volata
+D_man = p.canna_D + 2 * SP_MAN
+manicotto = cil_x(D_man, x_m0, x_m1 - x_m0)
+manicotto = fillet(manicotto.edges(), R_MAN)
+manicotto -= cil_x(p.canna_D + p.gioco, x_m0 - 1, x_m1 - x_m0 + 2)
+# astina: solo un pomello tondo decorativo sul fianco destro del manicotto
+astina = Pos((x_m0 + x_m1) / 2, -D_man / 2 + 0.5, 0) * Rot(90, 0, 0) * Cylinder(3.0, 2.5)
 
 # ---------------- CANE ----------------
 cane = profilo([(1, 6), (14, 6), (15, 11), (12.5, 18), (7, 22.5), (0, 24.5), (-8, 25),
@@ -154,10 +233,16 @@ grilletto = profilo([(33, -27), (40, -27), (39.5, -36), (38, -44), (35, -51), (3
                      (29.5, -54.5), (32, -48), (33.5, -40)], 6, r2d=1.2, r3d=0.8)
 
 # ---------------- GUANCETTE ----------------
-g_pts = [(22, -46), (17, -60), (14, -74), (13.5, -88), (14.5, -97), (11, -102),
-         (0, -104), (-13, -102), (-20, -96), (-21, -90), (-17.5, -74), (-13, -56), (-9, -42), (3, -42)]
+RIENTRO_G = 2.5             # bordo telaio lasciato attorno alla guancetta
+S_G0 = 3.0                  # inizio guancetta lungo l'asse
+g_pts = profilo_imp(RIENTRO_G, S_G0, L_IMP - RIENTRO_G)
 t_g = 3.5
-campo_pts = [(16, -58), (12, -74), (11.5, -90), (-16, -90), (-14, -74), (-10, -58), (-6, -52), (10, -52)]
+RIENTRO_Z = 6.0             # margine tra bordo guancetta e campo zigrinato
+campo_pts = profilo_imp(RIENTRO_Z, S_G0 + 12, L_IMP - 14)
+S_MED, S_VITE_G = 28.0, 44.0   # medaglione e vite lungo l'asse
+x_med, z_med = imp_xz(S_MED, 0)
+x_vg, z_vg = imp_xz(S_VITE_G, 0)
+x_zc, z_zc = imp_xz(L_IMP / 2, 0)   # centro della griglia di zigrinatura
 
 passo_zigr = 3.5      # passo della zigrinatura a rombi (piu' fine = piu' lento)
 solco_zigr = 0.8      # larghezza dei solchi (>= 2 linee da 0.42 non serve: e' un solco)
@@ -169,28 +254,30 @@ def guancia_sx():
     # zigrinatura: griglia di solchi a +-30 gradi costruita in 2D, poi un solo taglio
     campo = Polygon(*campo_pts, align=None)
     passo_x = passo_zigr / math.sin(math.radians(60))
-    righe = [Pos(-2 + k * passo_x, -71) * Rot(0, 0, ang) * Rectangle(solco_zigr, 60)
-             for k in range(-9, 10) for ang in (30, -30)]
+    righe = [Pos(x_zc + k * passo_x, z_zc) * Rot(0, 0, ang) * Rectangle(solco_zigr, 90)
+             for k in range(-12, 13) for ang in (30, -30)]
     solchi = (Sketch() + righe) & campo
     g -= extrude(Plane.XZ * solchi, amount=0.7, both=True).translate((0, y_out, 0))
     # medaglione a stella in rilievo + vite della guancetta
     stella = [(4.5 * math.cos(math.radians(90 + 36 * i)) * (1 if i % 2 == 0 else 0.42),
                4.5 * math.sin(math.radians(90 + 36 * i)) * (1 if i % 2 == 0 else 0.42)) for i in range(10)]
-    disco = Pos(-1, y_out, -66) * Rot(90, 0, 0) * Cylinder(6.5, 1.4)
-    med = Pos(-1, y_out, -66) * Rot(90, 0, 0) * (Cylinder(6.5, 1.6) - Cylinder(5.5, 2))
-    st = extrude(Plane.XZ * Polygon(*stella, align=None), amount=0.8, both=True).translate((-1, y_out, -66))
+    disco = Pos(x_med, y_out, z_med) * Rot(90, 0, 0) * Cylinder(6.5, 1.4)
+    med = Pos(x_med, y_out, z_med) * Rot(90, 0, 0) * (Cylinder(6.5, 1.6) - Cylinder(5.5, 2))
+    st = extrude(Plane.XZ * Polygon(*stella, align=None), amount=0.8, both=True).translate((x_med, y_out, z_med))
     g = g - disco + med + st
-    vite = Pos(-1, y_out, -82) * Rot(90, 0, 0) * Cylinder(2.4, 1.6)
-    vite -= Pos(-1, y_out + 0.7, -82) * Box(4, 0.8, 0.6)
+    vite = Pos(x_vg, y_out, z_vg) * Rot(90, 0, 0) * Cylinder(2.4, 1.6)
+    vite -= Pos(x_vg, y_out + 0.7, z_vg) * Box(4, 0.8, 0.6)
     return g + vite
 
 # ---------------- ANELLO PER IL CORDINO ----------------
-cordino = Pos(-6, 0, -116) * Rot(90, 0, 0) * Torus(5, 1.2)
-cordino += Pos(-6, 0, -110) * Box(4, 4, 2.5)
+x_cor, z_cor = imp_xz(L_IMP + H_TALL + 6, -2)    # occhiello sotto il tallone
+x_att, z_att = imp_xz(L_IMP + H_TALL, -2)
+cordino = Pos(x_cor, 0, z_cor) * Rot(90, 0, 0) * Torus(5, 1.2)
+cordino += Pos(x_att, 0, z_att) * Rot(0, -ANG_IMP, 0) * Box(4, 4, 4)
 
 # ---------------- MONTAGGIO ----------------
 tamb = tamburo()
-canna = C.canna()
+canna = M.canna(L_CANNA)
 volata = C.volata(x_bocca, p.canna_D)
 
 show_object(telaio, id="telaio", name="Telaio (2 gusci)", options={"color": COL_TELAIO})

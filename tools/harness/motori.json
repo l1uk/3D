@@ -27,10 +27,10 @@
 
   "claude": {
     "richiede": ["claude"],
-    "cmd": ["claude", "-p", "--permission-mode", "acceptEdits", "--model", "{modello}", "{prompt_stdin}"],
+    "cmd": ["claude", "-p", "--permission-mode", "bypassPermissions", "--model", "{modello}", "--append-system-prompt", "{sistema}", "{prompt_stdin}"],
     "usa_agent_file": false,
     "system_prompt": true,
-    "nota": "Claude Code headless (claude -p). acceptEdits auto-approva le modifiche ai file. Verifica i flag con 'claude --help': cambiano tra versioni. Auth: ANTHROPIC_API_KEY o login."
+    "nota": "Claude Code headless (claude -p, testato su 2.1.317). bypassPermissions = nessuna conferma: sicuro SOLO perche' gira in un worktree isolato con controllo git-status dopo ogni giro. Il prompt di sistema va in --append-system-prompt, il prompt del giro su stdin. Auth: login Claude Pro o ANTHROPIC_API_KEY."
   },
 
   "comando": {
