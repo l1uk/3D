@@ -5,6 +5,7 @@
   "livelli": ["funzione e ingombri", "forme principali", "raccordi e proporzioni", "ornamenti", "micro-dettagli"],
   "plateau": 4,
   "critico": "umano",
+  "modelli": {"designer-3d": "sonnet", "critico-3d": "opus"},
   "pezzi": [
     {"nome": "assieme", "stl": "stl/assieme.stl", "senza_supporti": false, "corpi_max": 20,
      "max_minuti": 2000, "max_grammi": 400, "slice": []}

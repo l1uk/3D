@@ -323,18 +323,31 @@ class Harness:
             return json.loads(aj.read_text()).get("prompt", "")
         return ""
 
+    def modello_di(self, agente):
+        """Modello per ruolo. In harness.json:
+          "modello": "sonnet"                         # unico, per entrambi
+          "modelli": {"designer-3d": "sonnet", "critico-3d": "opus"}   # per ruolo
+        'modelli' vince su 'modello'; se manca il ruolo si usa 'modello' (o vuoto)."""
+        per_ruolo = self.conf.get("modelli", {})
+        if agente in per_ruolo:
+            return per_ruolo[agente]
+        return self.conf.get("modello", "")
+
     def agente_cli(self, agente, prompt, log, timeout_min):
         """Invoca il motore scelto in modalita' non interattiva. Ritorna (codice, output)."""
         m = self.motore
-        if m.get("system_prompt"):
-            sp = self.prompt_sistema(agente)
-            if sp:
-                prompt = sp.rstrip() + "\n\n---\n\n" + prompt
         argv = list(self.conf["motore_cmd"]) if m.get("override_cmd_da_conf") else list(m["cmd"])
+        sistema = self.prompt_sistema(agente) if m.get("system_prompt") else ""
+        # Se la ricetta ha {sistema} (es. --append-system-prompt) il sistema va li';
+        # altrimenti lo anteponiamo al prompt del giro.
+        if m.get("system_prompt") and sistema and "{sistema}" not in m.get("cmd", []) \
+                and "{sistema}" not in (self.conf.get("motore_cmd") or []):
+            prompt = sistema.rstrip() + "\n\n---\n\n" + prompt
         sub = {
             "{agente}": agente,
-            "{modello}": self.conf.get("modello", ""),
+            "{modello}": self.modello_di(agente),
             "{trust}": (m.get("trust", {}) or {}).get(agente, ""),
+            "{sistema}": sistema,
         }
         # Costruisci l'argv in coppie: un flag "--x {segnaposto}" il cui valore si risolve
         # a vuoto fa saltare anche il flag. Cosi' --model sparisce quando non c'e' un modello.
