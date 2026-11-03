@@ -9,3 +9,6 @@ tools/portfolio/output/
 
 # STL generati del corpo revolver (artefatto di build)
 GUN/corpo/stl/
+
+# STL del concept (artefatti)
+GUN/corpo/concept_stl/
