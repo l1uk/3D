@@ -1,0 +1,43 @@
+{
+  "_nota": "Registro dei motori-agente per l'harness. Scegli con --motore <nome> o \"motore\" in harness.json. Ogni motore dice come invocare un CLI in modalita' non interattiva. Segnaposto: {prompt} = testo del prompt, {prompt_stdin} = se presente il prompt va su stdin invece che come argomento, {agente} = nome dell'agente (designer-3d/critico-3d), {modello} = da harness.json \"modello\". Un argomento che resta vuoto dopo la sostituzione viene eliminato. 'richiede' elenca comandi che devono esistere. 'nota' e' informativa.",
+
+  "kiro": {
+    "richiede": ["kiro-cli"],
+    "cmd": ["kiro-cli", "chat", "--no-interactive", "--agent", "{agente}", "--trust-tools={trust}", "--model", "{modello}", "{prompt}"],
+    "trust": {"designer-3d": "read,glob,grep,write", "critico-3d": "read,write"},
+    "usa_agent_file": true,
+    "nota": "Legge .kiro/agents/<agente>.json (prompt di sistema e permessi). Richiede login kiro-cli o KIRO_API_KEY."
+  },
+
+  "codex": {
+    "richiede": ["codex"],
+    "cmd": ["codex", "exec", "--skip-git-repo-check", "--full-auto", "--model", "{modello}", "{prompt_stdin}"],
+    "usa_agent_file": false,
+    "system_prompt": true,
+    "nota": "OpenAI Codex CLI. --full-auto = sandbox con scritture sul workspace senza conferme. Il prompt di sistema dell'agente (prompt_sistema_*.md) viene anteposto al prompt del giro. Auth: ChatGPT/API key di Codex."
+  },
+
+  "aider": {
+    "richiede": ["aider"],
+    "cmd": ["aider", "--yes-always", "--no-auto-commits", "--no-check-update", "--no-stream", "--model", "{modello}", "--message", "{prompt}"],
+    "usa_agent_file": false,
+    "system_prompt": true,
+    "nota": "aider applica le modifiche ai file ma NON committa (--no-auto-commits): ci pensa l'harness. Il prompt di sistema viene anteposto. Auth: OPENAI_API_KEY/ANTHROPIC_API_KEY ecc."
+  },
+
+  "claude": {
+    "richiede": ["claude"],
+    "cmd": ["claude", "-p", "--permission-mode", "acceptEdits", "--model", "{modello}", "{prompt_stdin}"],
+    "usa_agent_file": false,
+    "system_prompt": true,
+    "nota": "Claude Code headless (claude -p). acceptEdits auto-approva le modifiche ai file. Verifica i flag con 'claude --help': cambiano tra versioni. Auth: ANTHROPIC_API_KEY o login."
+  },
+
+  "comando": {
+    "richiede": [],
+    "cmd": ["{prompt_stdin}"],
+    "override_cmd_da_conf": true,
+    "system_prompt": true,
+    "nota": "Motore generico: metti in harness.json \"motore_cmd\": [\"mio-cli\", \"--flag\", \"{prompt_stdin}\"]. Per qualsiasi CLI non ancora elencato. Il prompt (sistema + giro) arriva su stdin."
+  }
+}

@@ -298,19 +298,83 @@ class Harness:
         fg.save(out)
         return out
 
-    # ------------------------------------------------------------ agenti
-    # Tool fidati senza conferma. La shell NON e' fidata in blocco: passano solo i comandi
-    # in toolsSettings.shell.allowedCommands dell'agente (in headless gli altri sono negati).
-    TRUST = {"designer-3d": "read,glob,grep,write", "critico-3d": "read,write"}
+    # ------------------------------------------------------------ agenti (motore configurabile)
+    def carica_motore(self):
+        """Ricetta del motore-agente scelto (--motore, poi harness.json, default 'kiro')."""
+        reg = json.loads((QUI / "motori.json").read_text())
+        nome = self.args.motore or self.conf.get("motore", "kiro")
+        if nome not in reg:
+            sys.exit(f"motore '{nome}' sconosciuto. Disponibili: "
+                     + ", ".join(k for k in reg if not k.startswith('_')))
+        m = reg[nome]
+        for c in m.get("richiede", []):
+            if not shutil.which(c):
+                sys.exit(f"il motore '{nome}' richiede '{c}', che non e' nel PATH.")
+        self.motore_nome, self.motore = nome, m
 
-    def kiro(self, agente, prompt, log, timeout_min):
-        trust = self.conf.get("trust", {}).get(agente, self.TRUST[agente])
-        cmd = ["kiro-cli", "chat", "--no-interactive", "--agent", agente, f"--trust-tools={trust}"]
-        if self.conf.get("modello"):
-            cmd += ["--model", self.conf["modello"]]
-        cmd.append(prompt)
-        rc, out = sh(cmd, self.wt, timeout=timeout_min * 60, log=log)
+    def prompt_sistema(self, agente):
+        """Prompt di sistema per i motori senza file-agente (codex/aider/...).
+        Da tools/harness/prompt_sistema_<agente>.md se esiste, altrimenti da .kiro/agents/<agente>.json."""
+        f = QUI / f"prompt_sistema_{agente}.md"
+        if f.exists():
+            return f.read_text()
+        aj = self.repo / ".kiro" / "agents" / f"{agente}.json"
+        if aj.exists():
+            return json.loads(aj.read_text()).get("prompt", "")
+        return ""
+
+    def agente_cli(self, agente, prompt, log, timeout_min):
+        """Invoca il motore scelto in modalita' non interattiva. Ritorna (codice, output)."""
+        m = self.motore
+        if m.get("system_prompt"):
+            sp = self.prompt_sistema(agente)
+            if sp:
+                prompt = sp.rstrip() + "\n\n---\n\n" + prompt
+        argv = list(self.conf["motore_cmd"]) if m.get("override_cmd_da_conf") else list(m["cmd"])
+        sub = {
+            "{agente}": agente,
+            "{modello}": self.conf.get("modello", ""),
+            "{trust}": (m.get("trust", {}) or {}).get(agente, ""),
+        }
+        # Costruisci l'argv in coppie: un flag "--x {segnaposto}" il cui valore si risolve
+        # a vuoto fa saltare anche il flag. Cosi' --model sparisce quando non c'e' un modello.
+        prompt_su_stdin = False
+        VUOTI = {"--model", "--agent"}            # flag che hanno sempre un valore
+        argv_out, i = [], 0
+        while i < len(argv):
+            a = argv[i]
+            if a == "{prompt}":
+                argv_out.append(prompt)
+            elif a == "{prompt_stdin}":
+                prompt_su_stdin = True
+            elif a in VUOTI and i + 1 < len(argv):
+                val = argv[i + 1]
+                for k, v in sub.items():
+                    val = val.replace(k, v)
+                if val != "":
+                    argv_out += [a, val]
+                i += 1                            # consuma anche il valore
+            else:
+                for k, v in sub.items():
+                    a = a.replace(k, v)
+                argv_out.append(a)
+            i += 1
+        argv = argv_out
+        stdin = prompt if prompt_su_stdin else None
+        try:
+            p = subprocess.run(argv, cwd=self.wt, capture_output=True, text=True,
+                               timeout=timeout_min * 60, input=stdin)
+            out, rc = p.stdout + p.stderr, p.returncode
+        except subprocess.TimeoutExpired as e:
+            out, rc = f"{e.stdout or ''}{e.stderr or ''}\nTIMEOUT dopo {timeout_min} min", 124
+        Path(log).write_text(f"$ {' '.join(argv)}\n"
+                             + (f"[prompt su stdin, {len(prompt)} char]\n" if prompt_su_stdin else "")
+                             + "\n" + out)
         return rc, out
+
+    # alias storico
+    def kiro(self, agente, prompt, log, timeout_min):
+        return self.agente_cli(agente, prompt, log, timeout_min)
 
     def designer(self, cartella, voce, ultimo_errore, variante=""):
         prompt = (QUI / "prompt_designer.md").read_text().format(
@@ -671,8 +735,10 @@ class Harness:
             return self.scegli(self.args.scegli, self.args.motivo or "", self.args.suggerimenti)
         if self.stato.get("in_attesa"):
             sys.exit(f"Ci sono proposte in attesa della tua scelta: vedi {self.S / 'PROPOSTE.md'}")
-        if not (self.args.simula_designer or os.environ.get("KIRO_API_KEY")):
-            sys.exit("KIRO_API_KEY non impostata: serve per kiro-cli in modalita' headless.")
+        if not self.args.simula_designer:
+            self.carica_motore()
+            if self.motore_nome == "kiro" and not os.environ.get("KIRO_API_KEY"):
+                print("Nota: motore 'kiro' senza KIRO_API_KEY; serve il login di kiro-cli.", file=sys.stderr)
         (self.S / "STOP").unlink(missing_ok=True)
         if not self.stato["best_commit"]:
             print("Giro 0: baseline")
@@ -700,6 +766,8 @@ def main():
     ap.add_argument("--giri", type=int, help="massimo giri in questa sessione")
     ap.add_argument("--stato", action="store_true", help="mostra il riepilogo ed esce")
     ap.add_argument("--no-slice", action="store_true", help="salta lo slicing nei cancelli (piu' veloce)")
+    ap.add_argument("--motore", help="motore-agente: kiro, codex, aider, claude, comando "
+                    "(vedi tools/harness/motori.json). Default: da harness.json o 'kiro'.")
     ap.add_argument("--critico", choices=["ai", "umano"],
                     help="chi giudica ogni giro: l'agente (default) o tu dal terminale")
     ap.add_argument("--proposte", type=int, metavar="K",

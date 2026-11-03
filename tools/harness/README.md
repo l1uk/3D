@@ -86,6 +86,37 @@ scelte di gusto (ornamenti, dettagli).
   --simula-designer "bash mio_script.sh" --simula-critico nuova|vecchia|caso
 ```
 
+## Motore-agente (quale CLI usa il designer/critico)
+
+L'harness non è legato a un solo CLI. Il motore si sceglie con `--motore` o con `"motore"` in
+`harness.json`; le ricette stanno in `tools/harness/motori.json`.
+
+| Motore | CLI | Note |
+|---|---|---|
+| `kiro` (default) | `kiro-cli` | Usa i file-agente `.kiro/agents/*.json` (prompt + permessi). Login o `KIRO_API_KEY`. |
+| `codex` | `codex` | `codex exec --full-auto`; prompt di sistema + giro su stdin. |
+| `aider` | `aider` | `--yes-always --no-auto-commits`; committa l'harness, non aider. |
+| `claude` | `claude` | `claude -p --permission-mode acceptEdits`; verifica i flag con la tua versione. |
+| `comando` | qualsiasi | Metti `"motore_cmd": ["mio-cli", "--run", "{prompt_stdin}"]` in `harness.json`. |
+
+```bash
+.venv/bin/python tools/harness/harness.py BOMBONIERA/v8 --motore codex
+.venv/bin/python tools/harness/harness.py BOMBONIERA/v8 --motore aider --critico umano
+```
+
+Per i motori diversi da kiro, il prompt di sistema del designer/critico viene da
+`tools/harness/prompt_sistema_<agente>.md` (ribadisce i vincoli che per kiro sono nel JSON
+dell'agente). Segnaposto in `motori.json`: `{prompt}` (argomento), `{prompt_stdin}` (su stdin),
+`{agente}`, `{modello}` (da `"modello"` in harness.json), `{trust}`. Un `--model` con modello
+vuoto viene rimosso. Per aggiungere un CLI nuovo, copia una voce di `motori.json` e adatta `cmd`.
+
+**IDE (Antigravity, Cursor, Kiro IDE):** sono app grafiche, non CLI headless, quindi non pilotano
+il loop da soli. Due strade: (1) usa il loro CLI headless se ce l'hanno (Kiro IDE ha `kiro-cli`);
+(2) usa l'harness per generare i prompt e il confronto, e incolla il prompt del giro
+(`.harness/<nome>/giri/NNN/prompt_designer.md`) nella chat dell'IDE, poi lancia i cancelli e il
+render a mano. Il valore dell'harness — cancelli deterministici, render fissi, confronto A/B,
+livelli — resta anche così.
+
 ## Sicurezza e limiti
 
 - Agenti in `.kiro/agents/designer-3d.json` e `critico-3d.json`. In headless sono fidati solo
