@@ -1,0 +1,53 @@
+{
+  "content_sha256": "bbf97bc443e487bca3310df2d1626f5485917cf5fb899a641a532fc8ad85ddab",
+  "deliverables": {
+    "cad": [
+      {
+        "name": "output.step",
+        "path": ".agentcad/changes/attempts/r_0b5895ac7cb24393acb5463cbc8ffec8/geometry/output.step",
+        "role": "geometry",
+        "sha256": "ccfa58d904fc59263612883a3cc016486270fcfcba4437e4fcdd5e385012c171",
+        "size_bytes": 6677964
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "name": "build.py",
+      "path": ".agentcad/changes/attempts/r_0b5895ac7cb24393acb5463cbc8ffec8/source.py",
+      "role": "source",
+      "sha256": "2005d69e227aa25417e2490b25410448d9a9d4f8374d6262f85613df2b053ad9",
+      "size_bytes": 20355
+    },
+    {
+      "name": "output.step",
+      "path": ".agentcad/changes/attempts/r_0b5895ac7cb24393acb5463cbc8ffec8/geometry/output.step",
+      "role": "geometry",
+      "sha256": "ccfa58d904fc59263612883a3cc016486270fcfcba4437e4fcdd5e385012c171",
+      "size_bytes": 6677964
+    }
+  ],
+  "kind": "candidate",
+  "metadata": {
+    "command": "run",
+    "source_name": "build.py"
+  },
+  "model": {
+    "params": null,
+    "runtime": "build123d",
+    "validation_profile": "deliverable"
+  },
+  "model_fingerprint": "f14b136465b2c669499423552f74504ca67ff9a1dd07e29b2517d9978a60cd9a",
+  "parent_revision_id": "r_6719354775e045e98b7545feafecf8f3",
+  "promotion_mode": "automatic",
+  "requested_change": "A6_vintage",
+  "revision_id": "r_0b5895ac7cb24393acb5463cbc8ffec8",
+  "schema_version": 1,
+  "target_policies": {
+    "cad": {
+      "policy_id": "legacy-core-retention-deliverable",
+      "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+      "version": 1
+    }
+  }
+}

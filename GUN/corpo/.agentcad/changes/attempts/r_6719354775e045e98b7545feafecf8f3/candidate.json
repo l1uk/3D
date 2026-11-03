@@ -1,0 +1,53 @@
+{
+  "content_sha256": "7d56c0eba260242a8d5b1c6594affe3d2fd2f5ad7ed5843c8d4bd9cfe77b41c0",
+  "deliverables": {
+    "cad": [
+      {
+        "name": "output.step",
+        "path": ".agentcad/changes/attempts/r_6719354775e045e98b7545feafecf8f3/geometry/output.step",
+        "role": "geometry",
+        "sha256": "d903ac58918d0bfdef3b226f9796830a9f7de8a1cda6925a19ff5926d34e05f8",
+        "size_bytes": 6677962
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "name": "build.py",
+      "path": ".agentcad/changes/attempts/r_6719354775e045e98b7545feafecf8f3/source.py",
+      "role": "source",
+      "sha256": "13fda86a1725051fc8285dbf6cb54ae3580555aeb616aaffc330dc873feba7ad",
+      "size_bytes": 20266
+    },
+    {
+      "name": "output.step",
+      "path": ".agentcad/changes/attempts/r_6719354775e045e98b7545feafecf8f3/geometry/output.step",
+      "role": "geometry",
+      "sha256": "d903ac58918d0bfdef3b226f9796830a9f7de8a1cda6925a19ff5926d34e05f8",
+      "size_bytes": 6677962
+    }
+  ],
+  "kind": "candidate",
+  "metadata": {
+    "command": "run",
+    "source_name": "build.py"
+  },
+  "model": {
+    "params": null,
+    "runtime": "build123d",
+    "validation_profile": "deliverable"
+  },
+  "model_fingerprint": "e144c0b70ac771b0860b573d17811876186c12cbe33cd1334f78ce08469af19b",
+  "parent_revision_id": "r_4cfbad482ee8426ea014cbe06848a3fd",
+  "promotion_mode": "automatic",
+  "requested_change": "A5_vintage",
+  "revision_id": "r_6719354775e045e98b7545feafecf8f3",
+  "schema_version": 1,
+  "target_policies": {
+    "cad": {
+      "policy_id": "legacy-core-retention-deliverable",
+      "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+      "version": 1
+    }
+  }
+}

@@ -212,21 +212,38 @@ for i in range(10):
 # ---------------- MANICOTTO DI VOLATA SNUBNOSE: un solo manicotto corto, tozzo, tondo ----------------
 SP_MAN = 5.0                # spessore radiale del manicotto oltre la canna
 R_MAN = 4.0                 # raccordo delle due testate (tondeggiante)
-x_m0, x_m1 = x_front, x_bocca - 7          # dal frontale del telaio fin quasi alla volata
+# parte poco oltre la testa del perno del tamburo (x_front+0.3+3.5), cosi' non la ingloba
+x_m0, x_m1 = x_front + 4.5, x_bocca - 7     # dal davanti del perno fin quasi alla volata
 D_man = p.canna_D + 2 * SP_MAN
 manicotto = cil_x(D_man, x_m0, x_m1 - x_m0)
 manicotto = fillet(manicotto.edges(), R_MAN)
+# anello di rinforzo alla bocca (stile d'epoca), subito dietro la volata
+AN_W, AN_SP = 4.0, 2.0                      # larghezza e sporgenza radiale dell'anello
+manicotto += cil_x(D_man + 2 * AN_SP, x_m1 - AN_W, AN_W)
+manicotto = fillet(manicotto.edges().group_by(Axis.X)[-1]
+                   + manicotto.edges().group_by(Axis.X)[0], 1.0)
 manicotto -= cil_x(p.canna_D + p.gioco, x_m0 - 1, x_m1 - x_m0 + 2)
 # astina: solo un pomello tondo decorativo sul fianco destro del manicotto
-astina = Pos((x_m0 + x_m1) / 2, -D_man / 2 + 0.5, 0) * Rot(90, 0, 0) * Cylinder(3.0, 2.5)
+astina = Pos((x_m0 + x_m1) / 2 - 4, -D_man / 2 + 0.5, 0) * Rot(90, 0, 0) * Cylinder(3.0, 2.5)
 
-# ---------------- CANE ----------------
-cane = profilo([(1, 6), (14, 6), (15, 11), (12.5, 18), (7, 22.5), (0, 24.5), (-8, 25),
-                (-14.5, 23.5), (-13, 20.5), (-6, 19), (-2, 13)], 8, r2d=1.2, r3d=1.0)
-for i in range(6):                         # rigatura dello sperone
-    gx = -12.5 + 2 * i
-    gz = 23.5 + 1.5 * (1 - abs(gx + 5) / 9)
-    cane -= Pos(gx, 0, gz + 0.6) * Box(0.7, 10, 1.6)
+# ---------------- CANE (sperone compatto a uncino, stile d'epoca) ----------------
+# Revolver western: cane basso e pieno che esce dallo scudo, sale poco e
+# forma uno sperone a uncino rivolto all'indietro (verso -X), con il
+# "becco" che scende verso il dorso. La faccia posteriore, inclinata verso
+# il tiratore, porta l'unghiatura rigata. Niente collo di cigno alto.
+cane = profilo(
+    [(3, 7), (14, 7), (15.5, 11),            # base e ventre sopra lo scudo
+     (14, 15.5), (9, 18.5),                  # spalla anteriore
+     (1, 20), (-7, 20.5),                    # tetto quasi piatto dello sperone
+     (-13, 19.5), (-16.5, 17),               # becco che scende all'indietro
+     (-14.5, 14), (-10, 15),                 # sotto il becco (concavo)
+     (-9, 11), (-6, 8)],                     # ritorno verso lo scudo
+    8, r2d=1.0, r3d=0.8)
+# unghiatura: solchi sulla faccia posteriore-alta dello sperone (verso -X)
+for i in range(6):
+    gx = -15.5 + 1.5 * i
+    gz = 17.0 + 0.35 * i
+    cane -= Pos(gx, 0, gz) * Rot(0, 35, 0) * Box(0.8, 10, 1.8)
 
 # ---------------- GRILLETTO ----------------
 grilletto = profilo([(33, -27), (40, -27), (39.5, -36), (38, -44), (35, -51), (31.5, -55.5),
@@ -269,6 +286,25 @@ def guancia_sx():
     vite -= Pos(x_vg, y_out + 0.7, z_vg) * Box(4, 0.8, 0.6)
     return g + vite
 
+# ---------------- CAPPETTA DEL CALCIO (ottone, manico d'aratro) ----------------
+# Guscio sottile in ottone che avvolge il fondo del manico: si ricava
+# intersecando una fetta spessa del profilo dell'impugnatura (dal tallone
+# in su per CAP_H lungo l'asse) con il volume del telaio, poi svuotando
+# l'interno. Segue l'inclinazione perche' usa profilo_imp/imp_xz.
+CAP_H = 16.0               # quanto risale la cappetta lungo l'asse del manico
+CAP_T = 2.2                # spessore del guscio
+S_CAP = L_IMP - CAP_H      # da dove parte la cappetta lungo l'asse
+# solido pieno del manico dal tallone fino a S_CAP (un po' piu' largo del telaio
+# per avvolgerlo), poi lo intersechiamo col telaio per prenderne la forma esatta
+cap_pieno = profilo(profilo_imp(s0=S_CAP), W + 2 * CAP_T, r2d=2.5, r3d=1.8)
+cap_dentro = profilo(profilo_imp(CAP_T, s0=S_CAP - 0.5), W, r2d=2.5, r3d=1.4)
+# taglio netto in alto (perpendicolare all'asse del manico) per il bordo della cappetta
+x_cut, z_cut = imp_xz(S_CAP, 0)
+piano_alto = Box(80, W + 12, 80, align=(Align.MIN, Align.CENTER, Align.CENTER))
+piano_alto = Pos(x_cut, 0, z_cut) * Rot(0, ANG_IMP, 0) * piano_alto.translate((0, 0, 0))
+cappetta = (cap_pieno - cap_dentro) - piano_alto
+# bottone del cordino: foro passante attraverso la cappetta (lo riempie l'anello)
+
 # ---------------- ANELLO PER IL CORDINO ----------------
 x_cor, z_cor = imp_xz(L_IMP + H_TALL + 6, -2)    # occhiello sotto il tallone
 x_att, z_att = imp_xz(L_IMP + H_TALL, -2)
@@ -292,6 +328,7 @@ show_object(g_sx, id="guancia_sx", options={"color": COL_AVORIO})
 show_object(mirror(g_sx, Plane.XZ), id="guancia_dx", options={"color": COL_AVORIO})
 show_object(cane, id="cane", name="Cane", options={"color": COL_OTTONE})
 show_object(grilletto, id="grilletto", name="Grilletto", options={"color": COL_OTTONE})
+show_object(cappetta, id="cappetta", name="Cappetta calcio", options={"color": COL_OTTONE})
 show_object(cordino, id="cordino", name="Anello cordino", options={"color": COL_OTTONE})
 show_object(volata, id="volata", name="Volata", options={"color": COL_VOLATA})
 
@@ -303,7 +340,7 @@ show_object(volata, id="volata", name="Volata", options={"color": COL_VOLATA})
 from build123d import Compound, export_stl  # noqa: E402
 
 _pezzi_harness = [telaio, tamb, perno, sportello, canna, manicotto, astina,
-                  g_sx, mirror(g_sx, Plane.XZ), cane, grilletto, cordino, volata]
+                  g_sx, mirror(g_sx, Plane.XZ), cane, grilletto, cappetta, cordino, volata]
 os.makedirs("stl", exist_ok=True)
 export_stl(Compound(_pezzi_harness), "stl/assieme.stl")
 print("export harness: stl/assieme.stl")

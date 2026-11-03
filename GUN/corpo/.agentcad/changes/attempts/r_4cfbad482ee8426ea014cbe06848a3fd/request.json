@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_4cfbad482ee8426ea014cbe06848a3fd",
+  "parent_revision_id": "r_8cbb7197f359455bb2f23b76f5f973b3",
+  "selection_generation": 17,
+  "started_ns": 1793699959966154127,
+  "command": "run",
+  "label": "A4_vintage",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "A3_vintage",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "build.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_4cfbad482ee8426ea014cbe06848a3fd/source.py",
+    "sha256": "dda654970f66c8b4420906f375845afb73a5a776d150ea8de403a970b910fe82",
+    "size_bytes": 20268
+  },
+  "content_sha256": "b71fa41034d40cd741c69a095277662ca3af47aeedd1153d754096086914ef5c"
+}
