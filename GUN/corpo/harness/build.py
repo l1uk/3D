@@ -119,17 +119,97 @@ telaio_pts = (
     dorso_telaio + [(30, 12), (q.x_cam - 1, 12.5)] + fronte_alto + fronte_basso + [
      (q.x_spal + 3, -23), (q.x_spal + 1.5, -30), (q.x_spal, -37),
      (26, -38)] + profilo_imp() + [(-21, -31), (-27, -22)])
-telaio = profilo(telaio_pts, W, r2d=2.5, r3d=1.8)
+# ---------------- SEZIONE VARIABILE DEL TELAIO (guaina in loft) ----------------
+# Prima il telaio era il profilo laterale estruso a larghezza fissa W: due piani
+# paralleli, "una tavola". Ora il profilo laterale (telaio_pts) dice DOVE c'e'
+# materiale e una guaina fatta di sezioni trasversali (loft lungo X) dice QUANTO e'
+# largo a ogni quota: fianchi bombati, cresta tonda, retro piu' stretto del davanti.
+# Sotto Z_INNESTO (impugnatura) la larghezza resta W con fianchi piani: li' poggiano
+# le guancette. La meccanica si sottrae dopo, come prima.
+W2 = W / 2
+Z_INNESTO = -38.0           # sotto questa quota: impugnatura a fianchi piani
+W_DIETRO = 18.0             # larghezza del telaio dietro il cane (davanti resta W)
+X_STRETTO = X_DORSO0        # da qui all'indietro la larghezza e' W_DIETRO
+X_PIENO = q.x_cam - 10      # da qui in avanti la larghezza e' W
+BOMBA_DIETRO = 0.8          # bombatura dei fianchi oltre la larghezza [mm], dietro
+BOMBA_DAVANTI = 1.2         # ... e davanti
+R_CRESTA = 6.0              # raggio della cresta del dorso in sezione
+ALZO_CRESTA = 3.0           # la guaina chiude sopra il profilo: dorso a volta, non a spigolo
+PASSO_SEZ = 6.0             # distanza tra le sezioni del loft
+DILATA_X = 4.0              # la cresta segue il dorso con questo margine in X (niente tagli)
+Z_FONDO_GUAINA = -150.0
+W_EST = W + 2 * BOMBA_DAVANTI + 4   # il profilo si estrude piu' largo: la larghezza la decide la guaina
 
-# Dorso bombato in sezione: il tetto del telaio e' una volta tonda (cilindro lungo X),
-# non una faccia piatta a spigoli vivi; i fianchi scendono verso il tamburo.
-R_VOLTA = 13.0              # raggio della volta in sezione (YZ)
-Z_TETTO = 12.5              # quota della cinghia superiore
-X_VOLTA0 = -30.0            # da dietro il cane fino al frontale
-volta = Box(x_front - X_VOLTA0 + 2, W + 8, 14, align=(Align.MIN, Align.CENTER, Align.MIN)) \
-    .translate((X_VOLTA0, 0, Z_TETTO - 9))
-volta -= cil_x(2 * R_VOLTA, X_VOLTA0 - 1, x_front - X_VOLTA0 + 4, z=Z_TETTO - R_VOLTA)
-telaio -= volta
+# parete minima ai lati della feritoia del cane (aperta in alto): la cresta non deve
+# assottigliarla sotto parete_min neanche dove e' piu' stretta
+_h_cima = (W_DIETRO / 2) * math.sqrt(1 - (R_CRESTA / (R_CRESTA + ALZO_CRESTA)) ** 2)
+assert _h_cima - slot_cane / 2 >= p.parete_min, \
+    f"cresta troppo stretta sulla feritoia del cane: {_h_cima - slot_cane / 2:.2f} mm"
+
+from shapely.geometry import LineString as _SLine, Polygon as _SPoly  # noqa: E402
+from build123d import Edge, Wire, Solid  # noqa: E402
+
+_sagoma = _SPoly(telaio_pts).buffer(0)
+
+def _z_cima(x):
+    """Quota piu' alta del profilo laterale alla coordinata x (None se fuori)."""
+    g = _sagoma.intersection(_SLine([(x, -500), (x, 500)]))
+    return None if g.is_empty else g.bounds[3]
+
+def _z_cresta(x):
+    """Quota della cresta: il massimo del dorso in un intorno di x, cosi' il loft non
+    scende mai sotto il profilo tra una sezione e l'altra."""
+    zs = [z for k in range(-int(DILATA_X), int(DILATA_X) + 1) if (z := _z_cima(x + k)) is not None]
+    return max(zs + [Z_INNESTO + R_CRESTA + 2])
+
+def _liscio(u):
+    u = min(max(u, 0.0), 1.0)
+    return u * u * (3 - 2 * u)
+
+def _sezione(x):
+    """Sezione trasversale chiusa (piano YZ) della guaina alla coordinata x."""
+    t = _liscio((x - X_STRETTO) / (X_PIENO - X_STRETTO))
+    w = W_DIETRO / 2 + (W2 - W_DIETRO / 2) * t          # semi-larghezza sotto la cresta
+    b = BOMBA_DIETRO + (BOMBA_DAVANTI - BOMBA_DIETRO) * t
+    zt = _z_cresta(x)
+    zc0 = max(zt - R_CRESTA, Z_INNESTO + 4)              # inizio della cresta
+    zmax = zt + ALZO_CRESTA
+    lato = []
+    for u in (0.25, 0.5, 0.75, 1.0):                     # fianco: da W2 a w, con pancia
+        lato.append((W2 + (w - W2) * _liscio(u) + b * math.sin(math.pi * u),
+                     Z_INNESTO + (zc0 - Z_INNESTO) * u))
+    for k in (1, 2, 3, 4):                               # cresta ellittica
+        a = math.pi / 2 * k / 5
+        lato.append((w * math.cos(a), zc0 + (zmax - zc0) * math.sin(a)))
+    punti = ([(x, W2, Z_INNESTO)] + [(x, h, z) for h, z in lato] + [(x, 0.0, zmax)]
+             + [(x, -h, z) for h, z in reversed(lato)] + [(x, -W2, Z_INNESTO)])
+    curva = Edge.make_spline(punti, tangents=[(0, 0, 1), (0, 0, -1)])
+    return Wire([Edge.make_line((x, -W2, Z_FONDO_GUAINA), (x, W2, Z_FONDO_GUAINA)),
+                 Edge.make_line((x, W2, Z_FONDO_GUAINA), (x, W2, Z_INNESTO)),
+                 curva,
+                 Edge.make_line((x, -W2, Z_INNESTO), (x, -W2, Z_FONDO_GUAINA))])
+
+_x0, _x1 = _sagoma.bounds[0] - PASSO_SEZ, _sagoma.bounds[2] + PASSO_SEZ
+_n_sez = int(math.ceil((_x1 - _x0) / PASSO_SEZ)) + 1
+guaina = Solid.make_loft([_sezione(_x0 + i * (_x1 - _x0) / (_n_sez - 1)) for i in range(_n_sez)])
+
+# Due meta' unite sul piano Z_INNESTO:
+#  - sopra: profilo largo intersecato con la guaina (fianchi bombati, cresta, retro stretto)
+#  - sotto: impugnatura come prima, profilo largo W con il perimetro raccordato (fianchi
+#    piani per le guancette). Raccordarla dopo l'intersezione lasciava un raccordo
+#    troncato a meta' contorno e il solido non si chiudeva.
+_sopra = Box(400, 100, 300, align=(Align.CENTER, Align.CENTER, Align.MIN)).translate((0, 0, Z_INNESTO))
+_sotto = Box(400, 100, 300, align=(Align.CENTER, Align.CENTER, Align.MAX)).translate((0, 0, Z_INNESTO))
+telaio = (profilo(telaio_pts, W_EST, r2d=2.5) & guaina & _sopra) \
+    + (profilo(telaio_pts, W, r2d=2.5, r3d=1.8) & _sotto)
+
+def y_superficie(solido, x, z, lato):
+    """Y della superficie esterna del solido sul fianco +1 (sinistro) o -1 (destro)."""
+    hit = solido.find_intersection_points(Axis((x, lato * 80, z), (0, -lato, 0)))
+    ys = [(h[0] if isinstance(h, tuple) else h).Y for h in hit]
+    if not ys:
+        return lato * W2
+    return max(ys) if lato > 0 else min(ys)
 
 # ponticello tondo fuso nel frontale dell'impugnatura
 cx_p, cz_p = 36, -46
@@ -146,11 +226,14 @@ telaio -= Pos(4, 0, 12.6) * Rot(0, 0, 0) * Box(2.5, 2.2, 2.0, align=(Align.CENTE
 
 # finte viti: coprono le teste dei perni in filamento che uniscono i gusci
 viti = [(10, -10), (16, -28), (30, -6), (q.x_spal + 8, -19.5), (4, -36)]
+# i fianchi ora sono curvi: ogni testa si appoggia sulla superficie reale, non su y = W/2
+_fianchi = {(vx, vz, s): y_superficie(telaio, vx, vz, s) for (vx, vz) in viti for s in (1, -1)}
 for (vx, vz) in viti:
     for s in (1, -1):
-        testa = Pos(vx, s * W / 2, vz) * Rot(90, 0, 0) * Cylinder(2.6, 1.6)
+        ys = _fianchi[(vx, vz, s)]
+        testa = Pos(vx, ys, vz) * Rot(90, 0, 0) * Cylinder(2.6, 1.6)
         taglio = Box(4.4, 0.6, 0.8 * 2, align=(Align.CENTER, Align.CENTER, Align.CENTER))
-        taglio = Pos(vx, s * (W / 2 + 0.8), vz) * Rot(0, 35, 0) * taglio
+        taglio = Pos(vx, ys + s * 0.8, vz) * Rot(0, 35, 0) * taglio
         telaio = telaio + testa - taglio
 
 # meccanica comune (finestra tamburo, canale percussore, sede canna)
@@ -203,8 +286,11 @@ def tamburo():
     return t
 
 # ---------------- PERNO DEL TAMBURO (sfilabile) ----------------
-perno = cil_x(p.tamb_asse_d, q.x_cam - 10, x_front - (q.x_cam - 10), z=za) \
-    + cil_x(9, x_front + 0.3, 3.5, z=za)
+G_TESTA_PERNO = 0.3         # luce tra la testa del perno e il frontale del telaio
+L_TESTA_PERNO = 3.5
+# il gambo entra di 1 mm nella testa: prima finiva sul frontale e i due erano corpi staccati
+perno = cil_x(p.tamb_asse_d, q.x_cam - 10, x_front + G_TESTA_PERNO + 1 - (q.x_cam - 10), z=za) \
+    + cil_x(9, x_front + G_TESTA_PERNO, L_TESTA_PERNO, z=za)
 for i in range(10):
     a = 2 * math.pi * i / 10
     perno -= cil_x(1.2, x_front + 0.2, 4, z=za + 4.6 * math.cos(a), y=4.6 * math.sin(a))
@@ -240,9 +326,10 @@ cane = profilo(
      (-9, 11), (-6, 8)],                     # ritorno verso lo scudo
     8, r2d=1.0, r3d=0.8)
 # unghiatura: solchi sulla faccia posteriore-alta dello sperone (verso -X)
-for i in range(6):
-    gx = -15.5 + 1.5 * i
-    gz = 17.0 + 0.35 * i
+# il primo solco parte 1 mm piu' avanti: a -15.5 staccava la punta del becco (scheggia)
+for i in range(5):
+    gx = -14.0 + 1.5 * i
+    gz = 17.35 + 0.35 * i
     cane -= Pos(gx, 0, gz) * Rot(0, 35, 0) * Box(0.8, 10, 1.8)
 
 # ---------------- GRILLETTO ----------------
