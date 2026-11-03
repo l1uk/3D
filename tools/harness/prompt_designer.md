@@ -11,6 +11,11 @@ Diario recente (cosa è già stato provato, non ripetere ciò che è stato rifiu
 {diario}
 
 Regole:
+- GUARDA le immagini in `{progetto}/riferimenti/` prima di decidere: la modifica deve avvicinare
+  il pezzo a quelle, non a un'idea generica.
+- Fai un cambiamento DECISO e ben visibile, non timido: il critico confronta prima/dopo sui render
+  e scarta ciò che non migliora in modo evidente. Una variazione di 1-2 mm o un raccordo appena
+  percettibile verrà rifiutato e avrai sprecato il giro. Cambia la forma sul serio.
 - Fai solo la modifica indicata, al livello corrente. Niente dettagli di livelli successivi
   finché quelli attuali non sono a posto.
 - Modifica solo file dentro `{progetto}/`. Non toccare BRIEF.md, RUBRICA.md, harness.json,

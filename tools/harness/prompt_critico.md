@@ -17,6 +17,10 @@ Scrivi SOLO il file `{verdetto}` con questo JSON (in italiano):
   "vincitore": "X" | "Y" | "pari",
   "motivo": "una o due frasi concrete su cosa rende migliore il vincitore",
   "per_criterio": {{"<criterio della rubrica>": "X" | "Y" | "pari"}},
-  "suggerimenti": ["al massimo 3 modifiche concrete e piccole per la versione vincente, una per voce"]
+  "suggerimenti": ["una o due modifiche per avvicinarsi ai riferimenti, la più importante per prima"]
 }}
-Scegli "pari" se la differenza è trascurabile o se sei incerto: in quel caso si tiene la versione precedente.
+Scegli "pari" solo se le due versioni sono davvero equivalenti. Se una, pur imperfetta, è
+anche solo un po' più vicina ai riferimenti sul criterio più importante del livello, vince quella:
+preferisci il progresso allo stallo.
+Nei suggerimenti NON ripetere cose già suggerite nei giri precedenti (le trovi nel BACKLOG se te lo
+danno): aggiungi solo il prossimo passo utile, al massimo due voci.
