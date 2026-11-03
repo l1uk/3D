@@ -1,0 +1,4521 @@
+{
+  "schema_version": 1,
+  "version": 1,
+  "baseline": {
+    "file": "output.step",
+    "sha256": "b5b520e1166b3240ebd20d08ddc593db8e6bf2ecdbc5d77028d56fd98aa9f74e"
+  },
+  "kernel_version": "7.8.1.1.post1",
+  "source": {
+    "kind": "script",
+    "filename": "prova_barra.py",
+    "sha256": "cb97b1f25d98a4d3056331220377bc799d22e8cc85221a85dcafe3e333b4fef1",
+    "runtime": "build123d",
+    "assembly_metadata": "derived_normalized_geometry"
+  },
+  "hierarchy_status": "flat_roots",
+  "recognition": {
+    "status": "not_available"
+  },
+  "counts": {
+    "solids": 1,
+    "faces": 42,
+    "edges": 120,
+    "part_definitions": 1,
+    "assembly_definitions": 0,
+    "part_occurrences": 1,
+    "assembly_occurrences": 0
+  },
+  "entities": {
+    "solid_v1_1": {
+      "id": "solid_v1_1",
+      "volume": 794.5667,
+      "bbox": {
+        "x": [
+          -1.8087,
+          55.6514
+        ],
+        "y": [
+          -15.4569,
+          15.3263
+        ],
+        "z": [
+          -0.0,
+          3.6
+        ]
+      },
+      "kind": "solid",
+      "index": 1,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_1": {
+      "id": "face_v1_1",
+      "area": 24.8664,
+      "centroid": {
+        "x": 8.0777,
+        "y": 7.4288,
+        "z": 0.5189
+      },
+      "normal": {
+        "x": -0.3749,
+        "y": 0.9209,
+        "z": 0.1069
+      },
+      "bbox": {
+        "x": [
+          -1.8087,
+          19.7514
+        ],
+        "y": [
+          1.6414,
+          10.2131
+        ],
+        "z": [
+          -0.0,
+          1.1125
+        ]
+      },
+      "kind": "face",
+      "index": 1,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_2": {
+      "id": "face_v1_2",
+      "area": 334.165,
+      "centroid": {
+        "x": 23.5327,
+        "y": 1.7314,
+        "z": 0.0
+      },
+      "normal": {
+        "x": -0.0,
+        "y": -0.0,
+        "z": -1.0
+      },
+      "bbox": {
+        "x": [
+          -1.8087,
+          55.6514
+        ],
+        "y": [
+          -15.4569,
+          15.3263
+        ],
+        "z": [
+          -0.0,
+          0.0
+        ]
+      },
+      "kind": "face",
+      "index": 2,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_3": {
+      "id": "face_v1_3",
+      "area": 4.6704,
+      "centroid": {
+        "x": 19.4114,
+        "y": 12.3559,
+        "z": 0.4967
+      },
+      "normal": {
+        "x": -0.9864,
+        "y": -0.1319,
+        "z": 0.0985
+      },
+      "bbox": {
+        "x": [
+          19.0268,
+          19.7553
+        ],
+        "y": [
+          9.9599,
+          14.6897
+        ],
+        "z": [
+          -0.0,
+          0.9889
+        ]
+      },
+      "kind": "face",
+      "index": 3,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_4": {
+      "id": "face_v1_4",
+      "area": 23.5997,
+      "centroid": {
+        "x": 8.2507,
+        "y": 7.2548,
+        "z": 1.5052
+      },
+      "normal": {
+        "x": -0.3489,
+        "y": 0.8784,
+        "z": 0.3267
+      },
+      "bbox": {
+        "x": [
+          -1.7202,
+          20.0528
+        ],
+        "y": [
+          1.3963,
+          10.1108
+        ],
+        "z": [
+          0.9596,
+          2.116
+        ]
+      },
+      "kind": "face",
+      "index": 4,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_5": {
+      "id": "face_v1_5",
+      "area": 13.9058,
+      "centroid": {
+        "x": -0.0,
+        "y": -0.0,
+        "z": 1.5153
+      },
+      "normal": {
+        "x": -0.6903,
+        "y": -0.7235,
+        "z": 0.0
+      },
+      "bbox": {
+        "x": [
+          -1.8087,
+          1.8087
+        ],
+        "y": [
+          -1.7259,
+          1.7259
+        ],
+        "z": [
+          -0.0,
+          3.6
+        ]
+      },
+      "kind": "face",
+      "index": 5,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_6": {
+      "id": "face_v1_6",
+      "area": 21.4009,
+      "centroid": {
+        "x": 10.04,
+        "y": 3.5552,
+        "z": 0.5187
+      },
+      "normal": {
+        "x": 0.3996,
+        "y": -0.9105,
+        "z": 0.1068
+      },
+      "bbox": {
+        "x": [
+          1.7202,
+          20.0463
+        ],
+        "y": [
+          -1.7259,
+          6.1505
+        ],
+        "z": [
+          -0.0,
+          1.1125
+        ]
+      },
+      "kind": "face",
+      "index": 6,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_7": {
+      "id": "face_v1_7",
+      "area": 9.8885,
+      "centroid": {
+        "x": 21.0,
+        "y": 15.0,
+        "z": 1.3469
+      },
+      "normal": {
+        "x": -0.1631,
+        "y": 0.9866,
+        "z": 0.0
+      },
+      "bbox": {
+        "x": [
+          19.0268,
+          22.9732
+        ],
+        "y": [
+          14.6737,
+          15.3263
+        ],
+        "z": [
+          -0.0,
+          3.2
+        ]
+      },
+      "kind": "face",
+      "index": 7,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_8": {
+      "id": "face_v1_8",
+      "area": 4.6481,
+      "centroid": {
+        "x": 19.6178,
+        "y": 12.2549,
+        "z": 1.4407
+      },
+      "normal": {
+        "x": -0.9448,
+        "y": -0.1239,
+        "z": 0.3034
+      },
+      "bbox": {
+        "x": [
+          19.1234,
+          20.076
+        ],
+        "y": [
+          9.6047,
+          14.736
+        ],
+        "z": [
+          0.9889,
+          1.8809
+        ]
+      },
+      "kind": "face",
+      "index": 8,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_9": {
+      "id": "face_v1_9",
+      "area": 21.3774,
+      "centroid": {
+        "x": 8.572,
+        "y": 6.9211,
+        "z": 2.3418
+      },
+      "normal": {
+        "x": -0.2943,
+        "y": 0.7737,
+        "z": 0.5611
+      },
+      "bbox": {
+        "x": [
+          -1.4633,
+          20.5065
+        ],
+        "y": [
+          1.0144,
+          9.8138
+        ],
+        "z": [
+          1.8211,
+          2.9125
+        ]
+      },
+      "kind": "face",
+      "index": 9,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_10": {
+      "id": "face_v1_10",
+      "area": 18.8604,
+      "centroid": {
+        "x": 8.9924,
+        "y": 6.4557,
+        "z": 2.9467
+      },
+      "normal": {
+        "x": -0.2002,
+        "y": 0.567,
+        "z": 0.799
+      },
+      "bbox": {
+        "x": [
+          -1.0631,
+          21.0305
+        ],
+        "y": [
+          0.5333,
+          9.3517
+        ],
+        "z": [
+          2.4978,
+          3.4238
+        ]
+      },
+      "kind": "face",
+      "index": 10,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_11": {
+      "id": "face_v1_11",
+      "area": 17.0054,
+      "centroid": {
+        "x": 9.4191,
+        "y": 5.8956,
+        "z": 3.2623
+      },
+      "normal": {
+        "x": -0.0609,
+        "y": 0.2205,
+        "z": 0.9735
+      },
+      "bbox": {
+        "x": [
+          -0.5589,
+          21.3177
+        ],
+        "y": [
+          -0.0,
+          8.77
+        ],
+        "z": [
+          2.9239,
+          3.6
+        ]
+      },
+      "kind": "face",
+      "index": 11,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_12": {
+      "id": "face_v1_12",
+      "area": 16.6203,
+      "centroid": {
+        "x": 9.7273,
+        "y": 5.2841,
+        "z": 3.2618
+      },
+      "normal": {
+        "x": 0.1023,
+        "y": -0.2046,
+        "z": 0.9735
+      },
+      "bbox": {
+        "x": [
+          -0.0,
+          21.3177
+        ],
+        "y": [
+          -0.5333,
+          8.126
+        ],
+        "z": [
+          2.9183,
+          3.6
+        ]
+      },
+      "kind": "face",
+      "index": 12,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_13": {
+      "id": "face_v1_13",
+      "area": 17.6369,
+      "centroid": {
+        "x": 9.8889,
+        "y": 4.6795,
+        "z": 2.9455
+      },
+      "normal": {
+        "x": 0.2372,
+        "y": -0.5527,
+        "z": 0.7989
+      },
+      "bbox": {
+        "x": [
+          0.5589,
+          21.1153
+        ],
+        "y": [
+          -1.0144,
+          7.483
+        ],
+        "z": [
+          2.4892,
+          3.4238
+        ]
+      },
+      "kind": "face",
+      "index": 13,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_14": {
+      "id": "face_v1_14",
+      "area": 19.234,
+      "centroid": {
+        "x": 9.9728,
+        "y": 4.1516,
+        "z": 2.3406
+      },
+      "normal": {
+        "x": 0.3256,
+        "y": -0.7612,
+        "z": 0.5609
+      },
+      "bbox": {
+        "x": [
+          1.0631,
+          20.6791
+        ],
+        "y": [
+          -1.3963,
+          6.9038
+        ],
+        "z": [
+          1.8131,
+          2.9125
+        ]
+      },
+      "kind": "face",
+      "index": 14,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_15": {
+      "id": "face_v1_15",
+      "area": 20.6286,
+      "centroid": {
+        "x": 10.0192,
+        "y": 3.762,
+        "z": 1.5044
+      },
+      "normal": {
+        "x": 0.376,
+        "y": -0.8672,
+        "z": 0.3264
+      },
+      "bbox": {
+        "x": [
+          1.4633,
+          20.2991
+        ],
+        "y": [
+          -1.6414,
+          6.4449
+        ],
+        "z": [
+          0.9549,
+          2.116
+        ]
+      },
+      "kind": "face",
+      "index": 15,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_16": {
+      "id": "face_v1_16",
+      "area": 20.5916,
+      "centroid": {
+        "x": 19.5322,
+        "y": -4.3149,
+        "z": 0.4949
+      },
+      "normal": {
+        "x": -0.9909,
+        "y": 0.0918,
+        "z": 0.0985
+      },
+      "bbox": {
+        "x": [
+          18.0529,
+          20.138
+        ],
+        "y": [
+          -14.5654,
+          6.068
+        ],
+        "z": [
+          -0.0,
+          0.9889
+        ]
+      },
+      "kind": "face",
+      "index": 16,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_17": {
+      "id": "face_v1_17",
+      "area": 5.9898,
+      "centroid": {
+        "x": 23.3424,
+        "y": 12.3338,
+        "z": 0.4954
+      },
+      "normal": {
+        "x": 0.9872,
+        "y": 0.1253,
+        "z": 0.0985
+      },
+      "bbox": {
+        "x": [
+          22.8766,
+          23.7304
+        ],
+        "y": [
+          9.2857,
+          15.3263
+        ],
+        "z": [
+          -0.0,
+          0.9889
+        ]
+      },
+      "kind": "face",
+      "index": 17,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_18": {
+      "id": "face_v1_18",
+      "area": 4.5774,
+      "centroid": {
+        "x": 20.0097,
+        "y": 12.0556,
+        "z": 2.2416
+      },
+      "normal": {
+        "x": -0.8413,
+        "y": -0.1068,
+        "z": 0.53
+      },
+      "bbox": {
+        "x": [
+          19.4036,
+          20.5751
+        ],
+        "y": [
+          9.0124,
+          14.8082
+        ],
+        "z": [
+          1.8809,
+          2.5889
+        ]
+      },
+      "kind": "face",
+      "index": 18,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_19": {
+      "id": "face_v1_19",
+      "area": 4.5203,
+      "centroid": {
+        "x": 20.5523,
+        "y": 11.7356,
+        "z": 2.8223
+      },
+      "normal": {
+        "x": -0.6274,
+        "y": -0.075,
+        "z": 0.7751
+      },
+      "bbox": {
+        "x": [
+          19.8402,
+          21.22
+        ],
+        "y": [
+          7.9534,
+          14.8992
+        ],
+        "z": [
+          2.5889,
+          3.0434
+        ]
+      },
+      "kind": "face",
+      "index": 19,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_20": {
+      "id": "face_v1_20",
+      "area": 19.1771,
+      "centroid": {
+        "x": 21.1898,
+        "y": -0.0269,
+        "z": 3.1218
+      },
+      "normal": {
+        "x": -0.2455,
+        "y": 0.0082,
+        "z": 0.9694
+      },
+      "bbox": {
+        "x": [
+          19.3983,
+          22.0401
+        ],
+        "y": [
+          -15.0,
+          15.0
+        ],
+        "z": [
+          3.0434,
+          3.2
+        ]
+      },
+      "kind": "face",
+      "index": 20,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_21": {
+      "id": "face_v1_21",
+      "area": 19.342,
+      "centroid": {
+        "x": 21.8035,
+        "y": -0.0434,
+        "z": 3.1216
+      },
+      "normal": {
+        "x": 0.2455,
+        "y": -0.0082,
+        "z": 0.9694
+      },
+      "bbox": {
+        "x": [
+          20.0,
+          22.6581
+        ],
+        "y": [
+          -15.1412,
+          15.1008
+        ],
+        "z": [
+          3.0434,
+          3.2
+        ]
+      },
+      "kind": "face",
+      "index": 21,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_22": {
+      "id": "face_v1_22",
+      "area": 21.0608,
+      "centroid": {
+        "x": 22.3675,
+        "y": -0.3996,
+        "z": 2.8183
+      },
+      "normal": {
+        "x": 0.6315,
+        "y": -0.0211,
+        "z": 0.7751
+      },
+      "bbox": {
+        "x": [
+          20.6017,
+          23.2157
+        ],
+        "y": [
+          -15.2686,
+          15.1918
+        ],
+        "z": [
+          2.5889,
+          3.0434
+        ]
+      },
+      "kind": "face",
+      "index": 22,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_23": {
+      "id": "face_v1_23",
+      "area": 5.3975,
+      "centroid": {
+        "x": 22.8176,
+        "y": 12.025,
+        "z": 2.2381
+      },
+      "normal": {
+        "x": 0.8417,
+        "y": 0.1032,
+        "z": 0.53
+      },
+      "bbox": {
+        "x": [
+          22.1598,
+          23.3793
+        ],
+        "y": [
+          8.5445,
+          15.264
+        ],
+        "z": [
+          1.8809,
+          2.5889
+        ]
+      },
+      "kind": "face",
+      "index": 23,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_24": {
+      "id": "face_v1_24",
+      "area": 5.78,
+      "centroid": {
+        "x": 23.1613,
+        "y": 12.2298,
+        "z": 1.4374
+      },
+      "normal": {
+        "x": 0.9455,
+        "y": 0.1185,
+        "z": 0.3034
+      },
+      "bbox": {
+        "x": [
+          22.5964,
+          23.6406
+        ],
+        "y": [
+          9.0104,
+          15.3103
+        ],
+        "z": [
+          0.9889,
+          1.8809
+        ]
+      },
+      "kind": "face",
+      "index": 24,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_25": {
+      "id": "face_v1_25",
+      "area": 15.9134,
+      "centroid": {
+        "x": 20.6029,
+        "y": -3.858,
+        "z": 2.8177
+      },
+      "normal": {
+        "x": -0.6298,
+        "y": 0.0515,
+        "z": 0.7751
+      },
+      "bbox": {
+        "x": [
+          18.8555,
+          21.422
+        ],
+        "y": [
+          -14.8588,
+          7.7462
+        ],
+        "z": [
+          2.5889,
+          3.0434
+        ]
+      },
+      "kind": "face",
+      "index": 25,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_26": {
+      "id": "face_v1_26",
+      "area": 17.8816,
+      "centroid": {
+        "x": 20.0949,
+        "y": -4.0945,
+        "z": 2.2364
+      },
+      "normal": {
+        "x": -0.8448,
+        "y": 0.074,
+        "z": 0.53
+      },
+      "bbox": {
+        "x": [
+          18.4248,
+          20.8645
+        ],
+        "y": [
+          -14.7314,
+          6.8518
+        ],
+        "z": [
+          1.8809,
+          2.5889
+        ]
+      },
+      "kind": "face",
+      "index": 26,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_27": {
+      "id": "face_v1_27",
+      "area": 19.6228,
+      "centroid": {
+        "x": 19.7262,
+        "y": -4.2402,
+        "z": 1.4361
+      },
+      "normal": {
+        "x": -0.949,
+        "y": 0.0861,
+        "z": 0.3034
+      },
+      "bbox": {
+        "x": [
+          18.1482,
+          20.422
+        ],
+        "y": [
+          -14.6303,
+          6.3643
+        ],
+        "z": [
+          0.9889,
+          1.8809
+        ]
+      },
+      "kind": "face",
+      "index": 27,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_28": {
+      "id": "face_v1_28",
+      "area": 9.8885,
+      "centroid": {
+        "x": 20.0,
+        "y": -15.0,
+        "z": 1.3469
+      },
+      "normal": {
+        "x": -0.2285,
+        "y": -0.9736,
+        "z": -0.0
+      },
+      "bbox": {
+        "x": [
+          18.0529,
+          21.9471
+        ],
+        "y": [
+          -15.4569,
+          -14.5431
+        ],
+        "z": [
+          -0.0,
+          3.2
+        ]
+      },
+      "kind": "face",
+      "index": 28,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_29": {
+      "id": "face_v1_29",
+      "area": 20.8502,
+      "centroid": {
+        "x": 23.3852,
+        "y": -5.0812,
+        "z": 0.4949
+      },
+      "normal": {
+        "x": 0.9904,
+        "y": -0.097,
+        "z": 0.0985
+      },
+      "bbox": {
+        "x": [
+          21.8518,
+          24.0401
+        ],
+        "y": [
+          -15.4569,
+          5.4527
+        ],
+        "z": [
+          -0.0,
+          0.9889
+        ]
+      },
+      "kind": "face",
+      "index": 29,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_30": {
+      "id": "face_v1_30",
+      "area": 27.9431,
+      "centroid": {
+        "x": 38.7672,
+        "y": -1.5754,
+        "z": 0.4042
+      },
+      "normal": {
+        "x": -0.5083,
+        "y": -0.8559,
+        "z": 0.0953
+      },
+      "bbox": {
+        "x": [
+          23.8911,
+          54.3805
+        ],
+        "y": [
+          -11.0078,
+          5.4297
+        ],
+        "z": [
+          -0.0,
+          0.9259
+        ]
+      },
+      "kind": "face",
+      "index": 30,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_31": {
+      "id": "face_v1_31",
+      "area": 4.079,
+      "centroid": {
+        "x": 55.0,
+        "y": -10.0,
+        "z": 0.926
+      },
+      "normal": {
+        "x": 0.8398,
+        "y": -0.5428,
+        "z": 0.0
+      },
+      "bbox": {
+        "x": [
+          54.3486,
+          55.6514
+        ],
+        "y": [
+          -11.0078,
+          -8.9922
+        ],
+        "z": [
+          -0.0,
+          2.2
+        ]
+      },
+      "kind": "face",
+      "index": 31,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_32": {
+      "id": "face_v1_32",
+      "area": 30.0917,
+      "centroid": {
+        "x": 39.3237,
+        "y": 1.6157,
+        "z": 0.4074
+      },
+      "normal": {
+        "x": 0.5395,
+        "y": 0.8366,
+        "z": 0.0956
+      },
+      "bbox": {
+        "x": [
+          23.6445,
+          55.6514
+        ],
+        "y": [
+          -9.0415,
+          9.3817
+        ],
+        "z": [
+          -0.0,
+          0.9338
+        ]
+      },
+      "kind": "face",
+      "index": 32,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_33": {
+      "id": "face_v1_33",
+      "area": 28.3392,
+      "centroid": {
+        "x": 39.1778,
+        "y": 1.5197,
+        "z": 1.1832
+      },
+      "normal": {
+        "x": 0.5178,
+        "y": 0.803,
+        "z": 0.2952
+      },
+      "bbox": {
+        "x": [
+          23.4068,
+          55.6195
+        ],
+        "y": [
+          -9.1847,
+          9.3035
+        ],
+        "z": [
+          0.6798,
+          1.7784
+        ]
+      },
+      "kind": "face",
+      "index": 33,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_34": {
+      "id": "face_v1_34",
+      "area": 21.6211,
+      "centroid": {
+        "x": 38.4692,
+        "y": 1.1103,
+        "z": 2.3307
+      },
+      "normal": {
+        "x": 0.3532,
+        "y": 0.5373,
+        "z": 0.7659
+      },
+      "bbox": {
+        "x": [
+          22.6277,
+          55.3829
+        ],
+        "y": [
+          -9.6886,
+          8.706
+        ],
+        "z": [
+          1.7798,
+          2.8899
+        ]
+      },
+      "kind": "face",
+      "index": 34,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_35": {
+      "id": "face_v1_35",
+      "area": 18.9797,
+      "centroid": {
+        "x": 38.0515,
+        "y": 0.7971,
+        "z": 2.5884
+      },
+      "normal": {
+        "x": 0.1504,
+        "y": 0.2038,
+        "z": 0.9674
+      },
+      "bbox": {
+        "x": [
+          22.4869,
+          55.2013
+        ],
+        "y": [
+          -10.0,
+          8.2302
+        ],
+        "z": [
+          2.0923,
+          3.0391
+        ]
+      },
+      "kind": "face",
+      "index": 35,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_36": {
+      "id": "face_v1_36",
+      "area": 18.7499,
+      "centroid": {
+        "x": 37.97,
+        "y": 0.2837,
+        "z": 2.5851
+      },
+      "normal": {
+        "x": -0.1127,
+        "y": -0.2268,
+        "z": 0.9674
+      },
+      "bbox": {
+        "x": [
+          22.4869,
+          55.0
+        ],
+        "y": [
+          -10.3114,
+          7.6344
+        ],
+        "z": [
+          2.0923,
+          3.0391
+        ]
+      },
+      "kind": "face",
+      "index": 36,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_37": {
+      "id": "face_v1_37",
+      "area": 20.8809,
+      "centroid": {
+        "x": 38.2265,
+        "y": -0.3719,
+        "z": 2.3222
+      },
+      "normal": {
+        "x": -0.318,
+        "y": -0.5592,
+        "z": 0.7656
+      },
+      "bbox": {
+        "x": [
+          22.7218,
+          54.7987
+        ],
+        "y": [
+          -10.5924,
+          6.9665
+        ],
+        "z": [
+          1.7798,
+          2.8826
+        ]
+      },
+      "kind": "face",
+      "index": 37,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_38": {
+      "id": "face_v1_38",
+      "area": 18.0607,
+      "centroid": {
+        "x": 22.854,
+        "y": -4.6288,
+        "z": 2.2363
+      },
+      "normal": {
+        "x": 0.8445,
+        "y": -0.0766,
+        "z": 0.53
+      },
+      "bbox": {
+        "x": [
+          21.1445,
+          23.6581
+        ],
+        "y": [
+          -15.3697,
+          6.5182
+        ],
+        "z": [
+          1.8809,
+          2.5889
+        ]
+      },
+      "kind": "face",
+      "index": 38,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_39": {
+      "id": "face_v1_39",
+      "area": 25.2241,
+      "centroid": {
+        "x": 38.8874,
+        "y": 1.3435,
+        "z": 1.8456
+      },
+      "normal": {
+        "x": 0.4644,
+        "y": 0.7179,
+        "z": 0.5187
+      },
+      "bbox": {
+        "x": [
+          23.0461,
+          55.527
+        ],
+        "y": [
+          -9.4076,
+          9.0723
+        ],
+        "z": [
+          1.2931,
+          2.4526
+        ]
+      },
+      "kind": "face",
+      "index": 39,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_40": {
+      "id": "face_v1_40",
+      "area": 19.8516,
+      "centroid": {
+        "x": 23.2024,
+        "y": -4.9266,
+        "z": 1.436
+      },
+      "normal": {
+        "x": 0.9486,
+        "y": -0.0903,
+        "z": 0.3034
+      },
+      "bbox": {
+        "x": [
+          21.5752,
+          23.9422
+        ],
+        "y": [
+          -15.4346,
+          5.8592
+        ],
+        "z": [
+          0.9889,
+          1.8809
+        ]
+      },
+      "kind": "face",
+      "index": 40,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_41": {
+      "id": "face_v1_41",
+      "area": 26.5032,
+      "centroid": {
+        "x": 38.6796,
+        "y": -1.3639,
+        "z": 1.1748
+      },
+      "normal": {
+        "x": -0.4861,
+        "y": -0.8228,
+        "z": 0.2946
+      },
+      "bbox": {
+        "x": [
+          23.6232,
+          54.473
+        ],
+        "y": [
+          -10.9585,
+          5.7743
+        ],
+        "z": [
+          0.6798,
+          1.7659
+        ]
+      },
+      "kind": "face",
+      "index": 41,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "face_v1_42": {
+      "id": "face_v1_42",
+      "area": 23.9099,
+      "centroid": {
+        "x": 38.4986,
+        "y": -0.9529,
+        "z": 1.8352
+      },
+      "normal": {
+        "x": -0.4314,
+        "y": -0.7385,
+        "z": 0.5181
+      },
+      "bbox": {
+        "x": [
+          23.2116,
+          54.6171
+        ],
+        "y": [
+          -10.8153,
+          6.3067
+        ],
+        "z": [
+          1.2931,
+          2.4405
+        ]
+      },
+      "kind": "face",
+      "index": 42,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_1": {
+      "id": "edge_v1_1",
+      "length": 23.857,
+      "endpoints": [
+        {
+          "x": -1.8087,
+          "y": 1.7259,
+          "z": 0.0
+        },
+        {
+          "x": 19.6444,
+          "y": 10.0813,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 1,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_2": {
+      "id": "edge_v1_2",
+      "length": 1.1192,
+      "endpoints": [
+        {
+          "x": -1.8087,
+          "y": 1.7259,
+          "z": 0.0
+        },
+        {
+          "x": -1.7202,
+          "y": 1.6414,
+          "z": 1.1125
+        }
+      ],
+      "kind": "edge",
+      "index": 2,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_3": {
+      "id": "edge_v1_3",
+      "length": 23.8745,
+      "endpoints": [
+        {
+          "x": -1.7202,
+          "y": 1.6414,
+          "z": 1.1125
+        },
+        {
+          "x": 19.7514,
+          "y": 9.9702,
+          "z": 0.9596
+        }
+      ],
+      "kind": "edge",
+      "index": 3,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_4": {
+      "id": "edge_v1_4",
+      "length": 0.9719,
+      "endpoints": [
+        {
+          "x": 19.7514,
+          "y": 9.9702,
+          "z": 0.9596
+        },
+        {
+          "x": 19.6444,
+          "y": 10.0813,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 4,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_5": {
+      "id": "edge_v1_5",
+      "length": 20.4896,
+      "endpoints": [
+        {
+          "x": 1.8087,
+          "y": -1.7259,
+          "z": 0.0
+        },
+        {
+          "x": 19.9561,
+          "y": 5.9651,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 5,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_6": {
+      "id": "edge_v1_6",
+      "length": 5.0,
+      "endpoints": [
+        {
+          "x": 1.8087,
+          "y": -1.7259,
+          "z": 0.0
+        },
+        {
+          "x": -1.8087,
+          "y": 1.7259,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 6,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_7": {
+      "id": "edge_v1_7",
+      "length": 4.6344,
+      "endpoints": [
+        {
+          "x": 19.6444,
+          "y": 10.0813,
+          "z": 0.0
+        },
+        {
+          "x": 19.0268,
+          "y": 14.6737,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 7,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_8": {
+      "id": "edge_v1_8",
+      "length": 4.0,
+      "endpoints": [
+        {
+          "x": 22.9732,
+          "y": 15.3263,
+          "z": 0.0
+        },
+        {
+          "x": 19.0268,
+          "y": 14.6737,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 8,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_9": {
+      "id": "edge_v1_9",
+      "length": 5.994,
+      "endpoints": [
+        {
+          "x": 23.7304,
+          "y": 9.3817,
+          "z": 0.0
+        },
+        {
+          "x": 22.9732,
+          "y": 15.3263,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 9,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_10": {
+      "id": "edge_v1_10",
+      "length": 37.054,
+      "endpoints": [
+        {
+          "x": 23.7304,
+          "y": 9.3817,
+          "z": 0.0
+        },
+        {
+          "x": 55.6514,
+          "y": -8.9922,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 10,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_11": {
+      "id": "edge_v1_11",
+      "length": 2.4,
+      "endpoints": [
+        {
+          "x": 54.3486,
+          "y": -11.0078,
+          "z": 0.0
+        },
+        {
+          "x": 55.6514,
+          "y": -8.9922,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 11,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_12": {
+      "id": "edge_v1_12",
+      "length": 34.6337,
+      "endpoints": [
+        {
+          "x": 23.9874,
+          "y": 5.3097,
+          "z": 0.0
+        },
+        {
+          "x": 54.3486,
+          "y": -11.0078,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 12,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_13": {
+      "id": "edge_v1_13",
+      "length": 20.9293,
+      "endpoints": [
+        {
+          "x": 21.9471,
+          "y": -15.4569,
+          "z": 0.0
+        },
+        {
+          "x": 23.9874,
+          "y": 5.3097,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 13,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_14": {
+      "id": "edge_v1_14",
+      "length": 4.0,
+      "endpoints": [
+        {
+          "x": 21.9471,
+          "y": -15.4569,
+          "z": 0.0
+        },
+        {
+          "x": 18.0529,
+          "y": -14.5431,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 14,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_15": {
+      "id": "edge_v1_15",
+      "length": 20.6635,
+      "endpoints": [
+        {
+          "x": 18.0529,
+          "y": -14.5431,
+          "z": 0.0
+        },
+        {
+          "x": 19.9561,
+          "y": 5.9651,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 15,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_16": {
+      "id": "edge_v1_16",
+      "length": 0.0313,
+      "endpoints": [
+        {
+          "x": 19.7553,
+          "y": 9.9599,
+          "z": 0.9889
+        },
+        {
+          "x": 19.7514,
+          "y": 9.9702,
+          "z": 0.9596
+        }
+      ],
+      "kind": "edge",
+      "index": 16,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_17": {
+      "id": "edge_v1_17",
+      "length": 4.7726,
+      "endpoints": [
+        {
+          "x": 19.7553,
+          "y": 9.9599,
+          "z": 0.9889
+        },
+        {
+          "x": 19.1234,
+          "y": 14.6897,
+          "z": 0.9889
+        }
+      ],
+      "kind": "edge",
+      "index": 17,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_18": {
+      "id": "edge_v1_18",
+      "length": 0.9937,
+      "endpoints": [
+        {
+          "x": 19.0268,
+          "y": 14.6737,
+          "z": 0.0
+        },
+        {
+          "x": 19.1234,
+          "y": 14.6897,
+          "z": 0.9889
+        }
+      ],
+      "kind": "edge",
+      "index": 18,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_19": {
+      "id": "edge_v1_19",
+      "length": 1.0645,
+      "endpoints": [
+        {
+          "x": -1.7202,
+          "y": 1.6414,
+          "z": 1.1125
+        },
+        {
+          "x": -1.4633,
+          "y": 1.3963,
+          "z": 2.116
+        }
+      ],
+      "kind": "edge",
+      "index": 19,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_20": {
+      "id": "edge_v1_20",
+      "length": 23.9164,
+      "endpoints": [
+        {
+          "x": -1.4633,
+          "y": 1.3963,
+          "z": 2.116
+        },
+        {
+          "x": 20.0528,
+          "y": 9.647,
+          "z": 1.8211
+        }
+      ],
+      "kind": "edge",
+      "index": 20,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_21": {
+      "id": "edge_v1_21",
+      "length": 0.9376,
+      "endpoints": [
+        {
+          "x": 20.0528,
+          "y": 9.647,
+          "z": 1.8211
+        },
+        {
+          "x": 19.7553,
+          "y": 9.9599,
+          "z": 0.9889
+        }
+      ],
+      "kind": "edge",
+      "index": 21,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_22": {
+      "id": "edge_v1_22",
+      "length": 1.1192,
+      "endpoints": [
+        {
+          "x": 1.7202,
+          "y": -1.6414,
+          "z": 1.1125
+        },
+        {
+          "x": 1.8087,
+          "y": -1.7259,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 22,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_23": {
+      "id": "edge_v1_23",
+      "length": 1.0645,
+      "endpoints": [
+        {
+          "x": 1.4633,
+          "y": -1.3963,
+          "z": 2.116
+        },
+        {
+          "x": 1.7202,
+          "y": -1.6414,
+          "z": 1.1125
+        }
+      ],
+      "kind": "edge",
+      "index": 23,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_24": {
+      "id": "edge_v1_24",
+      "length": 0.9696,
+      "endpoints": [
+        {
+          "x": 1.0631,
+          "y": -1.0144,
+          "z": 2.9125
+        },
+        {
+          "x": 1.4633,
+          "y": -1.3963,
+          "z": 2.116
+        }
+      ],
+      "kind": "edge",
+      "index": 24,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_25": {
+      "id": "edge_v1_25",
+      "length": 0.8644,
+      "endpoints": [
+        {
+          "x": 0.5589,
+          "y": -0.5333,
+          "z": 3.4238
+        },
+        {
+          "x": 1.0631,
+          "y": -1.0144,
+          "z": 2.9125
+        }
+      ],
+      "kind": "edge",
+      "index": 25,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_26": {
+      "id": "edge_v1_26",
+      "length": 0.7924,
+      "endpoints": [
+        {
+          "x": -0.0,
+          "y": 0.0,
+          "z": 3.6
+        },
+        {
+          "x": 0.5589,
+          "y": -0.5333,
+          "z": 3.4238
+        }
+      ],
+      "kind": "edge",
+      "index": 26,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_27": {
+      "id": "edge_v1_27",
+      "length": 0.7924,
+      "endpoints": [
+        {
+          "x": -0.5589,
+          "y": 0.5333,
+          "z": 3.4238
+        },
+        {
+          "x": -0.0,
+          "y": 0.0,
+          "z": 3.6
+        }
+      ],
+      "kind": "edge",
+      "index": 27,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_28": {
+      "id": "edge_v1_28",
+      "length": 0.8644,
+      "endpoints": [
+        {
+          "x": -1.0631,
+          "y": 1.0144,
+          "z": 2.9125
+        },
+        {
+          "x": -0.5589,
+          "y": 0.5333,
+          "z": 3.4238
+        }
+      ],
+      "kind": "edge",
+      "index": 28,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_29": {
+      "id": "edge_v1_29",
+      "length": 0.9696,
+      "endpoints": [
+        {
+          "x": -1.4633,
+          "y": 1.3963,
+          "z": 2.116
+        },
+        {
+          "x": -1.0631,
+          "y": 1.0144,
+          "z": 2.9125
+        }
+      ],
+      "kind": "edge",
+      "index": 29,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_30": {
+      "id": "edge_v1_30",
+      "length": 20.6703,
+      "endpoints": [
+        {
+          "x": 1.7202,
+          "y": -1.6414,
+          "z": 1.1125
+        },
+        {
+          "x": 20.0463,
+          "y": 6.0569,
+          "z": 0.9549
+        }
+      ],
+      "kind": "edge",
+      "index": 30,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_31": {
+      "id": "edge_v1_31",
+      "length": 0.9635,
+      "endpoints": [
+        {
+          "x": 19.9561,
+          "y": 5.9651,
+          "z": 0.0
+        },
+        {
+          "x": 20.0463,
+          "y": 6.0569,
+          "z": 0.9549
+        }
+      ],
+      "kind": "edge",
+      "index": 31,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_32": {
+      "id": "edge_v1_32",
+      "length": 0.9362,
+      "endpoints": [
+        {
+          "x": 19.1234,
+          "y": 14.6897,
+          "z": 0.9889
+        },
+        {
+          "x": 19.4036,
+          "y": 14.736,
+          "z": 1.8809
+        }
+      ],
+      "kind": "edge",
+      "index": 32,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_33": {
+      "id": "edge_v1_33",
+      "length": 0.8348,
+      "endpoints": [
+        {
+          "x": 19.4036,
+          "y": 14.736,
+          "z": 1.8809
+        },
+        {
+          "x": 19.8402,
+          "y": 14.8082,
+          "z": 2.5889
+        }
+      ],
+      "kind": "edge",
+      "index": 33,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_34": {
+      "id": "edge_v1_34",
+      "length": 0.7193,
+      "endpoints": [
+        {
+          "x": 19.8402,
+          "y": 14.8082,
+          "z": 2.5889
+        },
+        {
+          "x": 20.3902,
+          "y": 14.8992,
+          "z": 3.0434
+        }
+      ],
+      "kind": "edge",
+      "index": 34,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_35": {
+      "id": "edge_v1_35",
+      "length": 0.6376,
+      "endpoints": [
+        {
+          "x": 20.3902,
+          "y": 14.8992,
+          "z": 3.0434
+        },
+        {
+          "x": 21.0,
+          "y": 15.0,
+          "z": 3.2
+        }
+      ],
+      "kind": "edge",
+      "index": 35,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_36": {
+      "id": "edge_v1_36",
+      "length": 0.6376,
+      "endpoints": [
+        {
+          "x": 21.0,
+          "y": 15.0,
+          "z": 3.2
+        },
+        {
+          "x": 21.6098,
+          "y": 15.1008,
+          "z": 3.0434
+        }
+      ],
+      "kind": "edge",
+      "index": 36,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_37": {
+      "id": "edge_v1_37",
+      "length": 0.7193,
+      "endpoints": [
+        {
+          "x": 21.6098,
+          "y": 15.1008,
+          "z": 3.0434
+        },
+        {
+          "x": 22.1598,
+          "y": 15.1918,
+          "z": 2.5889
+        }
+      ],
+      "kind": "edge",
+      "index": 37,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_38": {
+      "id": "edge_v1_38",
+      "length": 0.8348,
+      "endpoints": [
+        {
+          "x": 22.1598,
+          "y": 15.1918,
+          "z": 2.5889
+        },
+        {
+          "x": 22.5964,
+          "y": 15.264,
+          "z": 1.8809
+        }
+      ],
+      "kind": "edge",
+      "index": 38,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_39": {
+      "id": "edge_v1_39",
+      "length": 0.9362,
+      "endpoints": [
+        {
+          "x": 22.5964,
+          "y": 15.264,
+          "z": 1.8809
+        },
+        {
+          "x": 22.8766,
+          "y": 15.3103,
+          "z": 0.9889
+        }
+      ],
+      "kind": "edge",
+      "index": 39,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_40": {
+      "id": "edge_v1_40",
+      "length": 0.9937,
+      "endpoints": [
+        {
+          "x": 22.8766,
+          "y": 15.3103,
+          "z": 0.9889
+        },
+        {
+          "x": 22.9732,
+          "y": 15.3263,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 40,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_41": {
+      "id": "edge_v1_41",
+      "length": 0.0769,
+      "endpoints": [
+        {
+          "x": 20.076,
+          "y": 9.6047,
+          "z": 1.8809
+        },
+        {
+          "x": 20.0528,
+          "y": 9.647,
+          "z": 1.8211
+        }
+      ],
+      "kind": "edge",
+      "index": 41,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_42": {
+      "id": "edge_v1_42",
+      "length": 5.1762,
+      "endpoints": [
+        {
+          "x": 20.076,
+          "y": 9.6047,
+          "z": 1.8809
+        },
+        {
+          "x": 19.4036,
+          "y": 14.736,
+          "z": 1.8809
+        }
+      ],
+      "kind": "edge",
+      "index": 42,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_43": {
+      "id": "edge_v1_43",
+      "length": 23.9664,
+      "endpoints": [
+        {
+          "x": -1.0631,
+          "y": 1.0144,
+          "z": 2.9125
+        },
+        {
+          "x": 20.5065,
+          "y": 9.1412,
+          "z": 2.4978
+        }
+      ],
+      "kind": "edge",
+      "index": 43,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_44": {
+      "id": "edge_v1_44",
+      "length": 0.8836,
+      "endpoints": [
+        {
+          "x": 20.5065,
+          "y": 9.1412,
+          "z": 2.4978
+        },
+        {
+          "x": 20.076,
+          "y": 9.6047,
+          "z": 1.8809
+        }
+      ],
+      "kind": "edge",
+      "index": 44,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_45": {
+      "id": "edge_v1_45",
+      "length": 23.9821,
+      "endpoints": [
+        {
+          "x": -0.5589,
+          "y": 0.5333,
+          "z": 3.4238
+        },
+        {
+          "x": 21.0305,
+          "y": 8.5033,
+          "z": 2.9239
+        }
+      ],
+      "kind": "edge",
+      "index": 45,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_46": {
+      "id": "edge_v1_46",
+      "length": 0.7608,
+      "endpoints": [
+        {
+          "x": 21.0305,
+          "y": 8.5033,
+          "z": 2.9239
+        },
+        {
+          "x": 20.5751,
+          "y": 9.0124,
+          "z": 2.5889
+        }
+      ],
+      "kind": "edge",
+      "index": 46,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_47": {
+      "id": "edge_v1_47",
+      "length": 0.1719,
+      "endpoints": [
+        {
+          "x": 20.5751,
+          "y": 9.0124,
+          "z": 2.5889
+        },
+        {
+          "x": 20.5065,
+          "y": 9.1412,
+          "z": 2.4978
+        }
+      ],
+      "kind": "edge",
+      "index": 47,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_48": {
+      "id": "edge_v1_48",
+      "length": 23.7033,
+      "endpoints": [
+        {
+          "x": -0.0,
+          "y": 0.0,
+          "z": 3.6
+        },
+        {
+          "x": 21.3177,
+          "y": 7.8343,
+          "z": 3.0659
+        }
+      ],
+      "kind": "edge",
+      "index": 48,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_49": {
+      "id": "edge_v1_49",
+      "length": 0.1556,
+      "endpoints": [
+        {
+          "x": 21.3177,
+          "y": 7.8343,
+          "z": 3.0659
+        },
+        {
+          "x": 21.22,
+          "y": 7.9534,
+          "z": 3.0434
+        }
+      ],
+      "kind": "edge",
+      "index": 49,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_50": {
+      "id": "edge_v1_50",
+      "length": 0.5938,
+      "endpoints": [
+        {
+          "x": 21.22,
+          "y": 7.9534,
+          "z": 3.0434
+        },
+        {
+          "x": 21.0305,
+          "y": 8.5033,
+          "z": 2.9239
+        }
+      ],
+      "kind": "edge",
+      "index": 50,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_51": {
+      "id": "edge_v1_51",
+      "length": 22.9295,
+      "endpoints": [
+        {
+          "x": 0.5589,
+          "y": -0.5333,
+          "z": 3.4238
+        },
+        {
+          "x": 21.1153,
+          "y": 7.2374,
+          "z": 2.9183
+        }
+      ],
+      "kind": "edge",
+      "index": 51,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_52": {
+      "id": "edge_v1_52",
+      "length": 0.5374,
+      "endpoints": [
+        {
+          "x": 21.1153,
+          "y": 7.2374,
+          "z": 2.9183
+        },
+        {
+          "x": 21.2349,
+          "y": 7.7462,
+          "z": 3.0434
+        }
+      ],
+      "kind": "edge",
+      "index": 52,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_53": {
+      "id": "edge_v1_53",
+      "length": 0.123,
+      "endpoints": [
+        {
+          "x": 21.2349,
+          "y": 7.7462,
+          "z": 3.0434
+        },
+        {
+          "x": 21.3177,
+          "y": 7.8343,
+          "z": 3.0659
+        }
+      ],
+      "kind": "edge",
+      "index": 53,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_54": {
+      "id": "edge_v1_54",
+      "length": 21.9759,
+      "endpoints": [
+        {
+          "x": 1.0631,
+          "y": -1.0144,
+          "z": 2.9125
+        },
+        {
+          "x": 20.6791,
+          "y": 6.7286,
+          "z": 2.4892
+        }
+      ],
+      "kind": "edge",
+      "index": 54,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_55": {
+      "id": "edge_v1_55",
+      "length": 0.1678,
+      "endpoints": [
+        {
+          "x": 20.6791,
+          "y": 6.7286,
+          "z": 2.4892
+        },
+        {
+          "x": 20.7343,
+          "y": 6.8518,
+          "z": 2.5889
+        }
+      ],
+      "kind": "edge",
+      "index": 55,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_56": {
+      "id": "edge_v1_56",
+      "length": 0.6343,
+      "endpoints": [
+        {
+          "x": 20.7343,
+          "y": 6.8518,
+          "z": 2.5889
+        },
+        {
+          "x": 21.1153,
+          "y": 7.2374,
+          "z": 2.9183
+        }
+      ],
+      "kind": "edge",
+      "index": 56,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_57": {
+      "id": "edge_v1_57",
+      "length": 21.1859,
+      "endpoints": [
+        {
+          "x": 1.4633,
+          "y": -1.3963,
+          "z": 2.116
+        },
+        {
+          "x": 20.2991,
+          "y": 6.3215,
+          "z": 1.8131
+        }
+      ],
+      "kind": "edge",
+      "index": 57,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_58": {
+      "id": "edge_v1_58",
+      "length": 0.0825,
+      "endpoints": [
+        {
+          "x": 20.2991,
+          "y": 6.3215,
+          "z": 1.8131
+        },
+        {
+          "x": 20.3184,
+          "y": 6.3643,
+          "z": 1.8809
+        }
+      ],
+      "kind": "edge",
+      "index": 58,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_59": {
+      "id": "edge_v1_59",
+      "length": 0.7955,
+      "endpoints": [
+        {
+          "x": 20.3184,
+          "y": 6.3643,
+          "z": 1.8809
+        },
+        {
+          "x": 20.6791,
+          "y": 6.7286,
+          "z": 2.4892
+        }
+      ],
+      "kind": "edge",
+      "index": 59,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_60": {
+      "id": "edge_v1_60",
+      "length": 0.0359,
+      "endpoints": [
+        {
+          "x": 20.0463,
+          "y": 6.0569,
+          "z": 0.9549
+        },
+        {
+          "x": 20.0491,
+          "y": 6.068,
+          "z": 0.9889
+        }
+      ],
+      "kind": "edge",
+      "index": 60,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_61": {
+      "id": "edge_v1_61",
+      "length": 0.8978,
+      "endpoints": [
+        {
+          "x": 20.0491,
+          "y": 6.068,
+          "z": 0.9889
+        },
+        {
+          "x": 20.2991,
+          "y": 6.3215,
+          "z": 1.8131
+        }
+      ],
+      "kind": "edge",
+      "index": 61,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_62": {
+      "id": "edge_v1_62",
+      "length": 0.9937,
+      "endpoints": [
+        {
+          "x": 18.0529,
+          "y": -14.5431,
+          "z": 0.0
+        },
+        {
+          "x": 18.1482,
+          "y": -14.5654,
+          "z": 0.9889
+        }
+      ],
+      "kind": "edge",
+      "index": 62,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_63": {
+      "id": "edge_v1_63",
+      "length": 20.789,
+      "endpoints": [
+        {
+          "x": 18.1482,
+          "y": -14.5654,
+          "z": 0.9889
+        },
+        {
+          "x": 20.0491,
+          "y": 6.068,
+          "z": 0.9889
+        }
+      ],
+      "kind": "edge",
+      "index": 63,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_64": {
+      "id": "edge_v1_64",
+      "length": 6.0743,
+      "endpoints": [
+        {
+          "x": 23.6406,
+          "y": 9.2857,
+          "z": 0.9889
+        },
+        {
+          "x": 22.8766,
+          "y": 15.3103,
+          "z": 0.9889
+        }
+      ],
+      "kind": "edge",
+      "index": 64,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_65": {
+      "id": "edge_v1_65",
+      "length": 0.058,
+      "endpoints": [
+        {
+          "x": 23.6445,
+          "y": 9.3035,
+          "z": 0.9338
+        },
+        {
+          "x": 23.6406,
+          "y": 9.2857,
+          "z": 0.9889
+        }
+      ],
+      "kind": "edge",
+      "index": 65,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_66": {
+      "id": "edge_v1_66",
+      "length": 0.9409,
+      "endpoints": [
+        {
+          "x": 23.7304,
+          "y": 9.3817,
+          "z": 0.0
+        },
+        {
+          "x": 23.6445,
+          "y": 9.3035,
+          "z": 0.9338
+        }
+      ],
+      "kind": "edge",
+      "index": 66,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_67": {
+      "id": "edge_v1_67",
+      "length": 5.8436,
+      "endpoints": [
+        {
+          "x": 20.5751,
+          "y": 9.0124,
+          "z": 2.5889
+        },
+        {
+          "x": 19.8402,
+          "y": 14.8082,
+          "z": 2.5889
+        }
+      ],
+      "kind": "edge",
+      "index": 67,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_68": {
+      "id": "edge_v1_68",
+      "length": 6.9976,
+      "endpoints": [
+        {
+          "x": 21.22,
+          "y": 7.9534,
+          "z": 3.0434
+        },
+        {
+          "x": 20.3902,
+          "y": 14.8992,
+          "z": 3.0434
+        }
+      ],
+      "kind": "edge",
+      "index": 68,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_69": {
+      "id": "edge_v1_69",
+      "length": 22.7661,
+      "endpoints": [
+        {
+          "x": 19.3983,
+          "y": -14.8588,
+          "z": 3.0434
+        },
+        {
+          "x": 21.2349,
+          "y": 7.7462,
+          "z": 3.0434
+        }
+      ],
+      "kind": "edge",
+      "index": 69,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_70": {
+      "id": "edge_v1_70",
+      "length": 0.6376,
+      "endpoints": [
+        {
+          "x": 19.3983,
+          "y": -14.8588,
+          "z": 3.0434
+        },
+        {
+          "x": 20.0,
+          "y": -15.0,
+          "z": 3.2
+        }
+      ],
+      "kind": "edge",
+      "index": 70,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_71": {
+      "id": "edge_v1_71",
+      "length": 30.2152,
+      "endpoints": [
+        {
+          "x": 20.0,
+          "y": -15.0,
+          "z": 3.2
+        },
+        {
+          "x": 21.0,
+          "y": 15.0,
+          "z": 3.2
+        }
+      ],
+      "kind": "edge",
+      "index": 71,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_72": {
+      "id": "edge_v1_72",
+      "length": 0.6376,
+      "endpoints": [
+        {
+          "x": 20.0,
+          "y": -15.0,
+          "z": 3.2
+        },
+        {
+          "x": 20.6017,
+          "y": -15.1412,
+          "z": 3.0434
+        }
+      ],
+      "kind": "edge",
+      "index": 72,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_73": {
+      "id": "edge_v1_73",
+      "length": 30.4589,
+      "endpoints": [
+        {
+          "x": 20.6017,
+          "y": -15.1412,
+          "z": 3.0434
+        },
+        {
+          "x": 21.6098,
+          "y": 15.1008,
+          "z": 3.0434
+        }
+      ],
+      "kind": "edge",
+      "index": 73,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_74": {
+      "id": "edge_v1_74",
+      "length": 0.7193,
+      "endpoints": [
+        {
+          "x": 20.6017,
+          "y": -15.1412,
+          "z": 3.0434
+        },
+        {
+          "x": 21.1445,
+          "y": -15.2686,
+          "z": 2.5889
+        }
+      ],
+      "kind": "edge",
+      "index": 74,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_75": {
+      "id": "edge_v1_75",
+      "length": 21.9491,
+      "endpoints": [
+        {
+          "x": 21.1445,
+          "y": -15.2686,
+          "z": 2.5889
+        },
+        {
+          "x": 23.1078,
+          "y": 6.5182,
+          "z": 2.5889
+        }
+      ],
+      "kind": "edge",
+      "index": 75,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_76": {
+      "id": "edge_v1_76",
+      "length": 0.6605,
+      "endpoints": [
+        {
+          "x": 22.7218,
+          "y": 6.9665,
+          "z": 2.8826
+        },
+        {
+          "x": 23.1078,
+          "y": 6.5182,
+          "z": 2.5889
+        }
+      ],
+      "kind": "edge",
+      "index": 76,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_77": {
+      "id": "edge_v1_77",
+      "length": 0.7251,
+      "endpoints": [
+        {
+          "x": 22.4869,
+          "y": 7.6344,
+          "z": 3.0391
+        },
+        {
+          "x": 22.7218,
+          "y": 6.9665,
+          "z": 2.8826
+        }
+      ],
+      "kind": "edge",
+      "index": 77,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_78": {
+      "id": "edge_v1_78",
+      "length": 0.6301,
+      "endpoints": [
+        {
+          "x": 22.6277,
+          "y": 8.2302,
+          "z": 2.8899
+        },
+        {
+          "x": 22.4869,
+          "y": 7.6344,
+          "z": 3.0391
+        }
+      ],
+      "kind": "edge",
+      "index": 78,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_79": {
+      "id": "edge_v1_79",
+      "length": 0.556,
+      "endpoints": [
+        {
+          "x": 22.9736,
+          "y": 8.5445,
+          "z": 2.5889
+        },
+        {
+          "x": 22.6277,
+          "y": 8.2302,
+          "z": 2.8899
+        }
+      ],
+      "kind": "edge",
+      "index": 79,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_80": {
+      "id": "edge_v1_80",
+      "length": 6.6989,
+      "endpoints": [
+        {
+          "x": 22.9736,
+          "y": 8.5445,
+          "z": 2.5889
+        },
+        {
+          "x": 22.1598,
+          "y": 15.1918,
+          "z": 2.5889
+        }
+      ],
+      "kind": "edge",
+      "index": 80,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_81": {
+      "id": "edge_v1_81",
+      "length": 0.2234,
+      "endpoints": [
+        {
+          "x": 23.0461,
+          "y": 8.706,
+          "z": 2.4526
+        },
+        {
+          "x": 22.9736,
+          "y": 8.5445,
+          "z": 2.5889
+        }
+      ],
+      "kind": "edge",
+      "index": 81,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_82": {
+      "id": "edge_v1_82",
+      "length": 0.7284,
+      "endpoints": [
+        {
+          "x": 23.3793,
+          "y": 9.0104,
+          "z": 1.8809
+        },
+        {
+          "x": 23.0461,
+          "y": 8.706,
+          "z": 2.4526
+        }
+      ],
+      "kind": "edge",
+      "index": 82,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_83": {
+      "id": "edge_v1_83",
+      "length": 6.3041,
+      "endpoints": [
+        {
+          "x": 23.3793,
+          "y": 9.0104,
+          "z": 1.8809
+        },
+        {
+          "x": 22.5964,
+          "y": 15.264,
+          "z": 1.8809
+        }
+      ],
+      "kind": "edge",
+      "index": 83,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_84": {
+      "id": "edge_v1_84",
+      "length": 0.1229,
+      "endpoints": [
+        {
+          "x": 23.4068,
+          "y": 9.0723,
+          "z": 1.7784
+        },
+        {
+          "x": 23.3793,
+          "y": 9.0104,
+          "z": 1.8809
+        }
+      ],
+      "kind": "edge",
+      "index": 84,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_85": {
+      "id": "edge_v1_85",
+      "length": 0.8506,
+      "endpoints": [
+        {
+          "x": 23.6406,
+          "y": 9.2857,
+          "z": 0.9889
+        },
+        {
+          "x": 23.4068,
+          "y": 9.0723,
+          "z": 1.7784
+        }
+      ],
+      "kind": "edge",
+      "index": 85,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_86": {
+      "id": "edge_v1_86",
+      "length": 21.7414,
+      "endpoints": [
+        {
+          "x": 18.8555,
+          "y": -14.7314,
+          "z": 2.5889
+        },
+        {
+          "x": 20.7343,
+          "y": 6.8518,
+          "z": 2.5889
+        }
+      ],
+      "kind": "edge",
+      "index": 86,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_87": {
+      "id": "edge_v1_87",
+      "length": 0.7193,
+      "endpoints": [
+        {
+          "x": 18.8555,
+          "y": -14.7314,
+          "z": 2.5889
+        },
+        {
+          "x": 19.3983,
+          "y": -14.8588,
+          "z": 3.0434
+        }
+      ],
+      "kind": "edge",
+      "index": 87,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_88": {
+      "id": "edge_v1_88",
+      "length": 21.1512,
+      "endpoints": [
+        {
+          "x": 18.4248,
+          "y": -14.6303,
+          "z": 1.8809
+        },
+        {
+          "x": 20.3184,
+          "y": 6.3643,
+          "z": 1.8809
+        }
+      ],
+      "kind": "edge",
+      "index": 88,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_89": {
+      "id": "edge_v1_89",
+      "length": 0.8348,
+      "endpoints": [
+        {
+          "x": 18.4248,
+          "y": -14.6303,
+          "z": 1.8809
+        },
+        {
+          "x": 18.8555,
+          "y": -14.7314,
+          "z": 2.5889
+        }
+      ],
+      "kind": "edge",
+      "index": 89,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_90": {
+      "id": "edge_v1_90",
+      "length": 0.9362,
+      "endpoints": [
+        {
+          "x": 18.1482,
+          "y": -14.5654,
+          "z": 0.9889
+        },
+        {
+          "x": 18.4248,
+          "y": -14.6303,
+          "z": 1.8809
+        }
+      ],
+      "kind": "edge",
+      "index": 90,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_91": {
+      "id": "edge_v1_91",
+      "length": 0.9937,
+      "endpoints": [
+        {
+          "x": 21.8518,
+          "y": -15.4346,
+          "z": 0.9889
+        },
+        {
+          "x": 21.9471,
+          "y": -15.4569,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 91,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_92": {
+      "id": "edge_v1_92",
+      "length": 0.9362,
+      "endpoints": [
+        {
+          "x": 21.5752,
+          "y": -15.3697,
+          "z": 1.8809
+        },
+        {
+          "x": 21.8518,
+          "y": -15.4346,
+          "z": 0.9889
+        }
+      ],
+      "kind": "edge",
+      "index": 92,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_93": {
+      "id": "edge_v1_93",
+      "length": 0.8348,
+      "endpoints": [
+        {
+          "x": 21.1445,
+          "y": -15.2686,
+          "z": 2.5889
+        },
+        {
+          "x": 21.5752,
+          "y": -15.3697,
+          "z": 1.8809
+        }
+      ],
+      "kind": "edge",
+      "index": 93,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_94": {
+      "id": "edge_v1_94",
+      "length": 21.0499,
+      "endpoints": [
+        {
+          "x": 21.8518,
+          "y": -15.4346,
+          "z": 0.9889
+        },
+        {
+          "x": 23.884,
+          "y": 5.4527,
+          "z": 0.9889
+        }
+      ],
+      "kind": "edge",
+      "index": 94,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_95": {
+      "id": "edge_v1_95",
+      "length": 0.9386,
+      "endpoints": [
+        {
+          "x": 23.8911,
+          "y": 5.4297,
+          "z": 0.9259
+        },
+        {
+          "x": 23.9874,
+          "y": 5.3097,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 95,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_96": {
+      "id": "edge_v1_96",
+      "length": 0.0674,
+      "endpoints": [
+        {
+          "x": 23.884,
+          "y": 5.4527,
+          "z": 0.9889
+        },
+        {
+          "x": 23.8911,
+          "y": 5.4297,
+          "z": 0.9259
+        }
+      ],
+      "kind": "edge",
+      "index": 96,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_97": {
+      "id": "edge_v1_97",
+      "length": 34.7852,
+      "endpoints": [
+        {
+          "x": 23.8911,
+          "y": 5.4297,
+          "z": 0.9259
+        },
+        {
+          "x": 54.3805,
+          "y": -10.9585,
+          "z": 0.6798
+        }
+      ],
+      "kind": "edge",
+      "index": 97,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_98": {
+      "id": "edge_v1_98",
+      "length": 0.6824,
+      "endpoints": [
+        {
+          "x": 54.3805,
+          "y": -10.9585,
+          "z": 0.6798
+        },
+        {
+          "x": 54.3486,
+          "y": -11.0078,
+          "z": 0.0
+        }
+      ],
+      "kind": "edge",
+      "index": 98,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_99": {
+      "id": "edge_v1_99",
+      "length": 0.6824,
+      "endpoints": [
+        {
+          "x": 55.6514,
+          "y": -8.9922,
+          "z": 0.0
+        },
+        {
+          "x": 55.6195,
+          "y": -9.0415,
+          "z": 0.6798
+        }
+      ],
+      "kind": "edge",
+      "index": 99,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_100": {
+      "id": "edge_v1_100",
+      "length": 0.6365,
+      "endpoints": [
+        {
+          "x": 55.6195,
+          "y": -9.0415,
+          "z": 0.6798
+        },
+        {
+          "x": 55.527,
+          "y": -9.1847,
+          "z": 1.2931
+        }
+      ],
+      "kind": "edge",
+      "index": 100,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_101": {
+      "id": "edge_v1_101",
+      "length": 0.5544,
+      "endpoints": [
+        {
+          "x": 55.527,
+          "y": -9.1847,
+          "z": 1.2931
+        },
+        {
+          "x": 55.3829,
+          "y": -9.4076,
+          "z": 1.7798
+        }
+      ],
+      "kind": "edge",
+      "index": 101,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_102": {
+      "id": "edge_v1_102",
+      "length": 0.4578,
+      "endpoints": [
+        {
+          "x": 55.3829,
+          "y": -9.4076,
+          "z": 1.7798
+        },
+        {
+          "x": 55.2013,
+          "y": -9.6886,
+          "z": 2.0923
+        }
+      ],
+      "kind": "edge",
+      "index": 102,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_103": {
+      "id": "edge_v1_103",
+      "length": 0.3861,
+      "endpoints": [
+        {
+          "x": 55.2013,
+          "y": -9.6886,
+          "z": 2.0923
+        },
+        {
+          "x": 55.0,
+          "y": -10.0,
+          "z": 2.2
+        }
+      ],
+      "kind": "edge",
+      "index": 103,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_104": {
+      "id": "edge_v1_104",
+      "length": 0.3861,
+      "endpoints": [
+        {
+          "x": 55.0,
+          "y": -10.0,
+          "z": 2.2
+        },
+        {
+          "x": 54.7987,
+          "y": -10.3114,
+          "z": 2.0923
+        }
+      ],
+      "kind": "edge",
+      "index": 104,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_105": {
+      "id": "edge_v1_105",
+      "length": 0.4578,
+      "endpoints": [
+        {
+          "x": 54.7987,
+          "y": -10.3114,
+          "z": 2.0923
+        },
+        {
+          "x": 54.6171,
+          "y": -10.5924,
+          "z": 1.7798
+        }
+      ],
+      "kind": "edge",
+      "index": 105,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_106": {
+      "id": "edge_v1_106",
+      "length": 0.5544,
+      "endpoints": [
+        {
+          "x": 54.6171,
+          "y": -10.5924,
+          "z": 1.7798
+        },
+        {
+          "x": 54.473,
+          "y": -10.8153,
+          "z": 1.2931
+        }
+      ],
+      "kind": "edge",
+      "index": 106,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_107": {
+      "id": "edge_v1_107",
+      "length": 0.6365,
+      "endpoints": [
+        {
+          "x": 54.473,
+          "y": -10.8153,
+          "z": 1.2931
+        },
+        {
+          "x": 54.3805,
+          "y": -10.9585,
+          "z": 0.6798
+        }
+      ],
+      "kind": "edge",
+      "index": 107,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_108": {
+      "id": "edge_v1_108",
+      "length": 37.0895,
+      "endpoints": [
+        {
+          "x": 23.6445,
+          "y": 9.3035,
+          "z": 0.9338
+        },
+        {
+          "x": 55.6195,
+          "y": -9.0415,
+          "z": 0.6798
+        }
+      ],
+      "kind": "edge",
+      "index": 108,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_109": {
+      "id": "edge_v1_109",
+      "length": 37.1804,
+      "endpoints": [
+        {
+          "x": 23.4068,
+          "y": 9.0723,
+          "z": 1.7784
+        },
+        {
+          "x": 55.527,
+          "y": -9.1847,
+          "z": 1.2931
+        }
+      ],
+      "kind": "edge",
+      "index": 109,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_110": {
+      "id": "edge_v1_110",
+      "length": 37.3112,
+      "endpoints": [
+        {
+          "x": 23.0461,
+          "y": 8.706,
+          "z": 2.4526
+        },
+        {
+          "x": 55.3829,
+          "y": -9.4076,
+          "z": 1.7798
+        }
+      ],
+      "kind": "edge",
+      "index": 110,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_111": {
+      "id": "edge_v1_111",
+      "length": 37.4377,
+      "endpoints": [
+        {
+          "x": 22.6277,
+          "y": 8.2302,
+          "z": 2.8899
+        },
+        {
+          "x": 55.2013,
+          "y": -9.6886,
+          "z": 2.0923
+        }
+      ],
+      "kind": "edge",
+      "index": 111,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_112": {
+      "id": "edge_v1_112",
+      "length": 37.2473,
+      "endpoints": [
+        {
+          "x": 22.4869,
+          "y": 7.6344,
+          "z": 3.0391
+        },
+        {
+          "x": 55.0,
+          "y": -10.0,
+          "z": 2.2
+        }
+      ],
+      "kind": "edge",
+      "index": 112,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_113": {
+      "id": "edge_v1_113",
+      "length": 36.6742,
+      "endpoints": [
+        {
+          "x": 22.7218,
+          "y": 6.9665,
+          "z": 2.8826
+        },
+        {
+          "x": 54.7987,
+          "y": -10.3114,
+          "z": 2.0923
+        }
+      ],
+      "kind": "edge",
+      "index": 113,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_114": {
+      "id": "edge_v1_114",
+      "length": 0.2784,
+      "endpoints": [
+        {
+          "x": 23.1078,
+          "y": 6.5182,
+          "z": 2.5889
+        },
+        {
+          "x": 23.2116,
+          "y": 6.3067,
+          "z": 2.4405
+        }
+      ],
+      "kind": "edge",
+      "index": 114,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_115": {
+      "id": "edge_v1_115",
+      "length": 35.8732,
+      "endpoints": [
+        {
+          "x": 23.2116,
+          "y": 6.3067,
+          "z": 2.4405
+        },
+        {
+          "x": 54.6171,
+          "y": -10.5924,
+          "z": 1.7798
+        }
+      ],
+      "kind": "edge",
+      "index": 115,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_116": {
+      "id": "edge_v1_116",
+      "length": 21.3913,
+      "endpoints": [
+        {
+          "x": 21.5752,
+          "y": -15.3697,
+          "z": 1.8809
+        },
+        {
+          "x": 23.5828,
+          "y": 5.8592,
+          "z": 1.8809
+        }
+      ],
+      "kind": "edge",
+      "index": 116,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_117": {
+      "id": "edge_v1_117",
+      "length": 0.807,
+      "endpoints": [
+        {
+          "x": 23.2116,
+          "y": 6.3067,
+          "z": 2.4405
+        },
+        {
+          "x": 23.5828,
+          "y": 5.8592,
+          "z": 1.8809
+        }
+      ],
+      "kind": "edge",
+      "index": 117,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_118": {
+      "id": "edge_v1_118",
+      "length": 0.8805,
+      "endpoints": [
+        {
+          "x": 23.6232,
+          "y": 5.7743,
+          "z": 1.7659
+        },
+        {
+          "x": 23.884,
+          "y": 5.4527,
+          "z": 0.9889
+        }
+      ],
+      "kind": "edge",
+      "index": 118,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_119": {
+      "id": "edge_v1_119",
+      "length": 0.1486,
+      "endpoints": [
+        {
+          "x": 23.5828,
+          "y": 5.8592,
+          "z": 1.8809
+        },
+        {
+          "x": 23.6232,
+          "y": 5.7743,
+          "z": 1.7659
+        }
+      ],
+      "kind": "edge",
+      "index": 119,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "edge_v1_120": {
+      "id": "edge_v1_120",
+      "length": 35.2132,
+      "endpoints": [
+        {
+          "x": 23.6232,
+          "y": 5.7743,
+          "z": 1.7659
+        },
+        {
+          "x": 54.473,
+          "y": -10.8153,
+          "z": 1.2931
+        }
+      ],
+      "kind": "edge",
+      "index": 120,
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "part_v1_1": {
+      "id": "part_v1_1",
+      "kind": "part",
+      "definition_kind": "part",
+      "document_label": "0:1:1:1",
+      "name": "SOLID",
+      "name_status": "document_label",
+      "metadata_origin": "derived_normalized_geometry",
+      "bbox": {
+        "x": [
+          -1.8087,
+          55.6514
+        ],
+        "y": [
+          -15.4569,
+          15.3263
+        ],
+        "z": [
+          -0.0,
+          3.6
+        ]
+      },
+      "volume": 794.5666630475998,
+      "units": "mm",
+      "coordinate_frame": "definition_local",
+      "occurrence_ids": [
+        "occurrence_v1_1"
+      ]
+    },
+    "occurrence_v1_1": {
+      "id": "occurrence_v1_1",
+      "kind": "occurrence",
+      "part_id": "part_v1_1",
+      "parent_id": null,
+      "document_path": "0:1:1:1",
+      "name": "SOLID",
+      "name_status": "document_label",
+      "placement": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "units": "mm",
+      "coordinate_frame": "assembly",
+      "mapping_status": "baseline_exact",
+      "members": {
+        "solid": [
+          "solid_v1_1"
+        ],
+        "face": [
+          "face_v1_1",
+          "face_v1_2",
+          "face_v1_3",
+          "face_v1_4",
+          "face_v1_5",
+          "face_v1_6",
+          "face_v1_7",
+          "face_v1_8",
+          "face_v1_9",
+          "face_v1_10",
+          "face_v1_11",
+          "face_v1_12",
+          "face_v1_13",
+          "face_v1_14",
+          "face_v1_15",
+          "face_v1_16",
+          "face_v1_17",
+          "face_v1_18",
+          "face_v1_19",
+          "face_v1_20",
+          "face_v1_21",
+          "face_v1_22",
+          "face_v1_23",
+          "face_v1_24",
+          "face_v1_25",
+          "face_v1_26",
+          "face_v1_27",
+          "face_v1_28",
+          "face_v1_29",
+          "face_v1_30",
+          "face_v1_31",
+          "face_v1_32",
+          "face_v1_33",
+          "face_v1_34",
+          "face_v1_35",
+          "face_v1_36",
+          "face_v1_37",
+          "face_v1_38",
+          "face_v1_39",
+          "face_v1_40",
+          "face_v1_41",
+          "face_v1_42"
+        ],
+        "edge": [
+          "edge_v1_1",
+          "edge_v1_2",
+          "edge_v1_3",
+          "edge_v1_4",
+          "edge_v1_5",
+          "edge_v1_6",
+          "edge_v1_7",
+          "edge_v1_8",
+          "edge_v1_9",
+          "edge_v1_10",
+          "edge_v1_11",
+          "edge_v1_12",
+          "edge_v1_13",
+          "edge_v1_14",
+          "edge_v1_15",
+          "edge_v1_16",
+          "edge_v1_17",
+          "edge_v1_18",
+          "edge_v1_19",
+          "edge_v1_20",
+          "edge_v1_21",
+          "edge_v1_22",
+          "edge_v1_23",
+          "edge_v1_24",
+          "edge_v1_25",
+          "edge_v1_26",
+          "edge_v1_27",
+          "edge_v1_28",
+          "edge_v1_29",
+          "edge_v1_30",
+          "edge_v1_31",
+          "edge_v1_32",
+          "edge_v1_33",
+          "edge_v1_34",
+          "edge_v1_35",
+          "edge_v1_36",
+          "edge_v1_37",
+          "edge_v1_38",
+          "edge_v1_39",
+          "edge_v1_40",
+          "edge_v1_41",
+          "edge_v1_42",
+          "edge_v1_43",
+          "edge_v1_44",
+          "edge_v1_45",
+          "edge_v1_46",
+          "edge_v1_47",
+          "edge_v1_48",
+          "edge_v1_49",
+          "edge_v1_50",
+          "edge_v1_51",
+          "edge_v1_52",
+          "edge_v1_53",
+          "edge_v1_54",
+          "edge_v1_55",
+          "edge_v1_56",
+          "edge_v1_57",
+          "edge_v1_58",
+          "edge_v1_59",
+          "edge_v1_60",
+          "edge_v1_61",
+          "edge_v1_62",
+          "edge_v1_63",
+          "edge_v1_64",
+          "edge_v1_65",
+          "edge_v1_66",
+          "edge_v1_67",
+          "edge_v1_68",
+          "edge_v1_69",
+          "edge_v1_70",
+          "edge_v1_71",
+          "edge_v1_72",
+          "edge_v1_73",
+          "edge_v1_74",
+          "edge_v1_75",
+          "edge_v1_76",
+          "edge_v1_77",
+          "edge_v1_78",
+          "edge_v1_79",
+          "edge_v1_80",
+          "edge_v1_81",
+          "edge_v1_82",
+          "edge_v1_83",
+          "edge_v1_84",
+          "edge_v1_85",
+          "edge_v1_86",
+          "edge_v1_87",
+          "edge_v1_88",
+          "edge_v1_89",
+          "edge_v1_90",
+          "edge_v1_91",
+          "edge_v1_92",
+          "edge_v1_93",
+          "edge_v1_94",
+          "edge_v1_95",
+          "edge_v1_96",
+          "edge_v1_97",
+          "edge_v1_98",
+          "edge_v1_99",
+          "edge_v1_100",
+          "edge_v1_101",
+          "edge_v1_102",
+          "edge_v1_103",
+          "edge_v1_104",
+          "edge_v1_105",
+          "edge_v1_106",
+          "edge_v1_107",
+          "edge_v1_108",
+          "edge_v1_109",
+          "edge_v1_110",
+          "edge_v1_111",
+          "edge_v1_112",
+          "edge_v1_113",
+          "edge_v1_114",
+          "edge_v1_115",
+          "edge_v1_116",
+          "edge_v1_117",
+          "edge_v1_118",
+          "edge_v1_119",
+          "edge_v1_120"
+        ]
+      },
+      "metadata_origin": "derived_normalized_geometry",
+      "children": []
+    }
+  },
+  "manifest_id": "ec79a824625d3fde46ce56b6229314def74689d8d9937f1ec529e6eabe23be33"
+}

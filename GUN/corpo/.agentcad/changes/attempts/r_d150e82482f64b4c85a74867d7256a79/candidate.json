@@ -1,0 +1,53 @@
+{
+  "content_sha256": "39b35f973069476942a5ed1b641aa1a714883e983de540d0b1a99c3ac7f970ac",
+  "deliverables": {
+    "cad": [
+      {
+        "name": "output.step",
+        "path": ".agentcad/changes/attempts/r_d150e82482f64b4c85a74867d7256a79/geometry/output.step",
+        "role": "geometry",
+        "sha256": "2b5affd5f1de8b0c1d2d499263a01268dba3b2afc3b61d5bc71d76b84fb5e49a",
+        "size_bytes": 996665
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "name": "C_compatto.py",
+      "path": ".agentcad/changes/attempts/r_d150e82482f64b4c85a74867d7256a79/source.py",
+      "role": "source",
+      "sha256": "73e96f03de58a430d6d4c01aa2a918bde4939c56264c26416ac8db3dcf0fdd54",
+      "size_bytes": 2530
+    },
+    {
+      "name": "output.step",
+      "path": ".agentcad/changes/attempts/r_d150e82482f64b4c85a74867d7256a79/geometry/output.step",
+      "role": "geometry",
+      "sha256": "2b5affd5f1de8b0c1d2d499263a01268dba3b2afc3b61d5bc71d76b84fb5e49a",
+      "size_bytes": 996665
+    }
+  ],
+  "kind": "candidate",
+  "metadata": {
+    "command": "run",
+    "source_name": "C_compatto.py"
+  },
+  "model": {
+    "params": null,
+    "runtime": "build123d",
+    "validation_profile": "deliverable"
+  },
+  "model_fingerprint": "ca00b663e5b070900e951229f6c14c6481750b377d3b6420c1c84dfd823265f6",
+  "parent_revision_id": "r_f5445d8bfe354ed6b2cc7170848da9f1",
+  "promotion_mode": "automatic",
+  "requested_change": "C_compatto",
+  "revision_id": "r_d150e82482f64b4c85a74867d7256a79",
+  "schema_version": 1,
+  "target_policies": {
+    "cad": {
+      "policy_id": "legacy-core-retention-deliverable",
+      "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+      "version": 1
+    }
+  }
+}

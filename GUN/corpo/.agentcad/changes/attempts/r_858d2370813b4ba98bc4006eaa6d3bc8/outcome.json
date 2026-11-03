@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_outcome",
+  "core_sha256": "1521973a0a59508014246d63da01b15e57419e696c14be2110df9a4585a2870b",
+  "response": {
+    "command": "run",
+    "status": "validation_error",
+    "runtime": "build123d",
+    "checks": [
+      {
+        "check": "import_error",
+        "severity": "error",
+        "message": "Import error: module 'concetti' not found"
+      },
+      {
+        "check": "import_error",
+        "severity": "error",
+        "message": "Import error: module 'meccanica' not found"
+      },
+      {
+        "check": "import_error",
+        "severity": "error",
+        "message": "Import error: module 'concetti' not found"
+      },
+      {
+        "check": "import_error",
+        "severity": "error",
+        "message": "Import error: module 'concetti' not found"
+      },
+      {
+        "check": "import_error",
+        "severity": "error",
+        "message": "Import error: module 'concetti' not found"
+      },
+      {
+        "check": "import_error",
+        "severity": "error",
+        "message": "Import error: module 'concetti' not found"
+      },
+      {
+        "check": "import_error",
+        "severity": "error",
+        "message": "Import error: module 'concetti' not found"
+      }
+    ],
+    "runtime_source": "project",
+    "label": "A2_frontiera",
+    "outputs": {
+      "step": null
+    },
+    "artifact_created": false,
+    "message": "No STEP was created. Fix concept/A2_frontiera.py and rerun the command.",
+    "next_actions": [
+      "agentcad run concept/A2_frontiera.py --label A2_frontiera"
+    ]
+  },
+  "artifacts": [],
+  "unavailable_artifacts": [],
+  "content_sha256": "766a203ec8985464ca8460d733a19ca7c1183b91463dcd62e3575c590fa14704"
+}

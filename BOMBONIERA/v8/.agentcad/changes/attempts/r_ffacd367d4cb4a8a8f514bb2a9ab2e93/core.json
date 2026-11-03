@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_core",
+  "candidate_sha256": "a28d9ec22c43587b93b0dc85cbaec9a7e571579ff1599d886a8d1627ef735462",
+  "receipt_sha256": "db412476effd00c108191c6e40c5a0acf60699ffde8e4f5d1778baec94e35ec1",
+  "policy_sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+  "response": {
+    "command": "run",
+    "status": "failed",
+    "error_kind": "timeout",
+    "timeout_s": 115.0,
+    "timeout_phase": "validation",
+    "completed_phases": [],
+    "phase_timings": {},
+    "timings": {},
+    "message": "agentcad run timed out after 115s during validation No STEP was created. Fix fianchi_varianti.py and rerun the command.",
+    "suggestion": "Static validation or runtime detection timed out; check for very large source files or slow imports during runtime selection.",
+    "active_phase_elapsed_ms": 115000,
+    "runtime": "build123d",
+    "runtime_source": "project",
+    "label": "fianchi_AB",
+    "outputs": {
+      "step": null
+    },
+    "artifact_created": false,
+    "next_actions": [
+      "agentcad run fianchi_varianti.py --label fianchi_AB"
+    ]
+  },
+  "content_sha256": "e501c7711ca54d59e14611582e28ad23b400eb5278165a8cf30567f7cb9a38f6"
+}

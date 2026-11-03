@@ -1,0 +1,1326 @@
+{
+  "command": "run",
+  "status": "success",
+  "core": {
+    "status": "success",
+    "committed_at": "2026-11-03T07:54:08.600385+00:00"
+  },
+  "version": 9,
+  "label": "A2_frontiera",
+  "runtime": "build123d",
+  "runtime_source": "project",
+  "output_type": "assembly",
+  "created": "2026-11-03T07:54:08.600385+00:00",
+  "script": "v9_A2_frontiera/script.py",
+  "outputs": {
+    "step": "v9_A2_frontiera/output.step",
+    "script": "v9_A2_frontiera/script.py",
+    "geometry_manifest": "v9_A2_frontiera/geometry_manifest.json"
+  },
+  "metrics": {
+    "bounding_box": {
+      "x": [
+        -24.9315,
+        129.6
+      ],
+      "y": [
+        -21.903,
+        21.475
+      ],
+      "z": [
+        -122.2,
+        24.9914
+      ]
+    },
+    "dimensions": {
+      "x": 154.5315,
+      "y": 43.378,
+      "z": 147.1914
+    },
+    "volume": 166964.6093,
+    "surface_area": 62124.4497,
+    "center_of_mass": {
+      "x": 24.2366,
+      "y": -0.0542,
+      "z": -35.4979
+    },
+    "face_count": 1564,
+    "edge_count": 3956,
+    "is_valid": true,
+    "reliable": true
+  },
+  "validation": {
+    "profile": "deliverable",
+    "is_valid": true,
+    "first_failure": null,
+    "undetermined_layer": null,
+    "layers": {
+      "file_parse": {
+        "status": "pass",
+        "duration_ms": 0
+      },
+      "kernel_load": {
+        "status": "pass",
+        "duration_ms": 0
+      },
+      "brep_check": {
+        "status": "pass",
+        "errors": [],
+        "entities": [],
+        "entity_count": 0,
+        "evidence_truncated": false,
+        "duration_ms": 667
+      },
+      "shell_closure": {
+        "status": "pass",
+        "closed_shell_count": 14,
+        "open_shell_count": 0,
+        "loose_face_count": 0,
+        "loose_face_ids": [],
+        "free_edge_count": 0,
+        "free_edge_ids": [],
+        "free_edges": [],
+        "evidence_truncated": false,
+        "duration_ms": 16
+      },
+      "mesh_manifold": {
+        "deflection_mm": 0.218123,
+        "triangle_count": 21352,
+        "vertex_count": 10670,
+        "status": "pass",
+        "ladder_divisor": 1,
+        "requested_deflection_mm": 0.218123,
+        "worker": "in_process",
+        "duration_ms": 855
+      },
+      "structure": {
+        "status": "pass",
+        "solid_count": 14,
+        "shell_count": 14,
+        "face_count": 1564,
+        "edge_count": 3956,
+        "faces_outside_solids": 0,
+        "solids": [
+          {
+            "id": 1,
+            "volume": 124275.7348,
+            "bbox": {
+              "x": [
+                -24.9315,
+                88.1
+              ],
+              "y": [
+                -21.475,
+                21.475
+              ],
+              "z": [
+                -107.9678,
+                12.5
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "volume": 15320.9485,
+            "bbox": {
+              "x": [
+                44.3,
+                66.3
+              ],
+              "y": [
+                -20.475,
+                20.475
+              ],
+              "z": [
+                -32.925,
+                8.025
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "volume": 1521.1592,
+            "bbox": {
+              "x": [
+                34.3,
+                88.1
+              ],
+              "y": [
+                -3.0,
+                3.0
+              ],
+              "z": [
+                -15.45,
+                -9.45
+              ]
+            }
+          },
+          {
+            "id": 4,
+            "volume": 207.5771,
+            "bbox": {
+              "x": [
+                88.4,
+                91.9
+              ],
+              "y": [
+                -4.5,
+                4.5
+              ],
+              "z": [
+                -16.912,
+                -7.988
+              ]
+            }
+          },
+          {
+            "id": 5,
+            "volume": 527.4043,
+            "bbox": {
+              "x": [
+                40.2,
+                43.8
+              ],
+              "y": [
+                -21.903,
+                -5.482
+              ],
+              "z": [
+                -23.975,
+                -13.375
+              ]
+            }
+          },
+          {
+            "id": 6,
+            "volume": 5004.0859,
+            "bbox": {
+              "x": [
+                68.1,
+                128.1
+              ],
+              "y": [
+                -7.5,
+                7.5
+              ],
+              "z": [
+                -7.5,
+                7.5
+              ]
+            }
+          },
+          {
+            "id": 7,
+            "volume": 2751.2424,
+            "bbox": {
+              "x": [
+                88.6,
+                121.1
+              ],
+              "y": [
+                -13.5,
+                9.5
+              ],
+              "z": [
+                -11.0,
+                12.5
+              ]
+            }
+          },
+          {
+            "id": 8,
+            "volume": 313.3964,
+            "bbox": {
+              "x": [
+                91.1,
+                121.1
+              ],
+              "y": [
+                -16.5,
+                -7.8
+              ],
+              "z": [
+                -9.2,
+                -4.8
+              ]
+            }
+          },
+          {
+            "id": 9,
+            "volume": 6288.904,
+            "bbox": {
+              "x": [
+                -20.9458,
+                21.0188
+              ],
+              "y": [
+                11.0,
+                15.3
+              ],
+              "z": [
+                -103.9583,
+                -42.0
+              ]
+            }
+          },
+          {
+            "id": 10,
+            "volume": 6288.904,
+            "bbox": {
+              "x": [
+                -20.9458,
+                21.0188
+              ],
+              "y": [
+                -15.3,
+                -11.0
+              ],
+              "z": [
+                -103.9583,
+                -42.0
+              ]
+            }
+          },
+          {
+            "id": 11,
+            "volume": 2488.3609,
+            "bbox": {
+              "x": [
+                -13.9451,
+                14.9581
+              ],
+              "y": [
+                -4.0,
+                4.0
+              ],
+              "z": [
+                6.0,
+                24.9914
+              ]
+            }
+          },
+          {
+            "id": 12,
+            "volume": 864.932,
+            "bbox": {
+              "x": [
+                29.8111,
+                39.9315
+              ],
+              "y": [
+                -3.0,
+                3.0
+              ],
+              "z": [
+                -55.1867,
+                -27.0
+              ]
+            }
+          },
+          {
+            "id": 13,
+            "volume": 171.7792,
+            "bbox": {
+              "x": [
+                -12.2,
+                0.2
+              ],
+              "y": [
+                -2.0,
+                2.0
+              ],
+              "z": [
+                -122.2,
+                -108.75
+              ]
+            }
+          },
+          {
+            "id": 14,
+            "volume": 940.1805,
+            "bbox": {
+              "x": [
+                121.6,
+                129.6
+              ],
+              "y": [
+                -9.5,
+                9.5
+              ],
+              "z": [
+                -9.5,
+                9.5
+              ]
+            }
+          }
+        ],
+        "evidence_truncated": false,
+        "duration_ms": 4508
+      },
+      "advisory": {
+        "status": "pass",
+        "min_face_area_mm2": 0.0002,
+        "max_tolerance_mm": 1e-06,
+        "flags": [
+          "sliver_face"
+        ],
+        "duration_ms": 314
+      }
+    },
+    "message": "The shape passed every deliverable validation layer.",
+    "repairs": [],
+    "worker": "subprocess",
+    "budget_s": 400.0,
+    "step_round_trip": {
+      "status": "pass",
+      "matches": true,
+      "before": {
+        "is_valid": null,
+        "solid_count": 14,
+        "layers": {
+          "brep_check": "skipped",
+          "shell_closure": "pass",
+          "mesh_manifold": "skipped",
+          "structure": "pass",
+          "advisory": "pass"
+        }
+      },
+      "after": {
+        "is_valid": true,
+        "solid_count": 14,
+        "layers": {
+          "brep_check": "pass",
+          "shell_closure": "pass",
+          "mesh_manifold": "pass",
+          "structure": "pass",
+          "advisory": "pass"
+        }
+      },
+      "differences": [],
+      "skipped_layers": [
+        "brep_check",
+        "mesh_manifold"
+      ],
+      "skipped_reason": "Not run on the in-memory source above 500 faces; the reloaded STEP runs this layer and its verdict gates.",
+      "message": "STEP layer outcomes and solid count match the source on the compared layers; brep_check, mesh_manifold not compared (not run on one side)."
+    }
+  },
+  "validation_profile": "deliverable",
+  "artifacts": {
+    "geometry_manifest": {
+      "status": "success"
+    },
+    "mesh_exports": {
+      "status": "skipped",
+      "message": "No optional mesh exports requested."
+    },
+    "renders": {
+      "status": "success"
+    },
+    "preview": {
+      "status": "success"
+    },
+    "parts_preview": {
+      "status": "success"
+    },
+    "viewer_glb": {
+      "status": "success"
+    },
+    "diff": {
+      "status": "success"
+    },
+    "viewer": {
+      "status": "success"
+    },
+    "browser": {
+      "status": "skipped",
+      "message": "Browser launch disabled with --no-view."
+    }
+  },
+  "completed_phases": [
+    "validation",
+    "script_exec",
+    "metrics",
+    "export_step",
+    "geometry_manifest",
+    "render_views",
+    "preview",
+    "parts_preview",
+    "export_viewer_glb",
+    "source_loading",
+    "comparison_rendering",
+    "projection_comparison",
+    "exact_3d_comparison",
+    "approximate_3d_comparison",
+    "difference_artifact_export",
+    "viewer_generation"
+  ],
+  "phase_timings": {
+    "validation_ms": 47,
+    "script_exec_ms": 8148,
+    "metrics_ms": 29055,
+    "source_validation_ms": 3540,
+    "export_write_ms": 945,
+    "reload_ms": 1892,
+    "delivered_validation_ms": 6362,
+    "export_step_ms": 12958,
+    "geometry_manifest_ms": 26121,
+    "render_views_ms": 817,
+    "preview_ms": 185,
+    "parts_preview_ms": 1097,
+    "export_viewer_glb_ms": 1145,
+    "source_loading_ms": 1789,
+    "comparison_rendering_ms": 1024,
+    "projection_comparison_ms": 450,
+    "exact_3d_comparison_ms": 30373,
+    "approximate_3d_comparison_ms": 8404,
+    "difference_artifact_export_ms": 1436,
+    "viewer_generation_ms": 68
+  },
+  "parts": [
+    {
+      "id": "telaio",
+      "id_source": "explicit",
+      "name": "Telaio (2 gusci)",
+      "part_of": null,
+      "color": "#4fa89a",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            -24.9315,
+            88.1
+          ],
+          "y": [
+            -21.475,
+            21.475
+          ],
+          "z": [
+            -107.9678,
+            12.5
+          ]
+        },
+        "dimensions": {
+          "x": 113.0315,
+          "y": 42.95,
+          "z": 120.4678
+        },
+        "volume": 124275.7349,
+        "surface_area": 29267.8512,
+        "center_of_mass": {
+          "x": 16.8306,
+          "y": 0.0845,
+          "z": -38.3091
+        },
+        "face_count": 285,
+        "edge_count": 681,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "touching",
+        "floating": false,
+        "nearest_part_id": "canna",
+        "distance_mm": 0.0,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/telaio.png"
+    },
+    {
+      "id": "tamburo",
+      "id_source": "explicit",
+      "name": "Tamburo",
+      "part_of": null,
+      "color": "#d9a441",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            44.3,
+            66.3
+          ],
+          "y": [
+            -20.475,
+            20.475
+          ],
+          "z": [
+            -32.925,
+            8.025
+          ]
+        },
+        "dimensions": {
+          "x": 22.0,
+          "y": 40.95,
+          "z": 40.95
+        },
+        "volume": 15320.9485,
+        "surface_area": 9317.8852,
+        "center_of_mass": {
+          "x": 55.1898,
+          "y": -0.0,
+          "z": -12.45
+        },
+        "face_count": 72,
+        "edge_count": 157,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "disconnected",
+        "floating": false,
+        "nearest_part_id": "telaio",
+        "distance_mm": 0.25,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/tamburo.png"
+    },
+    {
+      "id": "perno",
+      "id_source": "explicit",
+      "name": "Perno tamburo",
+      "part_of": null,
+      "color": "#d9a441",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            34.3,
+            91.9
+          ],
+          "y": [
+            -4.5,
+            4.5
+          ],
+          "z": [
+            -16.912,
+            -7.988
+          ]
+        },
+        "dimensions": {
+          "x": 57.6,
+          "y": 9.0,
+          "z": 8.9239
+        },
+        "volume": 1728.7362,
+        "surface_area": 1303.4646,
+        "center_of_mass": {
+          "x": 64.6762,
+          "y": 0.0,
+          "z": -12.45
+        },
+        "face_count": 25,
+        "edge_count": 63,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "disconnected",
+        "floating": false,
+        "nearest_part_id": "tamburo",
+        "distance_mm": 0.25,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/perno.png"
+    },
+    {
+      "id": "sportello",
+      "id_source": "explicit",
+      "name": "Sportello di carica",
+      "part_of": null,
+      "color": "#d9a441",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            40.2,
+            43.8
+          ],
+          "y": [
+            -21.903,
+            -5.482
+          ],
+          "z": [
+            -23.975,
+            -13.375
+          ]
+        },
+        "dimensions": {
+          "x": 3.6,
+          "y": 16.421,
+          "z": 10.6
+        },
+        "volume": 527.4043,
+        "surface_area": 473.3391,
+        "center_of_mass": {
+          "x": 42.0,
+          "y": -13.5318,
+          "z": -18.4653
+        },
+        "face_count": 12,
+        "edge_count": 27,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "disconnected",
+        "floating": false,
+        "nearest_part_id": "telaio",
+        "distance_mm": 0.125,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/sportello.png"
+    },
+    {
+      "id": "canna",
+      "id_source": "explicit",
+      "name": "Canna",
+      "part_of": null,
+      "color": "#4fa89a",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            68.1,
+            128.1
+          ],
+          "y": [
+            -7.5,
+            7.5
+          ],
+          "z": [
+            -7.5,
+            7.5
+          ]
+        },
+        "dimensions": {
+          "x": 60.0,
+          "y": 15.0,
+          "z": 15.0
+        },
+        "volume": 5004.0859,
+        "surface_area": 5048.8378,
+        "center_of_mass": {
+          "x": 98.1,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "face_count": 4,
+        "edge_count": 6,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "touching",
+        "floating": false,
+        "nearest_part_id": "telaio",
+        "distance_mm": 0.0,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/canna.png"
+    },
+    {
+      "id": "manicotto",
+      "id_source": "explicit",
+      "name": "Manicotto con mirino e alloggio",
+      "part_of": null,
+      "color": "#d9a441",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            88.6,
+            121.1
+          ],
+          "y": [
+            -13.5,
+            9.5
+          ],
+          "z": [
+            -11.0,
+            12.5
+          ]
+        },
+        "dimensions": {
+          "x": 32.5,
+          "y": 23.0,
+          "z": 23.5
+        },
+        "volume": 2751.2424,
+        "surface_area": 3150.9704,
+        "center_of_mass": {
+          "x": 109.5253,
+          "y": -3.3534,
+          "z": -2.3685
+        },
+        "face_count": 24,
+        "edge_count": 60,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "touching",
+        "floating": false,
+        "nearest_part_id": "canna",
+        "distance_mm": 0.0,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/manicotto.png"
+    },
+    {
+      "id": "astina",
+      "id_source": "explicit",
+      "name": "Astina (estetica)",
+      "part_of": null,
+      "color": "#4fa89a",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            91.1,
+            121.1
+          ],
+          "y": [
+            -16.5,
+            -7.8
+          ],
+          "z": [
+            -9.2,
+            -4.8
+          ]
+        },
+        "dimensions": {
+          "x": 30.0,
+          "y": 8.7,
+          "z": 4.4
+        },
+        "volume": 313.3964,
+        "surface_area": 411.9461,
+        "center_of_mass": {
+          "x": 105.5764,
+          "y": -10.1943,
+          "z": -7.0
+        },
+        "face_count": 7,
+        "edge_count": 9,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "disconnected",
+        "floating": false,
+        "nearest_part_id": "manicotto",
+        "distance_mm": 0.3,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/astina.png"
+    },
+    {
+      "id": "guancia_sx",
+      "id_source": "explicit",
+      "part_of": null,
+      "color": "#f2e3c6",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            -20.9458,
+            21.0188
+          ],
+          "y": [
+            11.0,
+            15.3
+          ],
+          "z": [
+            -103.9583,
+            -42.0
+          ]
+        },
+        "dimensions": {
+          "x": 41.9647,
+          "y": 4.3,
+          "z": 61.9583
+        },
+        "volume": 6288.904,
+        "surface_area": 4906.7486,
+        "center_of_mass": {
+          "x": -0.4257,
+          "y": 12.7093,
+          "z": -73.2187
+        },
+        "face_count": 487,
+        "edge_count": 1285,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "touching",
+        "floating": false,
+        "nearest_part_id": "telaio",
+        "distance_mm": 0.0,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/guancia_sx.png"
+    },
+    {
+      "id": "guancia_dx",
+      "id_source": "explicit",
+      "part_of": null,
+      "color": "#f2e3c6",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            -20.9458,
+            21.0188
+          ],
+          "y": [
+            -15.3,
+            -11.0
+          ],
+          "z": [
+            -103.9583,
+            -42.0
+          ]
+        },
+        "dimensions": {
+          "x": 41.9647,
+          "y": 4.3,
+          "z": 61.9583
+        },
+        "volume": 6288.904,
+        "surface_area": 4906.7486,
+        "center_of_mass": {
+          "x": -0.4257,
+          "y": -12.7093,
+          "z": -73.2187
+        },
+        "face_count": 487,
+        "edge_count": 1285,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "touching",
+        "floating": false,
+        "nearest_part_id": "telaio",
+        "distance_mm": 0.0,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/guancia_dx.png"
+    },
+    {
+      "id": "cane",
+      "id_source": "explicit",
+      "name": "Cane",
+      "part_of": null,
+      "color": "#d9a441",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            -13.9451,
+            14.9581
+          ],
+          "y": [
+            -4.0,
+            4.0
+          ],
+          "z": [
+            6.0,
+            24.9914
+          ]
+        },
+        "dimensions": {
+          "x": 28.9032,
+          "y": 8.0,
+          "z": 18.9914
+        },
+        "volume": 2488.3609,
+        "surface_area": 1223.8372,
+        "center_of_mass": {
+          "x": 3.0013,
+          "y": 0.0,
+          "z": 15.8127
+        },
+        "face_count": 91,
+        "edge_count": 225,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "disconnected",
+        "floating": false,
+        "nearest_part_id": "telaio",
+        "distance_mm": 0.25,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/cane.png"
+    },
+    {
+      "id": "grilletto",
+      "id_source": "explicit",
+      "name": "Grilletto",
+      "part_of": null,
+      "color": "#d9a441",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            29.8111,
+            39.9315
+          ],
+          "y": [
+            -3.0,
+            3.0
+          ],
+          "z": [
+            -55.1867,
+            -27.0
+          ]
+        },
+        "dimensions": {
+          "x": 10.1204,
+          "y": 6.0,
+          "z": 28.1867
+        },
+        "volume": 864.932,
+        "surface_area": 644.0163,
+        "center_of_mass": {
+          "x": 35.4657,
+          "y": -0.0,
+          "z": -39.2681
+        },
+        "face_count": 56,
+        "edge_count": 126,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "disconnected",
+        "floating": false,
+        "nearest_part_id": "telaio",
+        "distance_mm": 0.25,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/grilletto.png"
+    },
+    {
+      "id": "cordino",
+      "id_source": "explicit",
+      "name": "Anello cordino",
+      "part_of": null,
+      "color": "#d9a441",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            -12.2,
+            0.2
+          ],
+          "y": [
+            -2.0,
+            2.0
+          ],
+          "z": [
+            -122.2,
+            -108.75
+          ]
+        },
+        "dimensions": {
+          "x": 12.4,
+          "y": 4.0,
+          "z": 13.45
+        },
+        "volume": 171.7792,
+        "surface_area": 278.989,
+        "center_of_mass": {
+          "x": -6.0,
+          "y": -0.0,
+          "z": -114.9237
+        },
+        "face_count": 8,
+        "edge_count": 23,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "disconnected",
+        "floating": false,
+        "nearest_part_id": "telaio",
+        "distance_mm": 1.308148,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/cordino.png"
+    },
+    {
+      "id": "volata",
+      "id_source": "explicit",
+      "name": "Volata",
+      "part_of": null,
+      "color": "#ff7a00",
+      "metrics": {
+        "bounding_box": {
+          "x": [
+            121.6,
+            129.6
+          ],
+          "y": [
+            -9.5,
+            9.5
+          ],
+          "z": [
+            -9.5,
+            9.5
+          ]
+        },
+        "dimensions": {
+          "x": 8.0,
+          "y": 19.0,
+          "z": 19.0
+        },
+        "volume": 940.1805,
+        "surface_area": 1189.8154,
+        "center_of_mass": {
+          "x": 125.9615,
+          "y": -0.0,
+          "z": 0.0
+        },
+        "face_count": 6,
+        "edge_count": 9,
+        "is_valid": true
+      },
+      "connection": {
+        "status": "touching",
+        "floating": false,
+        "nearest_part_id": "canna",
+        "distance_mm": 0.0,
+        "tolerance_mm": 0.01
+      },
+      "preview": "v9_A2_frontiera/parts/volata.png"
+    }
+  ],
+  "warnings": [
+    "Part 'tamburo' touches no other part: nearest part 'telaio' is 0.25 mm away. If intentional, set options={'floating': True} on its show_object call.",
+    "Part 'perno' touches no other part: nearest part 'tamburo' is 0.25 mm away. If intentional, set options={'floating': True} on its show_object call.",
+    "Part 'sportello' touches no other part: nearest part 'telaio' is 0.125 mm away. If intentional, set options={'floating': True} on its show_object call.",
+    "Part 'astina' touches no other part: nearest part 'manicotto' is 0.3 mm away. If intentional, set options={'floating': True} on its show_object call.",
+    "Part 'cane' touches no other part: nearest part 'telaio' is 0.25 mm away. If intentional, set options={'floating': True} on its show_object call.",
+    "Part 'grilletto' touches no other part: nearest part 'telaio' is 0.25 mm away. If intentional, set options={'floating': True} on its show_object call.",
+    "Part 'cordino' touches no other part: nearest part 'telaio' is 1.308 mm away. If intentional, set options={'floating': True} on its show_object call."
+  ],
+  "comparison_phases": {
+    "source_loading": {
+      "status": "success",
+      "duration_ms": 1789
+    },
+    "comparison_rendering": {
+      "status": "success",
+      "duration_ms": 1024
+    },
+    "projection_comparison": {
+      "status": "success",
+      "duration_ms": 450
+    },
+    "exact_3d_comparison": {
+      "status": "timeout",
+      "duration_ms": 30373,
+      "message": "Exact 3D comparison exceeded its 30s budget."
+    },
+    "approximate_3d_comparison": {
+      "status": "success",
+      "duration_ms": 8404
+    },
+    "difference_artifact_export": {
+      "status": "success",
+      "duration_ms": 1436
+    },
+    "viewer_generation": {
+      "status": "success",
+      "duration_ms": 68
+    }
+  },
+  "change": {
+    "revision_id": "r_c00fbe43f3ac4090a801f1fc0855f291",
+    "parent_revision_id": "r_dc412089db8d43aa94aa629c67ca5725",
+    "selection_generation": 14,
+    "request": "/home/luc/Documents/3D/GUN/corpo/.agentcad/changes/attempts/r_c00fbe43f3ac4090a801f1fc0855f291/request.json",
+    "source": "/home/luc/Documents/3D/GUN/corpo/.agentcad/changes/attempts/r_c00fbe43f3ac4090a801f1fc0855f291/source.py",
+    "geometry": "/home/luc/Documents/3D/GUN/corpo/.agentcad/changes/attempts/r_c00fbe43f3ac4090a801f1fc0855f291/geometry/output.step",
+    "candidate": "/home/luc/Documents/3D/GUN/corpo/.agentcad/changes/attempts/r_c00fbe43f3ac4090a801f1fc0855f291/candidate.json",
+    "receipt": "/home/luc/Documents/3D/GUN/corpo/.agentcad/changes/attempts/r_c00fbe43f3ac4090a801f1fc0855f291/receipt.json"
+  },
+  "geometry_manifest": {
+    "path": "v9_A2_frontiera/geometry_manifest.json",
+    "manifest_id": "212b4a0c1dd65800f96c69d48c03554445694aa4bf19b98e37c3ba0b5b4af554",
+    "version": 9,
+    "baseline_sha256": "4e76a0d34185fac243005835a25ad183805916703fd5787a6bc374fbe0e79800",
+    "counts": {
+      "solids": 14,
+      "faces": 1564,
+      "edges": 3956,
+      "part_definitions": 14,
+      "assembly_definitions": 10,
+      "part_occurrences": 14,
+      "assembly_occurrences": 10
+    },
+    "recognition": {
+      "status": "not_available"
+    },
+    "root_occurrence_ids": [
+      "occurrence_v9_1"
+    ],
+    "root_occurrences_total": 1,
+    "sample_ids": {
+      "face": "face_v9_1",
+      "edge": "edge_v9_1"
+    },
+    "id_scope": "version_local",
+    "cross_version_correspondence": "not_available",
+    "lookup_example": "agentcad inspect v9_A2_frontiera/output.step --id occurrence_v9_1",
+    "image_example": "agentcad inspect v9_A2_frontiera/output.step --image"
+  },
+  "renders": {
+    "front": "v9_A2_frontiera/renders/front.png",
+    "back": "v9_A2_frontiera/renders/back.png",
+    "30_20": "v9_A2_frontiera/renders/30_20.png",
+    "210_25": "v9_A2_frontiera/renders/210_25.png"
+  },
+  "preview": "v9_A2_frontiera/preview.png",
+  "viewer_glb": "v9_A2_frontiera/output.glb",
+  "diff": {
+    "against": "A2_frontiera",
+    "side_by_side": "v9_A2_frontiera/diff_side.png",
+    "overlay": "v9_A2_frontiera/diff_overlay.png",
+    "projection_comparison": {
+      "method": "four_view_image_mask",
+      "scope": "2d_projected_pixels",
+      "alignment": {
+        "mode": "bounding_box_center",
+        "rotation": "preserved",
+        "relative_scale": "preserved"
+      },
+      "score": {
+        "metric": "projection_intersection_over_union",
+        "value": 1.0,
+        "classification": "high",
+        "aggregation": "foreground_union_pixel_weighted_across_views"
+      },
+      "meaning": "Visual silhouette overlap across four rendered viewpoints; not shared physical volume or model correctness.",
+      "limitations": [
+        "Does not establish shared 3D geometry.",
+        "Does not identify physical material additions or removals."
+      ],
+      "views": [
+        {
+          "view": "top",
+          "coincident_fraction_of_union": 1.0,
+          "reference_only_fraction_of_union": 0.0,
+          "candidate_only_fraction_of_union": 0.0
+        },
+        {
+          "view": "bottom",
+          "coincident_fraction_of_union": 1.0,
+          "reference_only_fraction_of_union": 0.0,
+          "candidate_only_fraction_of_union": 0.0
+        },
+        {
+          "view": "upper_iso",
+          "coincident_fraction_of_union": 0.9999,
+          "reference_only_fraction_of_union": 0.0,
+          "candidate_only_fraction_of_union": 0.0
+        },
+        {
+          "view": "lower_iso",
+          "coincident_fraction_of_union": 1.0,
+          "reference_only_fraction_of_union": 0.0,
+          "candidate_only_fraction_of_union": 0.0
+        }
+      ]
+    },
+    "comparison_3d": {
+      "method": "approximate_voxel_volume",
+      "accuracy": "approximate",
+      "status": "success",
+      "classification": "partial_shared_volume",
+      "alignment": {
+        "mode": "source_frame",
+        "transform_applied": false
+      },
+      "units": {
+        "length": "mm",
+        "volume": "mm^3"
+      },
+      "resolution_mm": 1.611955,
+      "grid": {
+        "dimensions": [
+          96,
+          28,
+          92
+        ],
+        "sampled_cells": 247296,
+        "max_sampled_cells": 250000,
+        "sampling": "voxel_center_occupancy",
+        "surface_tessellation_mm": 0.402989
+      },
+      "error_estimate": {
+        "method": "boundary_voxel_count",
+        "unit": "mm^3",
+        "absolute_volume": {
+          "reference_only": 167.54,
+          "candidate_only": 686.9139,
+          "shared": 59790.8254,
+          "reference": 59757.3174,
+          "candidate": 59769.8829,
+          "union": 59736.3749
+        },
+        "is_strict_bound": false,
+        "interpretation": "These are heuristic absolute errors for the named volume measurements, not additional measured volumes. Zero for an empty sampled region is not proof that sub-resolution features are absent."
+      },
+      "volume_semantics": {
+        "measurement": "sampled_voxel_occupancy",
+        "compound_members": "Overlapping members are counted once."
+      },
+      "volumes": {
+        "reference": 164059.3233,
+        "candidate": 164712.7292,
+        "shared": 163891.7833,
+        "reference_only": 167.54,
+        "candidate_only": 820.9458,
+        "union": 164880.2691
+      },
+      "ratios": {
+        "volume_iou": 0.994,
+        "reference_coverage": 0.999,
+        "candidate_coverage": 0.995
+      },
+      "meaning": {
+        "shared": "Approximate volume occupied by both models.",
+        "reference_only": "Approximate volume occupied only by the reference.",
+        "candidate_only": "Approximate volume occupied only by the candidate."
+      },
+      "limitations": [
+        "Volumes come from voxel-center samples, not exact CAD Booleans.",
+        "Input surfaces are tessellated at the reported grid surface tolerance before occupancy classification.",
+        "The error estimate counts boundary voxels and is not a strict bound.",
+        "Features thinner than the reported resolution may be missed.",
+        "Requested resolution is coarsened when needed to keep the grid bounded.",
+        "Models were compared at the positions stored in their files; no alignment was applied."
+      ],
+      "exact_attempt": {
+        "method": "source_frame_boolean_volume",
+        "alignment": {
+          "mode": "source_frame",
+          "transform_applied": false
+        },
+        "units": {
+          "length": "mm",
+          "volume": "mm^3"
+        },
+        "tolerance": {
+          "linear": 1e-07,
+          "unit": "mm"
+        },
+        "status": "timeout",
+        "reason": {
+          "code": "exact_comparison_timeout",
+          "message": "Exact 3D comparison exceeded its 30s budget."
+        },
+        "suggestion": "Retry the same saved-model `agentcad diff` with a larger AGENTCAD_DIFF_TIMEOUT_S; do not rerun the CAD build or import.",
+        "timeout_s": 30.0
+      }
+    },
+    "volume_glb": "v9_A2_frontiera/diff_volume.glb",
+    "volume_png": "v9_A2_frontiera/diff_volume.png"
+  },
+  "viewer_context": {
+    "version": 9,
+    "label": "A2_frontiera",
+    "models": {
+      "a": {
+        "version": 8,
+        "label": "A2_frontiera"
+      },
+      "b": {
+        "version": 9,
+        "label": "A2_frontiera"
+      }
+    }
+  },
+  "viewer": "v9_A2_frontiera/viewer.html"
+}

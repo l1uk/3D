@@ -1,0 +1,94 @@
+{
+  "artifacts": [
+    {
+      "name": "output.step",
+      "path": ".agentcad/changes/attempts/r_dab15e13e5314d2d819942d59d4e1118/geometry/output.step",
+      "role": "geometry",
+      "sha256": "9d8aa3fc70a6c17bc12d18a805dccd62d726badf2ff2e1aca0e03aba8c5f8c15",
+      "size_bytes": 5738175
+    }
+  ],
+  "blockers": [],
+  "candidate": {
+    "content_sha256": "1b364876dab445255817a5cc2f3c8692adce50f6baa153a1812f6e41b7446777",
+    "model_fingerprint": "c1a0c12cfb46fd5397b0430150d413f7d630bcd3dd9e05fb74d63a1d68dd2231",
+    "revision_id": "r_dab15e13e5314d2d819942d59d4e1118"
+  },
+  "candidate_retained": true,
+  "checks": [
+    {
+      "actions": [],
+      "candidate": {
+        "content_sha256": "1b364876dab445255817a5cc2f3c8692adce50f6baa153a1812f6e41b7446777",
+        "model_fingerprint": "c1a0c12cfb46fd5397b0430150d413f7d630bcd3dd9e05fb74d63a1d68dd2231",
+        "revision_id": "r_dab15e13e5314d2d819942d59d4e1118"
+      },
+      "check_id": "execution",
+      "content_sha256": "e2668b1574898ea07e0085dd501fd145119d132beae0fe7f07cc500fb05df8d9",
+      "definition_sha256": "ff406cf73c3214a27d078c5662abd9c4e7cbebae01630a314e123078f43ae478",
+      "definition_version": 1,
+      "evidence": [
+        {
+          "artifact": ".agentcad/changes/attempts/r_dab15e13e5314d2d819942d59d4e1118/core.json"
+        }
+      ],
+      "kind": "check_result",
+      "observed": "success",
+      "policy": {
+        "policy_id": "legacy-core-retention-deliverable",
+        "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+        "version": 1
+      },
+      "schema_version": 1,
+      "settings": {
+        "validation_profile": "deliverable"
+      },
+      "state": "pass",
+      "target_id": "cad"
+    },
+    {
+      "actions": [],
+      "candidate": {
+        "content_sha256": "1b364876dab445255817a5cc2f3c8692adce50f6baa153a1812f6e41b7446777",
+        "model_fingerprint": "c1a0c12cfb46fd5397b0430150d413f7d630bcd3dd9e05fb74d63a1d68dd2231",
+        "revision_id": "r_dab15e13e5314d2d819942d59d4e1118"
+      },
+      "check_id": "written_geometry",
+      "content_sha256": "345bdb14ab3d80ebdacd055ab5c55fc4995e6e009d549f89f8f34f183b866115",
+      "definition_sha256": "ac0e3e21c2a3fb095abdadd1412d3ef0e0a210a6707863197a70e0c51e3e123d",
+      "definition_version": 1,
+      "evidence": [
+        {
+          "artifact": ".agentcad/changes/attempts/r_dab15e13e5314d2d819942d59d4e1118/core.json"
+        }
+      ],
+      "kind": "check_result",
+      "observed": true,
+      "policy": {
+        "policy_id": "legacy-core-retention-deliverable",
+        "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+        "version": 1
+      },
+      "schema_version": 1,
+      "settings": {
+        "validation_profile": "deliverable"
+      },
+      "state": "pass",
+      "target_id": "cad"
+    }
+  ],
+  "content_sha256": "5b26ae4d983b393bfc34008fec4b55faccda0599329c7d573a1c2ea50599b97c",
+  "kind": "change_receipt",
+  "policy": {
+    "policy_id": "legacy-core-retention-deliverable",
+    "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+    "version": 1
+  },
+  "promoted_revision_id": null,
+  "promotion_ready": true,
+  "review_states": {},
+  "schema_version": 1,
+  "target_id": "cad",
+  "validation_state": "valid",
+  "warnings": []
+}

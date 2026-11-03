@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_core",
+  "candidate_sha256": "3db3de6a55f14f5275f8f9c20aa38689dd248baf85bc7fe761d58b21c9acf839",
+  "receipt_sha256": "6c724793f3ccb6523ea7b777a8e1e68299454e446fe234ca823d38c4ad86a668",
+  "policy_sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+  "response": {
+    "command": "run",
+    "status": "failed",
+    "error_kind": "timeout",
+    "timeout_s": 115.0,
+    "timeout_phase": "export_step",
+    "completed_phases": [
+      "validation",
+      "script_exec",
+      "metrics"
+    ],
+    "phase_timings": {
+      "validation_ms": 379,
+      "script_exec_ms": 16777,
+      "metrics_ms": 80518
+    },
+    "timings": {
+      "validation_ms": 379,
+      "script_exec_ms": 16777,
+      "metrics_ms": 80518
+    },
+    "message": "agentcad run timed out after 115s during export_step No STEP was created. Fix concept/A2_frontiera.py and rerun the command.",
+    "suggestion": "The script executed but STEP export timed out; avoid wrapping a large or invalid imported STEP as a high-level part, or export a simpler compound/assembly.",
+    "active_phase_elapsed_ms": 17547,
+    "last_completed_phase": "metrics",
+    "runtime": "build123d",
+    "runtime_source": "project",
+    "label": "A2_frontiera",
+    "outputs": {
+      "step": null
+    },
+    "artifact_created": false,
+    "next_actions": [
+      "agentcad run concept/A2_frontiera.py --label A2_frontiera"
+    ]
+  },
+  "content_sha256": "fda4a80773f35f7f26f6d44c12ad0e074bf33c34ee52efe147addbc3b58a60d1"
+}

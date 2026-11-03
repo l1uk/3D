@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_outcome",
+  "core_sha256": "daf73439a74f7455f8511fa57440e3cc32b675d06ef7f9cf4eb61c69af59d028",
+  "response": {
+    "command": "run",
+    "status": "failed",
+    "version": 3,
+    "label": "fianchi",
+    "error": "Script execution failed: AttributeError: 'ShapeList' object has no attribute 'moved'",
+    "path": "v3_fianchi_failed/",
+    "runtime": "build123d",
+    "runtime_source": "project",
+    "outputs": {
+      "step": null
+    },
+    "artifact_created": false,
+    "message": "No STEP was created. Fix fianchi_varianti.py and rerun the command.",
+    "next_actions": [
+      "agentcad run fianchi_varianti.py --label fianchi"
+    ]
+  },
+  "artifacts": [],
+  "unavailable_artifacts": [],
+  "content_sha256": "4873a8cc9b4600008449911be0cea56a6630fec7015d799333fb97e57154e034"
+}

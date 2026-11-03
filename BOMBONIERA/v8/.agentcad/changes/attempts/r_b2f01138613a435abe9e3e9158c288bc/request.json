@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_b2f01138613a435abe9e3e9158c288bc",
+  "parent_revision_id": "r_a9553f3e08374d36827a3046d40a5e71",
+  "selection_generation": 2,
+  "started_ns": 1793466131169763882,
+  "command": "run",
+  "label": "prova",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "prova",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "prova_barra.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_b2f01138613a435abe9e3e9158c288bc/source.py",
+    "sha256": "cb97b1f25d98a4d3056331220377bc799d22e8cc85221a85dcafe3e333b4fef1",
+    "size_bytes": 1256
+  },
+  "content_sha256": "f00b42f2fb665bbbd182cb2b14d159013e602c7afbd16292a6259e78c97909e1"
+}

@@ -1,0 +1,53 @@
+{
+  "content_sha256": "d72a149033ebe1dc2eea9698efc7499610ae73f2959a8e4e0153a358578fb5f8",
+  "deliverables": {
+    "cad": [
+      {
+        "name": "output.step",
+        "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/geometry/output.step",
+        "role": "geometry",
+        "sha256": "a014f3f028a5dd80675850fb8a902108c77b35857b713f795abd9e13e7adf804",
+        "size_bytes": 1190433
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "name": "B_raggio.py",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/source.py",
+      "role": "source",
+      "sha256": "9e2b25065451d7e06e7f5af621ba9c5fc83ea8bac0408283c3c20b015a085e76",
+      "size_bytes": 2928
+    },
+    {
+      "name": "output.step",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/geometry/output.step",
+      "role": "geometry",
+      "sha256": "a014f3f028a5dd80675850fb8a902108c77b35857b713f795abd9e13e7adf804",
+      "size_bytes": 1190433
+    }
+  ],
+  "kind": "candidate",
+  "metadata": {
+    "command": "run",
+    "source_name": "B_raggio.py"
+  },
+  "model": {
+    "params": null,
+    "runtime": "build123d",
+    "validation_profile": "deliverable"
+  },
+  "model_fingerprint": "e6716b669f15a88bae83441d57115818c10770dcbf2549b0734f3c2e02dd0ed8",
+  "parent_revision_id": "r_6ac03ea6982640b19b0444d86bc5ac39",
+  "promotion_mode": "automatic",
+  "requested_change": "B_raggio",
+  "revision_id": "r_99e751c62e72484c8b70f9e7479dbde9",
+  "schema_version": 1,
+  "target_policies": {
+    "cad": {
+      "policy_id": "legacy-core-retention-deliverable",
+      "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+      "version": 1
+    }
+  }
+}

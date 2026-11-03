@@ -1,0 +1,498 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_outcome",
+  "core_sha256": "8a73fb2cfde9cee090a96c422209c8eecc95e00d5728183491af50901f24a114",
+  "response": {
+    "command": "run",
+    "status": "success",
+    "core": {
+      "status": "success",
+      "committed_at": "2026-11-03T07:40:42.316761+00:00"
+    },
+    "artifacts": {
+      "geometry_manifest": {
+        "status": "success"
+      },
+      "mesh_exports": {
+        "status": "success"
+      },
+      "renders": {
+        "status": "skipped",
+        "message": "No explicit renders requested."
+      },
+      "preview": {
+        "status": "success"
+      },
+      "parts_preview": {
+        "status": "success"
+      },
+      "viewer_glb": {
+        "status": "success"
+      },
+      "diff": {
+        "status": "skipped",
+        "message": "Automatic comparison disabled with --no-diff."
+      },
+      "viewer": {
+        "status": "success"
+      },
+      "browser": {
+        "status": "skipped",
+        "message": "Browser launch disabled with --no-view."
+      }
+    },
+    "runtime": "build123d",
+    "output_type": "assembly",
+    "version": 5,
+    "label": "fianchi_AB",
+    "outputs": {
+      "step": "v5_fianchi_AB/output.step",
+      "script": "v5_fianchi_AB/script.py",
+      "geometry_manifest": "v5_fianchi_AB/geometry_manifest.json",
+      "stl": "v5_fianchi_AB/output.stl"
+    },
+    "geometry_manifest": {
+      "path": "v5_fianchi_AB/geometry_manifest.json",
+      "manifest_id": "81ab33f4f96d8fac3bbb0c0aca1b94b2a96aa9d91d414e681b46f51ff1b6711d",
+      "version": 5,
+      "baseline_sha256": "24477728336eef52765cfe918985a33d9a671591d0b87100a3e55f285bbfa965",
+      "counts": {
+        "solids": 2,
+        "faces": 169,
+        "edges": 506,
+        "part_definitions": 2,
+        "assembly_definitions": 1,
+        "part_occurrences": 2,
+        "assembly_occurrences": 1
+      },
+      "recognition": {
+        "status": "not_available"
+      },
+      "root_occurrence_ids": [
+        "occurrence_v5_1"
+      ],
+      "root_occurrences_total": 1,
+      "sample_ids": {
+        "face": "face_v5_1",
+        "edge": "edge_v5_1"
+      },
+      "id_scope": "version_local",
+      "cross_version_correspondence": "not_available",
+      "lookup_example": "agentcad inspect v5_fianchi_AB/output.step --id occurrence_v5_1",
+      "image_example": "agentcad inspect v5_fianchi_AB/output.step --image"
+    },
+    "next_actions": [
+      "agentcad inspect v5_fianchi_AB/output.step --report",
+      "agentcad inspect v5_fianchi_AB/output.step --id occurrence_v5_1"
+    ],
+    "metrics": {
+      "bounding_box": {
+        "x": [
+          -45.8504,
+          96.607
+        ],
+        "y": [
+          0.0754,
+          224.9564
+        ],
+        "z": [
+          -0.0,
+          4.7
+        ]
+      },
+      "dimensions": {
+        "x": 142.4574,
+        "y": 224.881,
+        "z": 4.7
+      },
+      "volume": 15446.674,
+      "surface_area": 16311.0699,
+      "center_of_mass": {
+        "x": 8.5172,
+        "y": 106.999,
+        "z": 1.558
+      },
+      "face_count": 169,
+      "edge_count": 506,
+      "is_valid": true,
+      "reliable": true
+    },
+    "validation": {
+      "profile": "deliverable",
+      "is_valid": true,
+      "first_failure": null,
+      "undetermined_layer": null,
+      "layers": {
+        "file_parse": {
+          "status": "pass",
+          "duration_ms": 0
+        },
+        "kernel_load": {
+          "status": "pass",
+          "duration_ms": 0
+        },
+        "brep_check": {
+          "status": "pass",
+          "errors": [],
+          "entities": [],
+          "entity_count": 0,
+          "evidence_truncated": false,
+          "duration_ms": 389
+        },
+        "shell_closure": {
+          "status": "pass",
+          "closed_shell_count": 2,
+          "open_shell_count": 0,
+          "loose_face_count": 0,
+          "loose_face_ids": [],
+          "free_edge_count": 0,
+          "free_edge_ids": [],
+          "free_edges": [],
+          "evidence_truncated": false,
+          "duration_ms": 3
+        },
+        "mesh_manifold": {
+          "deflection_mm": 0.276161,
+          "triangle_count": 10644,
+          "vertex_count": 5290,
+          "status": "pass",
+          "ladder_divisor": 1,
+          "requested_deflection_mm": 0.276161,
+          "worker": "in_process",
+          "duration_ms": 607
+        },
+        "structure": {
+          "status": "pass",
+          "solid_count": 2,
+          "shell_count": 2,
+          "face_count": 169,
+          "edge_count": 506,
+          "faces_outside_solids": 0,
+          "solids": [
+            {
+              "id": 1,
+              "volume": 7417.8357,
+              "bbox": {
+                "x": [
+                  -44.9661,
+                  95.9458
+                ],
+                "y": [
+                  0.0754,
+                  104.9564
+                ],
+                "z": [
+                  -0.0,
+                  4.7
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "volume": 8028.1601,
+              "bbox": {
+                "x": [
+                  -45.8504,
+                  96.607
+                ],
+                "y": [
+                  120.0,
+                  224.9564
+                ],
+                "z": [
+                  -0.0,
+                  4.7
+                ]
+              }
+            }
+          ],
+          "evidence_truncated": false,
+          "duration_ms": 3565
+        },
+        "advisory": {
+          "status": "pass",
+          "min_face_area_mm2": 0.0202,
+          "max_tolerance_mm": 1e-05,
+          "flags": [],
+          "duration_ms": 4344
+        }
+      },
+      "message": "The shape passed every deliverable validation layer.",
+      "repairs": [],
+      "worker": "subprocess",
+      "budget_s": 120.0,
+      "step_round_trip": {
+        "status": "pass",
+        "matches": true,
+        "before": {
+          "is_valid": true,
+          "solid_count": 2,
+          "layers": {
+            "brep_check": "pass",
+            "shell_closure": "pass",
+            "mesh_manifold": "pass",
+            "structure": "pass",
+            "advisory": "pass"
+          }
+        },
+        "after": {
+          "is_valid": true,
+          "solid_count": 2,
+          "layers": {
+            "brep_check": "pass",
+            "shell_closure": "pass",
+            "mesh_manifold": "pass",
+            "structure": "pass",
+            "advisory": "pass"
+          }
+        },
+        "differences": [],
+        "skipped_layers": [],
+        "skipped_reason": null,
+        "message": "STEP layer outcomes and solid count match the source."
+      }
+    },
+    "validation_profile": "deliverable",
+    "mesh_validation": {
+      "stl": {
+        "checked_file": "/home/luc/Documents/3D/BOMBONIERA/v8/v5_fianchi_AB/output.stl",
+        "status": "pass",
+        "is_valid": true,
+        "sha256": "1a8b71c86c10d4bae20bf703f3b659930cd31f5589e7a0444e3a83855a814597",
+        "triangle_count": 206598,
+        "watertight": true,
+        "manifold": true,
+        "first_failure": null,
+        "undetermined_layer": null,
+        "layers": {
+          "file_parse": {
+            "status": "pass"
+          },
+          "mesh_manifold": {
+            "status": "pass",
+            "triangle_count": 206598,
+            "vertex_count": 103267,
+            "watertight": true,
+            "manifold": true,
+            "winding_consistent": true,
+            "component_count": 2,
+            "closed_component_count": 2,
+            "open_edge_count": 0,
+            "non_manifold_edge_count": 0,
+            "inconsistent_winding_edge_count": 0,
+            "degenerate_triangle_count": 0,
+            "duplicate_triangle_count": 0,
+            "pinch_vertex": null
+          }
+        },
+        "welding": "exact stored coordinates within each GLB node; global for STL/OBJ",
+        "scope": "Closed, consistently wound manifold surface; no self-intersection, dimension, material, or printability checks. No mesh repair is performed.",
+        "message": "Written mesh is a closed, consistently wound manifold surface.",
+        "budget_s": 30,
+        "duration_ms": 17053
+      }
+    },
+    "parts": [
+      {
+        "id": "fianco_a_classica",
+        "id_source": "name",
+        "name": "fianco_A_classica",
+        "part_of": null,
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              -44.9661,
+              95.9458
+            ],
+            "y": [
+              0.0754,
+              104.9564
+            ],
+            "z": [
+              -0.0,
+              4.7
+            ]
+          },
+          "dimensions": {
+            "x": 140.9119,
+            "y": 104.881,
+            "z": 4.7
+          },
+          "volume": 7417.8356,
+          "surface_area": 7712.8982,
+          "center_of_mass": {
+            "x": 7.5196,
+            "y": 44.458,
+            "z": 1.5732
+          },
+          "face_count": 78,
+          "edge_count": 234,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "disconnected",
+          "floating": false,
+          "nearest_part_id": "fianco_b_coup_de_fouet",
+          "distance_mm": 26.285416,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v5_fianchi_AB/parts/fianco_a_classica.png"
+      },
+      {
+        "id": "fianco_b_coup_de_fouet",
+        "id_source": "name",
+        "name": "fianco_B_coup_de_fouet",
+        "part_of": null,
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              -45.8504,
+              96.607
+            ],
+            "y": [
+              120.0,
+              224.9564
+            ],
+            "z": [
+              -0.0,
+              4.7
+            ]
+          },
+          "dimensions": {
+            "x": 142.4574,
+            "y": 104.9564,
+            "z": 4.7
+          },
+          "volume": 8028.1601,
+          "surface_area": 8598.1717,
+          "center_of_mass": {
+            "x": 9.4404,
+            "y": 164.7796,
+            "z": 1.5439
+          },
+          "face_count": 91,
+          "edge_count": 272,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "disconnected",
+          "floating": false,
+          "nearest_part_id": "fianco_a_classica",
+          "distance_mm": 26.285416,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v5_fianchi_AB/parts/fianco_b_coup_de_fouet.png"
+      }
+    ],
+    "warnings": [
+      "Part 'fianco_a_classica' touches no other part: nearest part 'fianco_b_coup_de_fouet' is 26.29 mm away. If intentional, set options={'floating': True} on its show_object call.",
+      "Part 'fianco_b_coup_de_fouet' touches no other part: nearest part 'fianco_a_classica' is 26.29 mm away. If intentional, set options={'floating': True} on its show_object call."
+    ],
+    "preview": "v5_fianchi_AB/preview.png",
+    "viewer": "v5_fianchi_AB/viewer.html",
+    "viewer_glb": "v5_fianchi_AB/output.glb",
+    "viewer_opened": false,
+    "hint": "Review v5_fianchi_AB/viewer.html in the browser.",
+    "timings": {
+      "validation_ms": 20,
+      "script_exec_ms": 29667,
+      "metrics_ms": 15855,
+      "source_validation_ms": 3939,
+      "export_write_ms": 337,
+      "reload_ms": 1417,
+      "delivered_validation_ms": 8910,
+      "export_step_ms": 15220,
+      "geometry_manifest_ms": 31973,
+      "export_mesh_ms": 18444,
+      "preview_ms": 366,
+      "parts_preview_ms": 197,
+      "export_viewer_glb_ms": 1404,
+      "viewer_generation_ms": 22,
+      "total_ms": 113480
+    },
+    "completed_phases": [
+      "validation",
+      "script_exec",
+      "metrics",
+      "export_step",
+      "geometry_manifest",
+      "export_mesh",
+      "preview",
+      "parts_preview",
+      "export_viewer_glb",
+      "viewer_generation"
+    ],
+    "phase_timings": {
+      "validation_ms": 20,
+      "script_exec_ms": 29667,
+      "metrics_ms": 15855,
+      "source_validation_ms": 3939,
+      "export_write_ms": 337,
+      "reload_ms": 1417,
+      "delivered_validation_ms": 8910,
+      "export_step_ms": 15220,
+      "geometry_manifest_ms": 31973,
+      "export_mesh_ms": 18444,
+      "preview_ms": 366,
+      "parts_preview_ms": 197,
+      "export_viewer_glb_ms": 1404,
+      "viewer_generation_ms": 22,
+      "total_ms": 113480
+    },
+    "runtime_source": "project",
+    "artifact_created": true
+  },
+  "artifacts": [
+    {
+      "name": "outputs.geometry_manifest",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_e22a1bee79f74722a5799da0ec19c83a/artifacts/23e70418e6d5d27979a5.json",
+      "sha256": "39267ebf88318ad814454cd3486e397cd7a1d8c86d3ff3969a4f5aa31adef913",
+      "size_bytes": 353398
+    },
+    {
+      "name": "outputs.stl",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_e22a1bee79f74722a5799da0ec19c83a/artifacts/7fd03cbb2bf56b577435.stl",
+      "sha256": "1a8b71c86c10d4bae20bf703f3b659930cd31f5589e7a0444e3a83855a814597",
+      "size_bytes": 10329984
+    },
+    {
+      "name": "preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_e22a1bee79f74722a5799da0ec19c83a/artifacts/6b4385db2e61c6709488.png",
+      "sha256": "93598281c756eb2a2afbb55b0b462a669397631369e0cba060ed4c7cd387ed64",
+      "size_bytes": 89701
+    },
+    {
+      "name": "viewer",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_e22a1bee79f74722a5799da0ec19c83a/artifacts/9b5ed8bcb106e04af322.html",
+      "sha256": "3b57d81531af37d4c4f931691794641bb5e12ea6529cbaed6cf38189dd533588",
+      "size_bytes": 1034593
+    },
+    {
+      "name": "viewer_glb",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_e22a1bee79f74722a5799da0ec19c83a/artifacts/688cbd1227d3cd25da54.glb",
+      "sha256": "36f5fec50bcddac872c51eabeca8bd2e4f4836d6996e4247b891a870f9bd3bd1",
+      "size_bytes": 580840
+    },
+    {
+      "name": "parts.0.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_e22a1bee79f74722a5799da0ec19c83a/artifacts/aef675f269bc42f9c865.png",
+      "sha256": "dc3ab2ecf938ecdaf0f394ae4b381645fb43d8324f08b5adb5c4b89e08412b8a",
+      "size_bytes": 49814
+    },
+    {
+      "name": "parts.1.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_e22a1bee79f74722a5799da0ec19c83a/artifacts/01badba3ab8516d24236.png",
+      "sha256": "a364a516332b27bef48728842666d8d667fe571340b72e4cb1b291bc28e23590",
+      "size_bytes": 59804
+    }
+  ],
+  "unavailable_artifacts": [],
+  "content_sha256": "fd3c766126d7d4be171496c52c4eb2cb8f6146a93ede2e9d82c2d0e69716e8d9"
+}

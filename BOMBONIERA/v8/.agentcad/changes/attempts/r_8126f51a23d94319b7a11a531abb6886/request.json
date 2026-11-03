@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_8126f51a23d94319b7a11a531abb6886",
+  "parent_revision_id": "r_7dc54afce2234fd1977e9593b1081435",
+  "selection_generation": 6,
+  "started_ns": 1793691101486634511,
+  "command": "run",
+  "label": "fianchi_AB",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "prova",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "fianchi_varianti.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_8126f51a23d94319b7a11a531abb6886/source.py",
+    "sha256": "e943f0d46e716921b4b0ac86a497c2888b7d60ed67347241400eea1201b98bf9",
+    "size_bytes": 731
+  },
+  "content_sha256": "e8ab5d7e7a1e0890e069332a9923ae58a95f1b53492d254056c15ad89431c501"
+}

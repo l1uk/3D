@@ -1,0 +1,38 @@
+{
+  "content_sha256": "0e09adf406f168430c215a3179aa1ad19ce579d1eea411916bb44c1af7e6f640",
+  "deliverables": {
+    "cad": []
+  },
+  "inputs": [
+    {
+      "name": "A2_frontiera.py",
+      "path": ".agentcad/changes/attempts/r_44006bef5b184854abbfc5749ab399d4/source.py",
+      "role": "source",
+      "sha256": "612283803969ad2c8b61682ba3e7ae27babe3e00f665226b0fdf50d36d0240dd",
+      "size_bytes": 11042
+    }
+  ],
+  "kind": "candidate",
+  "metadata": {
+    "command": "run",
+    "source_name": "A2_frontiera.py"
+  },
+  "model": {
+    "params": null,
+    "runtime": "build123d",
+    "validation_profile": "deliverable"
+  },
+  "model_fingerprint": "138f0df40a5671c736dc2f777df378db4f0a3a5b043e667aab5fdc4dc36bee48",
+  "parent_revision_id": "r_a8df34582efe47e9bdac93316dd6a415",
+  "promotion_mode": "automatic",
+  "requested_change": "A2_frontiera",
+  "revision_id": "r_44006bef5b184854abbfc5749ab399d4",
+  "schema_version": 1,
+  "target_policies": {
+    "cad": {
+      "policy_id": "legacy-core-retention-deliverable",
+      "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+      "version": 1
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "content_sha256": "1696e10bebd0839a2cf38cc491dcb51383c36771d66b046efa7658337585ceae",
+  "deliverables": {
+    "cad": []
+  },
+  "inputs": [
+    {
+      "name": "fianchi_varianti.py",
+      "path": ".agentcad/changes/attempts/r_7dc54afce2234fd1977e9593b1081435/source.py",
+      "role": "source",
+      "sha256": "e943f0d46e716921b4b0ac86a497c2888b7d60ed67347241400eea1201b98bf9",
+      "size_bytes": 731
+    }
+  ],
+  "kind": "candidate",
+  "metadata": {
+    "command": "run",
+    "source_name": "fianchi_varianti.py"
+  },
+  "model": {
+    "params": null,
+    "runtime": "build123d",
+    "validation_profile": "deliverable"
+  },
+  "model_fingerprint": "51aa4830838984dbfc255ec26382e88cc1748ff6c5fd55b2c7e24fcf49c91d5e",
+  "parent_revision_id": "r_fd56db7b15e943afad9e348847b1c5dd",
+  "promotion_mode": "automatic",
+  "requested_change": "fianchi",
+  "revision_id": "r_7dc54afce2234fd1977e9593b1081435",
+  "schema_version": 1,
+  "target_policies": {
+    "cad": {
+      "policy_id": "legacy-core-retention-deliverable",
+      "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+      "version": 1
+    }
+  }
+}

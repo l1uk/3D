@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_core",
+  "candidate_sha256": "b4af7acabb875898ba97c24c340491309f606397319fe33a5185534bfcce0186",
+  "receipt_sha256": "8afc17448ea161fa2df5b2d1fb20a86a42ba9ba1b1126888dfbd0a530c13ee89",
+  "policy_sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+  "response": {
+    "command": "run",
+    "status": "validation_error",
+    "runtime": "build123d",
+    "checks": [
+      {
+        "check": "import_error",
+        "severity": "error",
+        "message": "Import error: module 'ferro' not found"
+      },
+      {
+        "check": "import_error",
+        "severity": "error",
+        "message": "Import error: module 'params_v7' not found"
+      },
+      {
+        "check": "import_error",
+        "severity": "error",
+        "message": "Import error: module 'fianco' not found"
+      }
+    ],
+    "runtime_source": "project",
+    "label": "fianchi",
+    "outputs": {
+      "step": null
+    },
+    "artifact_created": false,
+    "message": "No STEP was created. Fix fianchi_varianti.py and rerun the command.",
+    "next_actions": [
+      "agentcad run fianchi_varianti.py --label fianchi"
+    ]
+  },
+  "content_sha256": "7c1defcb99cc40413fd9b3c8713d82eb2789a826b02d1d81e63e308c71296f80"
+}

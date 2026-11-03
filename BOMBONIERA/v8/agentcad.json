@@ -1,0 +1,51 @@
+{
+  "name": "bombonieraV8",
+  "version": "0.7.1",
+  "created": "2026-10-31T17:00:21.667304+00:00",
+  "runtime": "build123d",
+  "versions": [
+    {
+      "version": 1,
+      "label": "prova",
+      "status": "success",
+      "path": "v1_prova/"
+    },
+    {
+      "version": 2,
+      "label": "prova",
+      "status": "success",
+      "path": "v2_prova/"
+    },
+    {
+      "version": 3,
+      "label": "fianchi",
+      "status": "failed",
+      "path": "v3_fianchi_failed/"
+    },
+    {
+      "version": 4,
+      "label": "fianchi_AB",
+      "status": "success",
+      "path": "v4_fianchi_AB/"
+    },
+    {
+      "version": 5,
+      "label": "fianchi_AB",
+      "status": "success",
+      "path": "v5_fianchi_AB/"
+    },
+    {
+      "version": 6,
+      "label": "fianchi_AB",
+      "status": "success",
+      "path": "v6_fianchi_AB/"
+    },
+    {
+      "version": 7,
+      "label": "fianchi_AB",
+      "status": "success",
+      "path": "v7_fianchi_AB/"
+    }
+  ],
+  "current": "fianchi_AB"
+}

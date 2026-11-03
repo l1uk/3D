@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_aced37c9ac254789bf567fe281b665ae",
+  "parent_revision_id": "r_6b667f611b884941a073cf97e07a068f",
+  "selection_generation": 12,
+  "started_ns": 1793692041779751391,
+  "command": "run",
+  "label": "A2_frontiera",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "C_compatto",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "A2_frontiera.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_aced37c9ac254789bf567fe281b665ae/source.py",
+    "sha256": "470e586fb868a694b66d261765e48ba92d3d3a46ee1b082e16232de48f5ecc92",
+    "size_bytes": 11298
+  },
+  "content_sha256": "b1cea229605c14d21bf0a882f601aa708c339fed4b52f85b563b53afa53a0d9a"
+}

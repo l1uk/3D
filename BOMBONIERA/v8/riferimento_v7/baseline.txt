@@ -1,0 +1,30 @@
+
+== BOMBONIERA/stl/pezzi/fianco.stl
+   ingombro 142.5 x 105.0 x 3.2 mm   volume 8.745 cm3   massa <= 10.8 g (PLA pieno)
+   manifold: si   nel piatto: si
+   sbalzi > 55°: nessuno
+
+== BOMBONIERA/stl/pezzi/manneken_coppia.stl
+   ingombro 29.5 x 51.2 x 2.4 mm   volume 0.748 cm3   massa <= 0.9 g (PLA pieno)
+   manifold: NO   nel piatto: si
+   ATTENZIONE: 2 corpi separati nello stesso file (voluto se sono piu' pezzi sul piatto, altrimenti parti che non si toccano)
+   sbalzi > 55°: nessuno
+
+== BOMBONIERA/stl/pezzi/schienale.stl
+   ingombro 98.4 x 62.0 x 3.2 mm   volume 16.792 cm3   massa <= 20.8 g (PLA pieno)
+   manifold: si   nel piatto: si
+   sbalzi > 55°: nessuno
+
+== BOMBONIERA/stl/pezzi/seduta.stl
+   ingombro 98.4 x 40.3 x 3.2 mm   volume 9.994 cm3   massa <= 12.4 g (PLA pieno)
+   manifold: si   nel piatto: si
+   sbalzi > 55°: nessuno
+
+Profilo: layer 0.2 mm, 3 pareti, infill 15% lines, supporti no
+  /home/luc/Documents/3D/BOMBONIERA/stl/piatti/panchina_x1_ugello04.stl: 6h 11m, 15.39 m = 45.9 g, 16 layer
+  /home/luc/Documents/3D/BOMBONIERA/stl/piatti/fianchi_x4_ugello04.stl: 5h 23m, 12.66 m = 37.8 g, 16 layer
+  /home/luc/Documents/3D/BOMBONIERA/stl/piatti/sedute_x8_ugello04.stl: 12h 22m, 28.25 m = 84.3 g, 16 layer
+  /home/luc/Documents/3D/BOMBONIERA/stl/piatti/schienali_x6_ugello04.stl: 11h 32m, 32.93 m = 98.2 g, 16 layer
+Profilo: layer 0.08 mm, 3 pareti, infill 15% lines, supporti no
+  /home/luc/Documents/3D/BOMBONIERA/stl/pezzi/manneken_coppia.stl: 0h 40m, 0.3 m = 0.9 g, 29 layer
+  /home/luc/Documents/3D/BOMBONIERA/stl/piatti/manneken_x10_coppie_ugello02.stl: 6h 33m, 2.95 m = 8.8 g, 29 layer

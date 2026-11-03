@@ -1,0 +1,53 @@
+{
+  "content_sha256": "ca3b1af8b80f5d9f00b5a7c01250f372d24598f47c9d64e35af9d75c293199ba",
+  "deliverables": {
+    "cad": [
+      {
+        "name": "output.step",
+        "path": ".agentcad/changes/attempts/r_aced37c9ac254789bf567fe281b665ae/geometry/output.step",
+        "role": "geometry",
+        "sha256": "fc620b1fcfa67dfa207737f267dbcfec79677ed35f1dd90ccb50a0216291bd3b",
+        "size_bytes": 5778308
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "name": "A2_frontiera.py",
+      "path": ".agentcad/changes/attempts/r_aced37c9ac254789bf567fe281b665ae/source.py",
+      "role": "source",
+      "sha256": "470e586fb868a694b66d261765e48ba92d3d3a46ee1b082e16232de48f5ecc92",
+      "size_bytes": 11298
+    },
+    {
+      "name": "output.step",
+      "path": ".agentcad/changes/attempts/r_aced37c9ac254789bf567fe281b665ae/geometry/output.step",
+      "role": "geometry",
+      "sha256": "fc620b1fcfa67dfa207737f267dbcfec79677ed35f1dd90ccb50a0216291bd3b",
+      "size_bytes": 5778308
+    }
+  ],
+  "kind": "candidate",
+  "metadata": {
+    "command": "run",
+    "source_name": "A2_frontiera.py"
+  },
+  "model": {
+    "params": null,
+    "runtime": "build123d",
+    "validation_profile": "deliverable"
+  },
+  "model_fingerprint": "65ef7952e68ed57b491b1fd199ca3c125a219ba4b8a001d8d97bb683a0dae429",
+  "parent_revision_id": "r_6b667f611b884941a073cf97e07a068f",
+  "promotion_mode": "automatic",
+  "requested_change": "A2_frontiera",
+  "revision_id": "r_aced37c9ac254789bf567fe281b665ae",
+  "schema_version": 1,
+  "target_policies": {
+    "cad": {
+      "policy_id": "legacy-core-retention-deliverable",
+      "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+      "version": 1
+    }
+  }
+}

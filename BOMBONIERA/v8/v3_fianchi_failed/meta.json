@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "label": "fianchi",
+  "status": "failed",
+  "created": "2026-10-31T17:06:19.058315+00:00",
+  "error": "Script execution failed: AttributeError: 'ShapeList' object has no attribute 'moved'",
+  "script": "v3_fianchi_failed/script.py",
+  "runtime": "build123d",
+  "runtime_source": "project",
+  "change": {
+    "revision_id": "r_7dc54afce2234fd1977e9593b1081435",
+    "parent_revision_id": "r_fd56db7b15e943afad9e348847b1c5dd",
+    "selection_generation": 5,
+    "request": "/home/luc/Documents/3D/BOMBONIERA/v8/.agentcad/changes/attempts/r_7dc54afce2234fd1977e9593b1081435/request.json",
+    "source": "/home/luc/Documents/3D/BOMBONIERA/v8/.agentcad/changes/attempts/r_7dc54afce2234fd1977e9593b1081435/source.py",
+    "geometry": null,
+    "candidate": "/home/luc/Documents/3D/BOMBONIERA/v8/.agentcad/changes/attempts/r_7dc54afce2234fd1977e9593b1081435/candidate.json",
+    "receipt": "/home/luc/Documents/3D/BOMBONIERA/v8/.agentcad/changes/attempts/r_7dc54afce2234fd1977e9593b1081435/receipt.json"
+  }
+}

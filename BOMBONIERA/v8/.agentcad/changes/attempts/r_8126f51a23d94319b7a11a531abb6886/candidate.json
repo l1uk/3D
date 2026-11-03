@@ -1,0 +1,53 @@
+{
+  "content_sha256": "1c65a89d8f5aeb6fc559c303046e135937d61049988d0149b53838f730cf5fbb",
+  "deliverables": {
+    "cad": [
+      {
+        "name": "output.step",
+        "path": ".agentcad/changes/attempts/r_8126f51a23d94319b7a11a531abb6886/geometry/output.step",
+        "role": "geometry",
+        "sha256": "98637dbe376f296bc77815d77bc461da7a7e0f047554d717cba25aba451e6ced",
+        "size_bytes": 5348569
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "name": "fianchi_varianti.py",
+      "path": ".agentcad/changes/attempts/r_8126f51a23d94319b7a11a531abb6886/source.py",
+      "role": "source",
+      "sha256": "e943f0d46e716921b4b0ac86a497c2888b7d60ed67347241400eea1201b98bf9",
+      "size_bytes": 731
+    },
+    {
+      "name": "output.step",
+      "path": ".agentcad/changes/attempts/r_8126f51a23d94319b7a11a531abb6886/geometry/output.step",
+      "role": "geometry",
+      "sha256": "98637dbe376f296bc77815d77bc461da7a7e0f047554d717cba25aba451e6ced",
+      "size_bytes": 5348569
+    }
+  ],
+  "kind": "candidate",
+  "metadata": {
+    "command": "run",
+    "source_name": "fianchi_varianti.py"
+  },
+  "model": {
+    "params": null,
+    "runtime": "build123d",
+    "validation_profile": "deliverable"
+  },
+  "model_fingerprint": "9ce18e303fe4e1b6423bf204fbb279649b02a9fc3bb73d7b106c5f75de788d4b",
+  "parent_revision_id": "r_7dc54afce2234fd1977e9593b1081435",
+  "promotion_mode": "automatic",
+  "requested_change": "fianchi_AB",
+  "revision_id": "r_8126f51a23d94319b7a11a531abb6886",
+  "schema_version": 1,
+  "target_policies": {
+    "cad": {
+      "policy_id": "legacy-core-retention-deliverable",
+      "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+      "version": 1
+    }
+  }
+}

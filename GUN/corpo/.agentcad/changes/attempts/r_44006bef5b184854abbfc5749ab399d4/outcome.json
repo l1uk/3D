@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_outcome",
+  "core_sha256": "b52214ef4faea4e7fafc283d02222c8077539352ee199b4c68c456e273a864aa",
+  "response": {
+    "command": "run",
+    "status": "failed",
+    "error_kind": "timeout",
+    "timeout_s": 115.0,
+    "timeout_phase": "validation",
+    "completed_phases": [],
+    "phase_timings": {},
+    "timings": {},
+    "message": "agentcad run timed out after 115s during validation No STEP was created. Fix concept/A2_frontiera.py and rerun the command.",
+    "suggestion": "Static validation or runtime detection timed out; check for very large source files or slow imports during runtime selection.",
+    "active_phase_elapsed_ms": 115000,
+    "runtime": "build123d",
+    "runtime_source": "project",
+    "label": "A2_frontiera",
+    "outputs": {
+      "step": null
+    },
+    "artifact_created": false,
+    "next_actions": [
+      "agentcad run concept/A2_frontiera.py --label A2_frontiera"
+    ]
+  },
+  "artifacts": [],
+  "unavailable_artifacts": [],
+  "content_sha256": "012f324eb3d300d99d82764d8af8ff9592b4e4a9a069cd5b2c94ab2815c2d90c"
+}

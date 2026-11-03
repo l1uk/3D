@@ -1,0 +1,61 @@
+name: Pubblica portfolio su GitHub Pages
+
+# Genera il sito statico da tools/portfolio/portfolio.yml e lo pubblica su Pages.
+# NON rigenera i render CAD: usa i PNG gia' committati nel repo.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/portfolio/**"
+      - "**/*.png"
+      - ".github/workflows/portfolio.yml"
+  workflow_dispatch: {}
+
+# Permessi necessari al deploy su Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Una sola pubblicazione alla volta; non annullare un deploy in corso
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installa dipendenze
+        run: pip install pyyaml
+
+      - name: Genera il sito
+        # base-url = "/<nome-repo>" perche' e' un Pages di project.
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          python tools/portfolio/genera_sito.py --base-url "/${REPO_NAME}"
+
+      - name: Carica artifact Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: tools/portfolio/output
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy su GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

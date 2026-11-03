@@ -1,0 +1,190 @@
+# Manifest del portfolio. Fonte unica di cosa va in vetrina.
+# Compilato seguendo tools/portfolio/AGENTE_PORTFOLIO.md (sessione del 2026-11-03).
+# I percorsi immagine sono relativi alla root del repo.
+#
+# Provenienza dei dati (niente stime a mente):
+#   - render OpenSCAD: tools/portfolio/render_portfolio.sh (sorgente attuale)
+#   - metriche: tools/portfolio/misura_portfolio.sh, su STL riesportati dal sorgente attuale
+#       ingombro_mm  = pezzo montato, GUN/tools/stl_info.py (X x Y x Z)
+#       massa_g      = filamento stimato da CuraEngine (tools/slice_stima.py), somma dei
+#                      pezzi da stampare, profilo PLA 0.2 mm / 3 pareti / infill 15%
+#       tempo_stampa = idem, somma dei pezzi (stime Cura, indicative)
+#   - "stato" e' omesso dove non e' noto se il pezzo sia stato stampato.
+
+sito:
+  titolo: "Progetti 3D"
+  sottotitolo: "Pezzi parametrici per stampa FDM"
+  descrizione: >
+    Oggetti progettati in modo parametrico (OpenSCAD e build123d) e stampati
+    in 3D su Ender 3 V2. Ogni progetto parte da misure reali e tolleranze esplicite.
+
+progetti:
+  - id: bomboniera
+    titolo: "Bomboniera panchina"
+    descrizione: >
+      Porta-telefono a forma di panchina da parco, con fianchi in ferro battuto alla
+      Victor Horta e due Manneken Pis che fanno da fermo. Quattro pezzi piatti a
+      incastro senza colla; il cavo USB-C passa sotto la seduta e la geometria è
+      verificata contro il ribaltamento al tocco dello schermo.
+    tag: [decorativo, art-nouveau, modulare, incastri]
+    materiale: PLA
+    ugello: "0.4 / 0.2 per i Manneken"
+    copertina: BOMBONIERA/render_v7/2_vuota.png
+    immagini:
+      - { src: BOMBONIERA/render_v7/1_con_telefono.png, didascalia: "Con il telefono appoggiato" }
+      - { src: BOMBONIERA/render_v7/5_fermo.png, didascalia: "I Manneken Pis fanno da fermo" }
+      - { src: BOMBONIERA/render_v7/6_manneken_pezzo.png, didascalia: "Coppia di Manneken (ugello 0.2)" }
+      - { src: BOMBONIERA/render_v7/piatti/panchina_x1.png, didascalia: "Una panchina intera su un piatto" }
+    metriche:
+      ingombro_mm: "142 × 98 × 105"
+      massa_g: "47"                 # 45.9 g panchina + 0.9 g Manneken
+      tempo_stampa: "6h 51m"        # 6h 11m (ugello 0.4) + 0h 40m (ugello 0.2)
+    sorgente: BOMBONIERA/phone_holder_v7_horta.scad
+
+  - id: practice-mute
+    titolo: "Practice mute per tromba"
+    descrizione: >
+      Sordina da studio parametrica per tromba in Sib: corpo e fondello con varianti
+      d'uscita del suono e tasca per l'imbottitura. Stampa senza supporti; uno script
+      Python misura attenuazione e intonazione dalle registrazioni.
+    tag: [musica, acustica, parametrico]
+    materiale: PLA / PETG
+    ugello: "0.4"
+    copertina: "PRACTICE MUTE/png/sordina_3q.png"
+    immagini:
+      - { src: "PRACTICE MUTE/png/sordina_lato.png", didascalia: "Vista laterale" }
+      - { src: "PRACTICE MUTE/png/sordina_sezione_3q.png", didascalia: "Sezione: camera interna e fondello" }
+    metriche:
+      ingombro_mm: "92 × 92 × 106"
+      massa_g: "76"                 # corpo 41.1 g + fondello 34.4 g
+      tempo_stampa: "7h 01m"
+    sorgente: "PRACTICE MUTE/sordina_tromba.scad"
+
+  - id: korg-sp200
+    titolo: "Leggio e copri-fader KORG SP-200"
+    descrizione: >
+      Leggio tubolare per il pianoforte digitale KORG SP-200, lungo 60 cm e diviso in
+      tre pezzi da 200 mm uniti da spine calibrate per stare sul piatto. Nella stessa
+      cartella il copri-fader di ricambio, ricavato col calibro dal pezzo originale.
+    tag: [musica, accessorio, ricambio, giunzioni]
+    materiale: PLA
+    ugello: "0.4"
+    copertina: "KORG SP 200/png/leggio_lato.png"
+    immagini:
+      - { src: "KORG SP 200/png/leggio_3q.png", didascalia: "Leggio, vista 3/4" }
+      - { src: "KORG SP 200/png/copri_fader_3q.png", didascalia: "Copri-fader con alette a molla" }
+    metriche:
+      ingombro_mm: "600 × 169 × 110"
+      massa_g: "196"                # centro 60.5 + ali 2 × 66.4 + spine 2.3
+      tempo_stampa: "22h 22m"
+    sorgente: "KORG SP 200/leggio_korg_sp200_v2.scad"
+
+  - id: squeezer
+    titolo: "Spremitubo a cricchetto"
+    descrizione: >
+      Spremitubo per dentifricio con manopola e cricchetto: gira in un verso e si blocca
+      nell'altro. Il nottolino a lamella è intercambiabile (morbido, normale, rigido) e
+      c'è un kit di taratura dei giochi. Ricostruito da zero in OpenSCAD.
+    tag: [casa, meccanismo, cricchetto]
+    materiale: PLA / ABS
+    ugello: "0.4"
+    copertina: "TOOTHPASTE SQUEEZER/png/squeezer_3q.png"
+    immagini:
+      - { src: "TOOTHPASTE SQUEEZER/png/squeezer_lato.png", didascalia: "Vista laterale" }
+    metriche:
+      ingombro_mm: "99 × 31 × 53"
+      massa_g: "35"                 # piatto di stampa print_plate
+      tempo_stampa: "4h 23m"
+    sorgente: "TOOTHPASTE SQUEEZER/LUCHIX/ratchet_squeezer.scad"
+
+  - id: dosatore
+    titolo: "Dosatore per detersivo in polvere"
+    descrizione: >
+      Dosatore monodose per lavastoviglie a cassetto scorrevole: tirato, la camera si
+      riempie dalla tramoggia; spinto, la polvere scende e la tramoggia si chiude.
+    tag: [casa, meccanismo]
+    materiale: PLA / ABS
+    ugello: "0.4"
+    copertina: dosatore_lavastoviglie/png/dosatore_3q.png
+    immagini:
+      - { src: dosatore_lavastoviglie/png/dosatore_sezione_3q.png, didascalia: "Sezione: tramoggia, camera e uscita" }
+      - { src: dosatore_lavastoviglie/png/dosatore_sezione_lato.png, didascalia: "Sezione laterale" }
+    metriche:
+      ingombro_mm: "259 × 90 × 169"
+      massa_g: "300"                # piatto di stampa print_plate
+      tempo_stampa: "29h 48m"
+    sorgente: dosatore_lavastoviglie/dosatore_lavastoviglie.scad
+
+  - id: trumpet-stand
+    titolo: "Supporto per tromba"
+    descrizione: >
+      Supporto universale: la tromba sta in piedi a campana in giù, sul fondello della
+      sordina o sul bordo della campana, e si appoggia a una sella regolabile in altezza
+      su un montante. Tre pezzi, nessun supporto di stampa.
+    tag: [musica, supporto, regolabile]
+    materiale: PLA
+    ugello: "0.4"
+    copertina: "TRUMPET STAND/png/supporto_3q.png"
+    immagini:
+      - { src: "TRUMPET STAND/png/supporto_lato.png", didascalia: "Vista laterale" }
+    metriche:
+      ingombro_mm: "201 × 200 × 193"
+      massa_g: "261"                # base 241.5 + sella 18.4 + perno 0.6
+      tempo_stampa: "26h 15m"
+    sorgente: "TRUMPET STAND/supporto_tromba_con_sordina.scad"
+
+  - id: morsetto-microfono
+    titolo: "Morsetto per braccio microfono"
+    descrizione: >
+      Morsetto a C per fissare il braccio del microfono alla scrivania, con pressore e
+      tappo di copertura. Si stampa sdraiato sul fianco per avere gli strati nel verso
+      dello sforzo.
+    tag: [studio, morsetto, robustezza]
+    materiale: PLA
+    ugello: "0.4"
+    copertina: MORSETTO_MICROFONO/png/morsetto_3q.png
+    metriche:
+      ingombro_mm: "85 × 92 × 40"
+      massa_g: "60"                 # solo il corpo del morsetto
+      tempo_stampa: "5h 42m"
+    sorgente: MORSETTO_MICROFONO/morsetto_completo.scad
+
+  - id: tappo-flacone
+    titolo: "Tappo filettato per flacone"
+    descrizione: >
+      Tappo femmina di ricambio con filetto ricavato dal flacone (passo 2,54 mm) e
+      ingressi del filetto solo a 0° e 180°, per non avvitarlo storto. Esterno zigrinato.
+    tag: [ricambio, filettatura]
+    materiale: PLA
+    ugello: "0.4"
+    copertina: "TAPPO FLACONE/png/tappo_3q.png"
+    immagini:
+      - { src: "TAPPO FLACONE/png/tappo_lato.png", didascalia: "Zigrinatura esterna" }
+    metriche:
+      ingombro_mm: "38 × 38 × 11"
+      massa_g: "6"
+      tempo_stampa: "0h 46m"
+    sorgente: "TAPPO FLACONE/tappo_flacone.scad"
+
+  - id: mappamondo
+    titolo: "Boccola per mappamondo"
+    descrizione: >
+      Boccola di ricambio per il polo superiore di un mappamondo, con flangia bombata e
+      scanalatura, ridisegnata dalle misure prese sul globo.
+    tag: [ricambio, riparazione]
+    materiale: PLA
+    ugello: "0.4"
+    copertina: MAPPAMONDO/png/boccola_3q.png
+    immagini:
+      - { src: MAPPAMONDO/png/boccola_lato.png, didascalia: "Profilo della flangia" }
+    metriche:
+      ingombro_mm: "37.5 × 37.5 × 13"
+      massa_g: "6"
+      tempo_stampa: "0h 41m"
+    sorgente: MAPPAMONDO/boccola_mappamondo.scad
+
+# Progetti volutamente fuori dal portfolio (con motivo):
+escludi:
+  - CALZASCARPE   # solo un STL, nessun sorgente
+  - CALIBRATION   # utility di calibrazione stampante, non un progetto
+  - GUN           # prototipo in sviluppo (test balistici non fatti): da valutare prima di pubblicarlo

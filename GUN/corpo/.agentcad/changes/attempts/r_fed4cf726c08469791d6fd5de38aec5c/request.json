@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_fed4cf726c08469791d6fd5de38aec5c",
+  "parent_revision_id": "r_99e751c62e72484c8b70f9e7479dbde9",
+  "selection_generation": 3,
+  "started_ns": 1793465322881903098,
+  "command": "run",
+  "label": "C_compatto",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "B_raggio",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "C_compatto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_fed4cf726c08469791d6fd5de38aec5c/source.py",
+    "sha256": "a43c1e7f5c9a04983d05afb896efdd6912a5ba8de2edfe1475607b669924de79",
+    "size_bytes": 2530
+  },
+  "content_sha256": "80663f6ef597a3b79e1c2a1db2f534d1fa1adb756057f380f6f918fd26ca4d16"
+}

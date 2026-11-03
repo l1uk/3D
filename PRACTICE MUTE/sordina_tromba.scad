@@ -119,9 +119,12 @@ pad_hole          = 8.0;   // [mm] diagonale dei fori a rombo
 cart_r_out        = 37.6;  // [mm] raggio esterno (camera 40.4: restano ~2.8 mm di aria)
 cart_h            = 26.0;  // [mm] altezza del vano (+1.2 del coperchio): lascia libero lo sbocco dello stelo
 cart_wall         = 1.2;   // [mm] spessore pareti
-cart_fit          = 0.25;  // [mm] gioco manicotto-stelo (0.15-0.2 = a frizione, 0.35 = libero)
+cart_fit          = 0.4;   // [mm] gioco manicotto-stelo (0.25 troppo stretto in ABS su questa stampante: ingrossa ~0.3 mm; 0.4 = scorre libero)
 cart_hole         = 8.0;   // [mm] diagonale dei fori a rombo nella parete
 cart_lid_h        = 6.0;   // [mm] altezza del bordo del coperchio
+cart_lid_gap      = 0.3;   // [mm] gioco radiale del bordo del coperchio (v2: 0.2 -> restava largo; qui il gioco e' piccolo e la tenuta la fanno le nervature)
+cart_rib_n        = 6;     // numero di nervature a cuneo ("crush rib") sul bordo interno del coperchio
+cart_rib_interf   = 0.3;   // [mm] interferenza delle nervature con la parete della cartuccia. Troppo duro -> togli un po' di punta con una lama; lasco -> sali a 0.4-0.5
 
 
 // ── 4. PARAMETRI ACUSTICI & CAMERA DI RISONANZA ────────────────────────────
@@ -265,6 +268,14 @@ seat_boost = cap_recess_r + wall_t - chamber_od/2;   // = 1.0 mm: porta la paret
 assert(seat_boost >= 0, "seat_boost negativo");
 assert(z_joint_step + lip_height + seat_boost < z_chamber_cyl_top, "rinforzo sede troppo alto");
 
+// FIX soffitto della sede: la sede (r = cap_recess_r) si restringe a r = inner_r_cyl proprio sopra
+// il collare del fondello (z = z_joint_step + lip_height). Come gradino orizzontale era un ponte/
+// sbalzo a 90° largo 1 mm: gli slicer lo trattano come "bridge" e possono estrudere nel vuoto.
+// Lo si sostituisce con uno smusso a 45° che parte ESATTAMENTE dalla quota del collare: la sede
+// (z <= 11.2) resta identica, il collare del fondello non tocca lo smusso.
+// Costo acustico: +0.13 cm3 di aria (~0.04% del volume camera). ledge_ch = 0 -> gradino originale.
+ledge_ch = max(0, cap_recess_r - inner_r_cyl);   // = 1.0 mm -> 45° esatti
+
 // Profilo esterno: transizioni a 45° per 0 supporti
 body_ext_pts = concat(
     (seat_boost > 0) ? [
@@ -287,7 +298,7 @@ body_ext_pts = concat(
 
 // Profilo interno: offset costante wall_t. I punti 0..7 delimitano l'ARIA della camera
 // (dalla punta del collo fino alla sommità del collare pieno del fondello);
-// i punti 8..9 sono la sede del collare.
+// i punti 8..9 sono la sede del collare (il punto 7 e' alzato di ledge_ch: smusso 45° del soffitto sede).
 body_int_pts = [
     [body_r(zbell_tip)    - wall_t,                  bell_z_to_mute_z(zbell_tip)],
     [body_r(zbell_ch_top) - wall_t,                  bell_z_to_mute_z(zbell_ch_top)],
@@ -296,7 +307,7 @@ body_int_pts = [
     [body_r(zbell_ch_bot) - wall_t,                  bell_z_to_mute_z(zbell_ch_bot)],
     [neck_r_base - wall_t,                           z_taper_top],
     [inner_r_cyl,                                    z_chamber_cyl_top],
-    [inner_r_cyl,                                    z_joint_step + lip_height],
+    [inner_r_cyl,                                    z_joint_step + lip_height + ledge_ch],  // FIX: gradino 90° -> smusso 45°
     [cap_recess_r,                                   z_joint_step + lip_height],
     [cap_recess_r,                                   z_joint_step]
 ];
@@ -328,7 +339,7 @@ function vol_sum(i = 0) =
 
 // volume occupato dalla parete dello stelo che sporge nella camera (sopra il collare)
 V_stem_wall = PI * pow(stem_id/2 + stem_wall, 2) * max(0, stem_len - lip_height);
-V_chamber   = vol_sum() - V_stem_wall;                       // [mm^3]
+V_chamber   = vol_sum() + frustum_vol(cap_recess_r, inner_r_cyl, ledge_ch) - V_stem_wall;   // + tronco di cono sotto lo smusso del soffitto sede                       // [mm^3]
 
 // conduttanze acustiche [mm]
 //  stelo: estremità esterna su piastra (flangiata, 0.85 a) + interna libera (0.6 a)
@@ -436,11 +447,20 @@ module cartuccia() {
     }
 }
 
+module lid_rib(rim_in, tip) {
+    hull() {
+        translate([0, 0, cart_wall]) linear_extrude(cart_lid_h - cart_wall - 1.2)
+            polygon([[rim_in + 0.3, -0.8], [rim_in + 0.3, 0.8], [rim_in - tip, 0]]);
+        translate([0, 0, cart_lid_h - 0.01]) linear_extrude(0.01)
+            polygon([[rim_in + 0.3, -0.8], [rim_in + 0.3, 0.8], [rim_in - 0.05, 0]]);
+    }
+}
+
 // Coperchio: si stampa a piastra in basso (bordo in su); si monta capovolto sul bordo della cartuccia
 module cartuccia_lid() {
     r_si = stem_id/2 + stem_wall + cart_fit + 0.6;   // gioco largo attorno allo stelo
     r_o  = cart_r_out;
-    rim_in  = r_o + 0.2;
+    rim_in  = r_o + cart_lid_gap;
     rim_out = rim_in + cart_wall;
     r_so = stem_id/2 + stem_wall + cart_fit + cart_wall;
     r_i  = r_o - cart_wall;
@@ -452,9 +472,10 @@ module cartuccia_lid() {
                 cylinder(r = rim_out, h = cart_lid_h);
                 translate([0, 0, -1]) cylinder(r = rim_in, h = cart_lid_h + 2);
             }
-            // 3 tacche a frizione sul bordo interno (interferenza ~0.1 mm con la parete della cartuccia)
-            for (a = [0, 120, 240])
-                rotate([0, 0, a]) translate([rim_in - 0.3, -1.5, 0]) cube([0.31, 3, cart_lid_h]);
+            // nervature a cuneo (crush rib) sul bordo interno: si schiacciano e tengono anche con tolleranze incerte.
+            // Rastremate in alto (imbocco) con fianco a ~30°: nessuno sbalzo, si stampano con il bordo in su.
+            for (k = [0 : cart_rib_n - 1])
+                rotate([0, 0, k * 360 / cart_rib_n]) lid_rib(rim_in, cart_lid_gap + cart_rib_interf);
         }
         translate([0, 0, -1]) cylinder(r = r_si, h = cart_lid_h + 2);
         for (a = [0 : 11]) {

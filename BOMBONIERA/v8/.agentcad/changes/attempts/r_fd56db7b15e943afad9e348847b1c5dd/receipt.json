@@ -1,0 +1,149 @@
+{
+  "artifacts": [],
+  "blockers": [
+    {
+      "actions": [],
+      "candidate": {
+        "content_sha256": "796ae4b93c2f3b62dae6093f9ccf94051626208bd8f7fa86f8cee003d4005a12",
+        "model_fingerprint": "139b7e32e929bd527c6bb1c905c8beba3851b144ca411749237b285350e99600",
+        "revision_id": "r_fd56db7b15e943afad9e348847b1c5dd"
+      },
+      "check_id": "execution",
+      "check_result_sha256": "22ccecaef2c107de2ba53f28a24fbb805ee01cd8ee62b1757c253da719909cfa",
+      "definition_sha256": "ff406cf73c3214a27d078c5662abd9c4e7cbebae01630a314e123078f43ae478",
+      "definition_version": 1,
+      "evidence": [
+        {
+          "artifact": ".agentcad/changes/attempts/r_fd56db7b15e943afad9e348847b1c5dd/core.json"
+        }
+      ],
+      "observed": "validation_error",
+      "policy": {
+        "policy_id": "legacy-core-retention-deliverable",
+        "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+        "version": 1
+      },
+      "reason": "required_check_failed",
+      "settings": {
+        "validation_profile": "deliverable"
+      },
+      "state": "fail",
+      "target_id": "cad"
+    },
+    {
+      "actions": [],
+      "candidate": {
+        "content_sha256": "796ae4b93c2f3b62dae6093f9ccf94051626208bd8f7fa86f8cee003d4005a12",
+        "model_fingerprint": "139b7e32e929bd527c6bb1c905c8beba3851b144ca411749237b285350e99600",
+        "revision_id": "r_fd56db7b15e943afad9e348847b1c5dd"
+      },
+      "check_id": "written_geometry",
+      "check_result_sha256": "864747e7ce69e4ca8354ff4efa46d547d006c2284c21f647fb94820ff7e498ab",
+      "definition_sha256": "ac0e3e21c2a3fb095abdadd1412d3ef0e0a210a6707863197a70e0c51e3e123d",
+      "definition_version": 1,
+      "evidence": [
+        {
+          "artifact": ".agentcad/changes/attempts/r_fd56db7b15e943afad9e348847b1c5dd/core.json"
+        }
+      ],
+      "observed": null,
+      "policy": {
+        "policy_id": "legacy-core-retention-deliverable",
+        "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+        "version": 1
+      },
+      "reason": "required_evidence_unavailable",
+      "settings": {
+        "validation_profile": "deliverable"
+      },
+      "state": "unavailable",
+      "target_id": "cad"
+    },
+    {
+      "reason": "required_artifacts_missing",
+      "target_id": "cad"
+    }
+  ],
+  "candidate": {
+    "content_sha256": "796ae4b93c2f3b62dae6093f9ccf94051626208bd8f7fa86f8cee003d4005a12",
+    "model_fingerprint": "139b7e32e929bd527c6bb1c905c8beba3851b144ca411749237b285350e99600",
+    "revision_id": "r_fd56db7b15e943afad9e348847b1c5dd"
+  },
+  "candidate_retained": true,
+  "checks": [
+    {
+      "actions": [],
+      "candidate": {
+        "content_sha256": "796ae4b93c2f3b62dae6093f9ccf94051626208bd8f7fa86f8cee003d4005a12",
+        "model_fingerprint": "139b7e32e929bd527c6bb1c905c8beba3851b144ca411749237b285350e99600",
+        "revision_id": "r_fd56db7b15e943afad9e348847b1c5dd"
+      },
+      "check_id": "execution",
+      "content_sha256": "22ccecaef2c107de2ba53f28a24fbb805ee01cd8ee62b1757c253da719909cfa",
+      "definition_sha256": "ff406cf73c3214a27d078c5662abd9c4e7cbebae01630a314e123078f43ae478",
+      "definition_version": 1,
+      "evidence": [
+        {
+          "artifact": ".agentcad/changes/attempts/r_fd56db7b15e943afad9e348847b1c5dd/core.json"
+        }
+      ],
+      "kind": "check_result",
+      "observed": "validation_error",
+      "policy": {
+        "policy_id": "legacy-core-retention-deliverable",
+        "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+        "version": 1
+      },
+      "schema_version": 1,
+      "settings": {
+        "validation_profile": "deliverable"
+      },
+      "state": "fail",
+      "target_id": "cad"
+    },
+    {
+      "actions": [],
+      "candidate": {
+        "content_sha256": "796ae4b93c2f3b62dae6093f9ccf94051626208bd8f7fa86f8cee003d4005a12",
+        "model_fingerprint": "139b7e32e929bd527c6bb1c905c8beba3851b144ca411749237b285350e99600",
+        "revision_id": "r_fd56db7b15e943afad9e348847b1c5dd"
+      },
+      "check_id": "written_geometry",
+      "content_sha256": "864747e7ce69e4ca8354ff4efa46d547d006c2284c21f647fb94820ff7e498ab",
+      "definition_sha256": "ac0e3e21c2a3fb095abdadd1412d3ef0e0a210a6707863197a70e0c51e3e123d",
+      "definition_version": 1,
+      "evidence": [
+        {
+          "artifact": ".agentcad/changes/attempts/r_fd56db7b15e943afad9e348847b1c5dd/core.json"
+        }
+      ],
+      "kind": "check_result",
+      "observed": null,
+      "policy": {
+        "policy_id": "legacy-core-retention-deliverable",
+        "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+        "version": 1
+      },
+      "schema_version": 1,
+      "settings": {
+        "validation_profile": "deliverable"
+      },
+      "state": "unavailable",
+      "target_id": "cad"
+    }
+  ],
+  "content_sha256": "3e53f5773952be7e2f9c294e84df65c74a159b3344504501a321526f59c7cfd3",
+  "kind": "change_receipt",
+  "policy": {
+    "policy_id": "legacy-core-retention-deliverable",
+    "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+    "version": 1
+  },
+  "promoted_revision_id": null,
+  "promotion_ready": false,
+  "review_states": {},
+  "schema_version": 1,
+  "target_id": "cad",
+  "validation_state": "invalid",
+  "warnings": []
+}

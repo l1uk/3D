@@ -1,0 +1,1316 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_outcome",
+  "core_sha256": "d471c09f6cd0edda86afedcb21198357041731bd82bf6651412c4aacf92c451e",
+  "response": {
+    "command": "run",
+    "status": "success",
+    "core": {
+      "status": "success",
+      "committed_at": "2026-10-31T16:48:00.789725+00:00"
+    },
+    "artifacts": {
+      "geometry_manifest": {
+        "status": "success"
+      },
+      "mesh_exports": {
+        "status": "skipped",
+        "message": "No optional mesh exports requested."
+      },
+      "renders": {
+        "status": "success"
+      },
+      "preview": {
+        "status": "success"
+      },
+      "parts_preview": {
+        "status": "success"
+      },
+      "viewer_glb": {
+        "status": "success"
+      },
+      "diff": {
+        "status": "success"
+      },
+      "viewer": {
+        "status": "success"
+      },
+      "browser": {
+        "status": "skipped",
+        "message": "Browser launch disabled with --no-view."
+      }
+    },
+    "runtime": "build123d",
+    "output_type": "assembly",
+    "version": 2,
+    "label": "B_raggio",
+    "outputs": {
+      "step": "v2_B_raggio/output.step",
+      "script": "v2_B_raggio/script.py",
+      "geometry_manifest": "v2_B_raggio/geometry_manifest.json"
+    },
+    "geometry_manifest": {
+      "path": "v2_B_raggio/geometry_manifest.json",
+      "manifest_id": "6db489e60ec2cc413caa1829eed8deb50335e04a129c4678d3601a02734f73e2",
+      "version": 2,
+      "baseline_sha256": "a014f3f028a5dd80675850fb8a902108c77b35857b713f795abd9e13e7adf804",
+      "counts": {
+        "solids": 12,
+        "faces": 365,
+        "edges": 820,
+        "part_definitions": 12,
+        "assembly_definitions": 12,
+        "part_occurrences": 12,
+        "assembly_occurrences": 12
+      },
+      "recognition": {
+        "status": "not_available"
+      },
+      "root_occurrence_ids": [
+        "occurrence_v2_1"
+      ],
+      "root_occurrences_total": 1,
+      "sample_ids": {
+        "face": "face_v2_1",
+        "edge": "edge_v2_1"
+      },
+      "id_scope": "version_local",
+      "cross_version_correspondence": "not_available",
+      "lookup_example": "agentcad inspect v2_B_raggio/output.step --id occurrence_v2_1",
+      "image_example": "agentcad inspect v2_B_raggio/output.step --image"
+    },
+    "next_actions": [
+      "agentcad inspect v2_B_raggio/output.step --report",
+      "agentcad inspect v2_B_raggio/output.step --id occurrence_v2_1"
+    ],
+    "metrics": {
+      "bounding_box": {
+        "x": [
+          -16.0,
+          129.6
+        ],
+        "y": [
+          -20.475,
+          20.475
+        ],
+        "z": [
+          -107.0,
+          26.0
+        ]
+      },
+      "dimensions": {
+        "x": 145.6,
+        "y": 40.95,
+        "z": 133.0
+      },
+      "volume": 160998.4054,
+      "surface_area": 57974.0685,
+      "center_of_mass": {
+        "x": 28.708,
+        "y": -0.0,
+        "z": -30.9099
+      },
+      "face_count": 365,
+      "edge_count": 820,
+      "is_valid": true,
+      "reliable": true
+    },
+    "validation": {
+      "profile": "deliverable",
+      "is_valid": true,
+      "first_failure": null,
+      "undetermined_layer": null,
+      "layers": {
+        "file_parse": {
+          "status": "pass",
+          "duration_ms": 0
+        },
+        "kernel_load": {
+          "status": "pass",
+          "duration_ms": 0
+        },
+        "brep_check": {
+          "status": "pass",
+          "errors": [],
+          "entities": [],
+          "entity_count": 0,
+          "evidence_truncated": false,
+          "duration_ms": 151
+        },
+        "shell_closure": {
+          "status": "pass",
+          "closed_shell_count": 12,
+          "open_shell_count": 0,
+          "loose_face_count": 0,
+          "loose_face_ids": [],
+          "free_edge_count": 0,
+          "free_edge_ids": [],
+          "free_edges": [],
+          "evidence_truncated": false,
+          "duration_ms": 6
+        },
+        "mesh_manifold": {
+          "deflection_mm": 0.201408,
+          "triangle_count": 11632,
+          "vertex_count": 5816,
+          "status": "pass",
+          "ladder_divisor": 1,
+          "requested_deflection_mm": 0.201408,
+          "worker": "in_process",
+          "duration_ms": 518
+        },
+        "structure": {
+          "status": "pass",
+          "solid_count": 12,
+          "shell_count": 12,
+          "face_count": 365,
+          "edge_count": 820,
+          "faces_outside_solids": 0,
+          "solids": [
+            {
+              "id": 1,
+              "volume": 106346.967,
+              "bbox": {
+                "x": [
+                  -15.9557,
+                  91.1
+                ],
+                "y": [
+                  -12.2,
+                  12.2
+                ],
+                "z": [
+                  -88.0,
+                  12.9983
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "volume": 15538.1484,
+              "bbox": {
+                "x": [
+                  44.3,
+                  66.3
+                ],
+                "y": [
+                  -20.475,
+                  20.475
+                ],
+                "z": [
+                  -32.925,
+                  8.025
+                ]
+              }
+            },
+            {
+              "id": 3,
+              "volume": 5004.0859,
+              "bbox": {
+                "x": [
+                  68.1,
+                  128.1
+                ],
+                "y": [
+                  -7.5,
+                  7.5
+                ],
+                "z": [
+                  -7.5,
+                  7.5
+                ]
+              }
+            },
+            {
+              "id": 4,
+              "volume": 7498.589,
+              "bbox": {
+                "x": [
+                  89.1,
+                  129.1
+                ],
+                "y": [
+                  -13.0,
+                  13.0
+                ],
+                "z": [
+                  -13.0,
+                  13.0
+                ]
+              }
+            },
+            {
+              "id": 5,
+              "volume": 3777.1976,
+              "bbox": {
+                "x": [
+                  -12.9689,
+                  17.0438
+                ],
+                "y": [
+                  10.5,
+                  14.5
+                ],
+                "z": [
+                  -84.0,
+                  -44.5355
+                ]
+              }
+            },
+            {
+              "id": 6,
+              "volume": 3777.1976,
+              "bbox": {
+                "x": [
+                  -12.9689,
+                  17.0438
+                ],
+                "y": [
+                  -14.5,
+                  -10.5
+                ],
+                "z": [
+                  -84.0,
+                  -44.5355
+                ]
+              }
+            },
+            {
+              "id": 7,
+              "volume": 13741.3263,
+              "bbox": {
+                "x": [
+                  -16.0,
+                  14.0
+                ],
+                "y": [
+                  -15.0,
+                  15.0
+                ],
+                "z": [
+                  -107.0,
+                  -80.0
+                ]
+              }
+            },
+            {
+              "id": 8,
+              "volume": 1150.7773,
+              "bbox": {
+                "x": [
+                  0.1154,
+                  11.7293
+                ],
+                "y": [
+                  -3.5,
+                  3.5
+                ],
+                "z": [
+                  -4.0,
+                  17.6553
+                ]
+              }
+            },
+            {
+              "id": 9,
+              "volume": 962.1128,
+              "bbox": {
+                "x": [
+                  -12.0,
+                  4.0
+                ],
+                "y": [
+                  -3.5,
+                  3.5
+                ],
+                "z": [
+                  10.0,
+                  26.0
+                ]
+              }
+            },
+            {
+              "id": 10,
+              "volume": 487.4446,
+              "bbox": {
+                "x": [
+                  30.1811,
+                  39.6445
+                ],
+                "y": [
+                  -3.0,
+                  3.0
+                ],
+                "z": [
+                  -49.1626,
+                  -32.0
+                ]
+              }
+            },
+            {
+              "id": 11,
+              "volume": 1321.1999,
+              "bbox": {
+                "x": [
+                  25.0281,
+                  64.6
+                ],
+                "y": [
+                  -3.5,
+                  3.5
+                ],
+                "z": [
+                  -56.9371,
+                  -37.0
+                ]
+              }
+            },
+            {
+              "id": 12,
+              "volume": 1393.3592,
+              "bbox": {
+                "x": [
+                  121.6,
+                  129.6
+                ],
+                "y": [
+                  -9.5,
+                  9.5
+                ],
+                "z": [
+                  -9.5,
+                  9.5
+                ]
+              }
+            }
+          ],
+          "evidence_truncated": false,
+          "duration_ms": 2712
+        },
+        "advisory": {
+          "status": "pass",
+          "min_face_area_mm2": 0.301,
+          "max_tolerance_mm": 0.0,
+          "flags": [],
+          "duration_ms": 132
+        }
+      },
+      "message": "The shape passed every deliverable validation layer.",
+      "repairs": [],
+      "worker": "subprocess",
+      "budget_s": 120.0,
+      "step_round_trip": {
+        "status": "pass",
+        "matches": true,
+        "before": {
+          "is_valid": true,
+          "solid_count": 12,
+          "layers": {
+            "brep_check": "pass",
+            "shell_closure": "pass",
+            "mesh_manifold": "pass",
+            "structure": "pass",
+            "advisory": "pass"
+          }
+        },
+        "after": {
+          "is_valid": true,
+          "solid_count": 12,
+          "layers": {
+            "brep_check": "pass",
+            "shell_closure": "pass",
+            "mesh_manifold": "pass",
+            "structure": "pass",
+            "advisory": "pass"
+          }
+        },
+        "differences": [],
+        "skipped_layers": [],
+        "skipped_reason": null,
+        "message": "STEP layer outcomes and solid count match the source."
+      }
+    },
+    "validation_profile": "deliverable",
+    "parts": [
+      {
+        "id": "telaio",
+        "id_source": "explicit",
+        "name": "Telaio (2 gusci)",
+        "part_of": null,
+        "color": "#2f6f73",
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              -15.9557,
+              91.1
+            ],
+            "y": [
+              -12.2,
+              12.2
+            ],
+            "z": [
+              -88.0,
+              12.9983
+            ]
+          },
+          "dimensions": {
+            "x": 107.0557,
+            "y": 24.4,
+            "z": 100.9983
+          },
+          "volume": 106346.967,
+          "surface_area": 23313.5207,
+          "center_of_mass": {
+            "x": 20.7921,
+            "y": 0.0,
+            "z": -27.9081
+          },
+          "face_count": 146,
+          "edge_count": 328,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "touching",
+          "floating": false,
+          "nearest_part_id": "canna",
+          "distance_mm": 0.0,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v2_B_raggio/parts/telaio.png"
+      },
+      {
+        "id": "tamburo",
+        "id_source": "explicit",
+        "part_of": null,
+        "color": "#b87333",
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              44.3,
+              66.3
+            ],
+            "y": [
+              -20.475,
+              20.475
+            ],
+            "z": [
+              -32.925,
+              8.025
+            ]
+          },
+          "dimensions": {
+            "x": 22.0,
+            "y": 40.95,
+            "z": 40.95
+          },
+          "volume": 15538.1484,
+          "surface_area": 9713.9891,
+          "center_of_mass": {
+            "x": 55.3,
+            "y": -0.0,
+            "z": -12.45
+          },
+          "face_count": 18,
+          "edge_count": 36,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "disconnected",
+          "floating": false,
+          "nearest_part_id": "telaio",
+          "distance_mm": 0.25,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v2_B_raggio/parts/tamburo.png"
+      },
+      {
+        "id": "canna",
+        "id_source": "explicit",
+        "part_of": null,
+        "color": "#d4af37",
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              68.1,
+              128.1
+            ],
+            "y": [
+              -7.5,
+              7.5
+            ],
+            "z": [
+              -7.5,
+              7.5
+            ]
+          },
+          "dimensions": {
+            "x": 60.0,
+            "y": 15.0,
+            "z": 15.0
+          },
+          "volume": 5004.0859,
+          "surface_area": 5048.8378,
+          "center_of_mass": {
+            "x": 98.1,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "face_count": 4,
+          "edge_count": 6,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "touching",
+          "floating": false,
+          "nearest_part_id": "telaio",
+          "distance_mm": 0.0,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v2_B_raggio/parts/canna.png"
+      },
+      {
+        "id": "camicia",
+        "id_source": "explicit",
+        "name": "Camicia alettata",
+        "part_of": null,
+        "color": "#b87333",
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              89.1,
+              129.1
+            ],
+            "y": [
+              -13.0,
+              13.0
+            ],
+            "z": [
+              -13.0,
+              13.0
+            ]
+          },
+          "dimensions": {
+            "x": 40.0,
+            "y": 26.0,
+            "z": 26.0
+          },
+          "volume": 7498.589,
+          "surface_area": 8277.2131,
+          "center_of_mass": {
+            "x": 109.1,
+            "y": 0.0,
+            "z": -0.0
+          },
+          "face_count": 32,
+          "edge_count": 48,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "touching",
+          "floating": false,
+          "nearest_part_id": "telaio",
+          "distance_mm": 0.0,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v2_B_raggio/parts/camicia.png"
+      },
+      {
+        "id": "guancia_dx",
+        "id_source": "explicit",
+        "part_of": null,
+        "color": "#d4af37",
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              -12.9689,
+              17.0438
+            ],
+            "y": [
+              10.5,
+              14.5
+            ],
+            "z": [
+              -84.0,
+              -44.5355
+            ]
+          },
+          "dimensions": {
+            "x": 30.0126,
+            "y": 4.0,
+            "z": 39.4645
+          },
+          "volume": 3777.1976,
+          "surface_area": 2271.6103,
+          "center_of_mass": {
+            "x": 0.9729,
+            "y": 12.5,
+            "z": -64.2246
+          },
+          "face_count": 38,
+          "edge_count": 84,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "touching",
+          "floating": false,
+          "nearest_part_id": "telaio",
+          "distance_mm": 0.0,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v2_B_raggio/parts/guancia_dx.png"
+      },
+      {
+        "id": "guancia_sx",
+        "id_source": "explicit",
+        "part_of": null,
+        "color": "#d4af37",
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              -12.9689,
+              17.0438
+            ],
+            "y": [
+              -14.5,
+              -10.5
+            ],
+            "z": [
+              -84.0,
+              -44.5355
+            ]
+          },
+          "dimensions": {
+            "x": 30.0126,
+            "y": 4.0,
+            "z": 39.4645
+          },
+          "volume": 3777.1976,
+          "surface_area": 2271.6103,
+          "center_of_mass": {
+            "x": 0.9729,
+            "y": -12.5,
+            "z": -64.2246
+          },
+          "face_count": 38,
+          "edge_count": 84,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "touching",
+          "floating": false,
+          "nearest_part_id": "telaio",
+          "distance_mm": 0.0,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v2_B_raggio/parts/guancia_sx.png"
+      },
+      {
+        "id": "pomolo",
+        "id_source": "explicit",
+        "part_of": null,
+        "color": "#b87333",
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              -16.0,
+              14.0
+            ],
+            "y": [
+              -15.0,
+              15.0
+            ],
+            "z": [
+              -107.0,
+              -80.0
+            ]
+          },
+          "dimensions": {
+            "x": 30.0,
+            "y": 30.0,
+            "z": 27.0
+          },
+          "volume": 13741.3263,
+          "surface_area": 2799.1591,
+          "center_of_mass": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": -92.375
+          },
+          "face_count": 2,
+          "edge_count": 3,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "touching",
+          "floating": false,
+          "nearest_part_id": "telaio",
+          "distance_mm": 0.0,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v2_B_raggio/parts/pomolo.png"
+      },
+      {
+        "id": "cane",
+        "id_source": "explicit",
+        "part_of": null,
+        "color": "#d4af37",
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              -12.0,
+              11.7293
+            ],
+            "y": [
+              -3.5,
+              3.5
+            ],
+            "z": [
+              -4.0,
+              26.0
+            ]
+          },
+          "dimensions": {
+            "x": 23.7293,
+            "y": 7.0,
+            "z": 30.0
+          },
+          "volume": 2112.89,
+          "surface_area": 1531.4189,
+          "center_of_mass": {
+            "x": 1.4615,
+            "y": -0.0,
+            "z": 11.1374
+          },
+          "face_count": 16,
+          "edge_count": 36,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "touching",
+          "floating": false,
+          "nearest_part_id": "telaio",
+          "distance_mm": 0.0,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v2_B_raggio/parts/cane.png"
+      },
+      {
+        "id": "grilletto",
+        "id_source": "explicit",
+        "part_of": null,
+        "color": "#d4af37",
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              30.1811,
+              39.6445
+            ],
+            "y": [
+              -3.0,
+              3.0
+            ],
+            "z": [
+              -49.1626,
+              -32.0
+            ]
+          },
+          "dimensions": {
+            "x": 9.4634,
+            "y": 6.0,
+            "z": 17.1626
+          },
+          "volume": 487.4446,
+          "surface_area": 426.4909,
+          "center_of_mass": {
+            "x": 35.47,
+            "y": 0.0,
+            "z": -40.2747
+          },
+          "face_count": 14,
+          "edge_count": 36,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "touching",
+          "floating": false,
+          "nearest_part_id": "telaio",
+          "distance_mm": 0.0,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v2_B_raggio/parts/grilletto.png"
+      },
+      {
+        "id": "ponticello",
+        "id_source": "explicit",
+        "part_of": null,
+        "color": "#2f6f73",
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              25.0281,
+              64.6
+            ],
+            "y": [
+              -3.5,
+              3.5
+            ],
+            "z": [
+              -56.9371,
+              -37.0
+            ]
+          },
+          "dimensions": {
+            "x": 39.5719,
+            "y": 7.0,
+            "z": 19.9371
+          },
+          "volume": 1321.1999,
+          "surface_area": 1197.7902,
+          "center_of_mass": {
+            "x": 40.5069,
+            "y": 0.0,
+            "z": -48.753
+          },
+          "face_count": 53,
+          "edge_count": 153,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "touching",
+          "floating": false,
+          "nearest_part_id": "telaio",
+          "distance_mm": 0.0,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v2_B_raggio/parts/ponticello.png"
+      },
+      {
+        "id": "volata",
+        "id_source": "explicit",
+        "part_of": null,
+        "color": "#ff7a00",
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              121.6,
+              129.6
+            ],
+            "y": [
+              -9.5,
+              9.5
+            ],
+            "z": [
+              -9.5,
+              9.5
+            ]
+          },
+          "dimensions": {
+            "x": 8.0,
+            "y": 19.0,
+            "z": 19.0
+          },
+          "volume": 1393.3592,
+          "surface_area": 1122.4282,
+          "center_of_mass": {
+            "x": 125.6,
+            "y": -0.0,
+            "z": 0.0
+          },
+          "face_count": 4,
+          "edge_count": 6,
+          "is_valid": true
+        },
+        "connection": {
+          "status": "touching",
+          "floating": false,
+          "nearest_part_id": "canna",
+          "distance_mm": 0.0,
+          "tolerance_mm": 0.01
+        },
+        "preview": "v2_B_raggio/parts/volata.png"
+      }
+    ],
+    "warnings": [
+      "Part 'tamburo' touches no other part: nearest part 'telaio' is 0.25 mm away. If intentional, set options={'floating': True} on its show_object call."
+    ],
+    "comparison_phases": {
+      "source_loading": {
+        "status": "success",
+        "duration_ms": 516
+      },
+      "comparison_rendering": {
+        "status": "success",
+        "duration_ms": 737
+      },
+      "projection_comparison": {
+        "status": "success",
+        "duration_ms": 602
+      },
+      "exact_3d_comparison": {
+        "status": "success",
+        "duration_ms": 19608
+      },
+      "approximate_3d_comparison": {
+        "status": "skipped",
+        "message": "Exact 3D comparison succeeded; approximation was not needed."
+      },
+      "difference_artifact_export": {
+        "status": "success",
+        "duration_ms": 3685
+      },
+      "viewer_generation": {
+        "status": "success",
+        "duration_ms": 45
+      }
+    },
+    "preview": "v2_B_raggio/preview.png",
+    "diff": {
+      "against": "A_frontiera",
+      "side_by_side": "v2_B_raggio/diff_side.png",
+      "overlay": "v2_B_raggio/diff_overlay.png",
+      "projection_comparison": {
+        "method": "four_view_image_mask",
+        "scope": "2d_projected_pixels",
+        "alignment": {
+          "mode": "bounding_box_center",
+          "rotation": "preserved",
+          "relative_scale": "preserved"
+        },
+        "score": {
+          "metric": "projection_intersection_over_union",
+          "value": 0.8536,
+          "classification": "high",
+          "aggregation": "foreground_union_pixel_weighted_across_views"
+        },
+        "meaning": "Visual silhouette overlap across four rendered viewpoints; not shared physical volume or model correctness.",
+        "limitations": [
+          "Does not establish shared 3D geometry.",
+          "Does not identify physical material additions or removals."
+        ],
+        "views": [
+          {
+            "view": "top",
+            "coincident_fraction_of_union": 0.8496,
+            "reference_only_fraction_of_union": 0.078,
+            "candidate_only_fraction_of_union": 0.0724
+          },
+          {
+            "view": "bottom",
+            "coincident_fraction_of_union": 0.8496,
+            "reference_only_fraction_of_union": 0.078,
+            "candidate_only_fraction_of_union": 0.0724
+          },
+          {
+            "view": "upper_iso",
+            "coincident_fraction_of_union": 0.8559,
+            "reference_only_fraction_of_union": 0.0974,
+            "candidate_only_fraction_of_union": 0.0467
+          },
+          {
+            "view": "lower_iso",
+            "coincident_fraction_of_union": 0.8574,
+            "reference_only_fraction_of_union": 0.094,
+            "candidate_only_fraction_of_union": 0.0486
+          }
+        ]
+      },
+      "comparison_3d": {
+        "method": "source_frame_boolean_volume",
+        "alignment": {
+          "mode": "source_frame",
+          "transform_applied": false
+        },
+        "units": {
+          "length": "mm",
+          "volume": "mm^3"
+        },
+        "tolerance": {
+          "linear": 1e-07,
+          "unit": "mm"
+        },
+        "status": "success",
+        "classification": "partial_shared_volume",
+        "kernel": {
+          "engine": "OpenCascade",
+          "non_destructive": true,
+          "exact_partition_runs": 1,
+          "operations": [
+            {
+              "operation": "reference occupied-volume canonicalization",
+              "non_destructive": true,
+              "errors": [],
+              "warnings": []
+            },
+            {
+              "operation": "candidate occupied-volume canonicalization",
+              "non_destructive": true,
+              "errors": [],
+              "warnings": []
+            },
+            {
+              "operation": "exact 3D partition",
+              "non_destructive": true,
+              "errors": [],
+              "warnings": [
+                {
+                  "message": "BOPAlgo_AlertUnableToOrientTheShape",
+                  "count": 4
+                }
+              ]
+            }
+          ]
+        },
+        "volume_semantics": {
+          "measurement": "physical_occupied_volume",
+          "compound_members": "Overlapping members are counted once here; aggregate model metrics elsewhere may sum members and double-count their overlap."
+        },
+        "volumes": {
+          "reference": 163912.303,
+          "candidate": 154333.6903,
+          "shared": 47654.5757,
+          "reference_only": 116257.7296,
+          "candidate_only": 106679.1054,
+          "union": 270591.4176
+        },
+        "ratios": {
+          "volume_iou": 0.1761,
+          "reference_coverage": 0.2907,
+          "candidate_coverage": 0.3088
+        },
+        "meaning": {
+          "shared": "Physical volume occupied by both models.",
+          "reference_only": "Physical volume occupied only by the reference.",
+          "candidate_only": "Physical volume occupied only by the candidate."
+        },
+        "limitations": [
+          "Models were compared at the positions stored in their files.",
+          "No translation, rotation, scaling, or automatic matching was applied."
+        ]
+      },
+      "volume_glb": "v2_B_raggio/diff_volume.glb",
+      "volume_png": "v2_B_raggio/diff_volume.png"
+    },
+    "viewer": "v2_B_raggio/viewer.html",
+    "viewer_glb": "v2_B_raggio/output.glb",
+    "viewer_opened": false,
+    "renders": {
+      "front": "v2_B_raggio/renders/front.png",
+      "30_20": "v2_B_raggio/renders/30_20.png"
+    },
+    "hint": "Review v2_B_raggio/viewer.html in the browser \u2014 A is the previous run, B is this run, with side-by-side and overlay ready.",
+    "timings": {
+      "validation_ms": 46,
+      "script_exec_ms": 2150,
+      "metrics_ms": 11503,
+      "source_validation_ms": 2932,
+      "export_write_ms": 280,
+      "reload_ms": 1404,
+      "delivered_validation_ms": 3520,
+      "export_step_ms": 8458,
+      "geometry_manifest_ms": 13866,
+      "render_views_ms": 412,
+      "preview_ms": 302,
+      "parts_preview_ms": 1104,
+      "export_viewer_glb_ms": 495,
+      "source_loading_ms": 516,
+      "comparison_rendering_ms": 737,
+      "projection_comparison_ms": 602,
+      "exact_3d_comparison_ms": 19608,
+      "difference_artifact_export_ms": 3685,
+      "viewer_generation_ms": 45,
+      "total_ms": 63735
+    },
+    "completed_phases": [
+      "validation",
+      "script_exec",
+      "metrics",
+      "export_step",
+      "geometry_manifest",
+      "render_views",
+      "preview",
+      "parts_preview",
+      "export_viewer_glb",
+      "source_loading",
+      "comparison_rendering",
+      "projection_comparison",
+      "exact_3d_comparison",
+      "difference_artifact_export",
+      "viewer_generation"
+    ],
+    "phase_timings": {
+      "validation_ms": 46,
+      "script_exec_ms": 2150,
+      "metrics_ms": 11503,
+      "source_validation_ms": 2932,
+      "export_write_ms": 280,
+      "reload_ms": 1404,
+      "delivered_validation_ms": 3520,
+      "export_step_ms": 8458,
+      "geometry_manifest_ms": 13866,
+      "render_views_ms": 412,
+      "preview_ms": 302,
+      "parts_preview_ms": 1104,
+      "export_viewer_glb_ms": 495,
+      "source_loading_ms": 516,
+      "comparison_rendering_ms": 737,
+      "projection_comparison_ms": 602,
+      "exact_3d_comparison_ms": 19608,
+      "difference_artifact_export_ms": 3685,
+      "viewer_generation_ms": 45,
+      "total_ms": 63735
+    },
+    "runtime_source": "project",
+    "artifact_created": true
+  },
+  "artifacts": [
+    {
+      "name": "outputs.geometry_manifest",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/ce15cebc2c9534a5c7f5.json",
+      "sha256": "aa2022de04bcca206bbbe0f80966419990ed29fc6f8df51beecdf3f98e8071eb",
+      "size_bytes": 662559
+    },
+    {
+      "name": "preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/208e3f33967e0f9f736f.png",
+      "sha256": "8f7beeb2fc449f4bfc838474c56abec489600712ccc54e9828349dcf982f92d2",
+      "size_bytes": 107705
+    },
+    {
+      "name": "viewer",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/e6cbcf52c28e51504a91.html",
+      "sha256": "d8b8e436274eb0e57128c4c059d642392b03ef37aee2614e089720b6d5da87c6",
+      "size_bytes": 2119801
+    },
+    {
+      "name": "viewer_glb",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/0fc7c15399fa7fdf09b6.glb",
+      "sha256": "b81db39a2248e94a6f3c14e2b4587ab83c6c291b21a4a84a3ab3b9efd7612523",
+      "size_bytes": 528464
+    },
+    {
+      "name": "renders.front",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/4665e6b4b4e28821a26e.png",
+      "sha256": "db5b8ded42aefce528b30538465a6f0e7d3ec2a30220b1d03ef8f2774967caa9",
+      "size_bytes": 36266
+    },
+    {
+      "name": "renders.30_20",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/67524117bb303a295c1c.png",
+      "sha256": "0ec1901b367b0aec148677441fcd89866f60da2f1f5b99f98e3c5b5d51674331",
+      "size_bytes": 50742
+    },
+    {
+      "name": "parts.0.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/52fecea2ac333f926174.png",
+      "sha256": "a2bb5997c6370ba5f10251c3aa1a0029e472b8869521c5fb2b8477c55d7c0190",
+      "size_bytes": 32603
+    },
+    {
+      "name": "parts.1.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/becc48387d1e5b635302.png",
+      "sha256": "73b7a042521d0fbcb1fd25499050305a043ddebf113ea0d7c33c5c29f07ee3fd",
+      "size_bytes": 70719
+    },
+    {
+      "name": "parts.2.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/ecd163e63f620699a0ab.png",
+      "sha256": "04fb34ec07fe00b0298bab417de6d4090eb26a3c5c69593d92294659606fd837",
+      "size_bytes": 79099
+    },
+    {
+      "name": "parts.3.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/c5acbcbdee2b8b6813fa.png",
+      "sha256": "f2047238838d74beee4ce322ae8fb94c25adc98ef517cb8cbe380f0ebbeb2ac4",
+      "size_bytes": 71390
+    },
+    {
+      "name": "parts.4.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/d9f5d1fbf0ec362e5293.png",
+      "sha256": "a2e8f097b3bb612b9028deb4d2e829fe0c9dd6ab9a6484c431a2a184765699db",
+      "size_bytes": 31117
+    },
+    {
+      "name": "parts.5.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/48f187b8d7b6fd82fd5d.png",
+      "sha256": "4bf1bb4abb582683f2418428825b138c1598ca60e55b0b205c9ba102ae704f45",
+      "size_bytes": 31113
+    },
+    {
+      "name": "parts.6.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/b8d0325cf722aa9f6c17.png",
+      "sha256": "4d86e0646b32949c56cdc7714a83fcb296b410a3da83a7263d394b107b8e1845",
+      "size_bytes": 45294
+    },
+    {
+      "name": "parts.7.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/f9cdafa703c10c65f66e.png",
+      "sha256": "27abf3d3e1955beee1ab4f6cdf50912d3b32586d9db21050587370a2cf1db170",
+      "size_bytes": 25898
+    },
+    {
+      "name": "parts.8.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/38a15c9d90bff1b3b3cc.png",
+      "sha256": "279ceab5849a148b8365dd38a28a06ec87b670088c6ccace997af32e5b7024ff",
+      "size_bytes": 13874
+    },
+    {
+      "name": "parts.9.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/b59e49ac9c345cf1c535.png",
+      "sha256": "4a796cb21e4d88e2cedc5b00b8d965d45cf4b9a945cb8bd0f795696b33e43a47",
+      "size_bytes": 16433
+    },
+    {
+      "name": "parts.10.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/b0f70c814deae304895b.png",
+      "sha256": "db295be8a26c7d8a30ad15fc91b97c9e414932bed6d2716a39717acf3835e224",
+      "size_bytes": 47281
+    },
+    {
+      "name": "diff.side_by_side",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/2c0bda0b5769f564b97e.png",
+      "sha256": "3176d32a3f42b6730e5e98f198c9c9c6856e08c3201d992ba12bad8410c3085e",
+      "size_bytes": 189619
+    },
+    {
+      "name": "diff.overlay",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/d078fd7a3a3eb6e10380.png",
+      "sha256": "8a9cd49e6d38de34c71c1d72382b3e986eaa8bc09151bc26fe7b147d75c02b4d",
+      "size_bytes": 76827
+    },
+    {
+      "name": "diff.volume_glb",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/fa6722c8f11e291bf130.glb",
+      "sha256": "65591316fded3c10a5deecab61dae2711e0cbd9d77e0182781fbc7f738e396a3",
+      "size_bytes": 2502136
+    },
+    {
+      "name": "diff.volume_png",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_99e751c62e72484c8b70f9e7479dbde9/artifacts/2969efebc55e217f03b5.png",
+      "sha256": "b1019a914a5a69fb758cad1054fa64bea8c827fee45b453aad500dd1ca2d3988",
+      "size_bytes": 110925
+    }
+  ],
+  "unavailable_artifacts": [],
+  "content_sha256": "df449cfc636ec50d617b157e354de19992799f030370e676cd8f9524f0c051f5"
+}

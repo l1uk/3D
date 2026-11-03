@@ -1,0 +1,53 @@
+{
+  "content_sha256": "b6c6de59c95dcdbf19f634c94fefb0b5e0873b058a46c6a579c69af3a101616b",
+  "deliverables": {
+    "cad": [
+      {
+        "name": "output.step",
+        "path": ".agentcad/changes/attempts/r_b2f01138613a435abe9e3e9158c288bc/geometry/output.step",
+        "role": "geometry",
+        "sha256": "d366641c1825d9fe9ef4b88b6b774a6e2aa237290b8fc835ff51fc7b09d69b9c",
+        "size_bytes": 297591
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "name": "prova_barra.py",
+      "path": ".agentcad/changes/attempts/r_b2f01138613a435abe9e3e9158c288bc/source.py",
+      "role": "source",
+      "sha256": "cb97b1f25d98a4d3056331220377bc799d22e8cc85221a85dcafe3e333b4fef1",
+      "size_bytes": 1256
+    },
+    {
+      "name": "output.step",
+      "path": ".agentcad/changes/attempts/r_b2f01138613a435abe9e3e9158c288bc/geometry/output.step",
+      "role": "geometry",
+      "sha256": "d366641c1825d9fe9ef4b88b6b774a6e2aa237290b8fc835ff51fc7b09d69b9c",
+      "size_bytes": 297591
+    }
+  ],
+  "kind": "candidate",
+  "metadata": {
+    "command": "run",
+    "source_name": "prova_barra.py"
+  },
+  "model": {
+    "params": null,
+    "runtime": "build123d",
+    "validation_profile": "deliverable"
+  },
+  "model_fingerprint": "03bf8dce1fd99851bec86e2d367def7b3f5320b6cb644712329e121e7226e899",
+  "parent_revision_id": "r_a9553f3e08374d36827a3046d40a5e71",
+  "promotion_mode": "automatic",
+  "requested_change": "prova",
+  "revision_id": "r_b2f01138613a435abe9e3e9158c288bc",
+  "schema_version": 1,
+  "target_policies": {
+    "cad": {
+      "policy_id": "legacy-core-retention-deliverable",
+      "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+      "version": 1
+    }
+  }
+}

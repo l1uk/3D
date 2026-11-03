@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_6ac03ea6982640b19b0444d86bc5ac39",
+  "parent_revision_id": null,
+  "selection_generation": 1,
+  "started_ns": 1793465137545917333,
+  "command": "run",
+  "label": "A_frontiera",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": null,
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "A_frontiera.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_6ac03ea6982640b19b0444d86bc5ac39/source.py",
+    "sha256": "3914ff9df8e904f778b93fe43fb4987df13618fc6a15b84939f3fe92e6196c82",
+    "size_bytes": 2897
+  },
+  "content_sha256": "df374ef648366d49e9b8d154b317d67cb49e6c2ddd08f1836f37e82c58127d85"
+}
