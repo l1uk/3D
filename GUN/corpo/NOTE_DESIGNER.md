@@ -39,3 +39,22 @@ Canna a vista dimezzata (40 → 20 mm oltre il frontale del telaio): `CANNA_VIST
 
 ## Giro 16
 Riempito il vuoto dietro il tamburo/cane: dorso del telaio spostato indietro (X_DORSO0/Z_DORSO0 da -14,-8 a -28,-12), volta estesa (X_VOLTA0=-30) e nuovo contorno posteriore (-21,-31),(-27,-22) al posto del punto (-17,-24). Massa verso il calcio, silhouette meno a punta in avanti. Meccanica invariata; build ok, manifold, 14 corpi.
+
+## Giro 1 (livello 1)
+Blocco del telaio davanti al tamburo, sopra la canna: il raccordo superiore anteriore passa da A_FRONTE=24 a 44 mm (la cinghia scende in curva continua dal tamburo alla volata, non piu' un mattone piatto) e l'angolo basso-anteriore da R_FONDO_F=9 a 11 mm. Scopo: ingombro anteriore rastremato come nelle reference. Meccanica invariata.
+
+## Giro 3 (livello 1) — ponticello pieno
+Ponticello: anello da parete 3.5 a 5.5 mm (R_PONT=17.5, r_PONT=12) e larghezza Y da 7 a 10 (W_PONT), infilato nel telaio fino a Z_PONT_TOP=-30.3 (prima tagliato a -37.5, quasi appeso). Due gattoni poligonali (davanti e dietro) lo raccordano al frontale e all'impugnatura. Niente fillet sull'anello, per evitare il non-manifold del giro 2. Build ok, manifold, 14 corpi.
+
+## Giro 5 (livello 1) — telaio aperto sopra e sotto il tamburo
+Nella zona della finestra del tamburo (x_cam..x_cam+finestra_L) i fianchi del telaio sopra Z_APRI_SUP e sotto Z_APRI_INF sono asportati, lasciando solo un ponte superiore sottile (PONTE_SUP_W=6) e un'anima inferiore (ANIMA_INF_W=6). Cosi' il cilindro non e' piu' un rettangolo incassato: si vede la curvatura in vista laterale e 3/4. Meccanica invariata; il taglio avviene prima del ponticello.
+
+## Giro 6 (livello 1) — gobba e dorso in un'unica curva
+Tolto il gradino dorsale: il dorso dell'impugnatura si ferma a S_FUSIONE=8 e una curva di Hermite (tangente al dorso, verticale all'attacco della gobba a (-28,-12)) sostituisce i punti fissi (-21,-31),(-27,-22). Profilo continuo dal cane al tallone. `profilo_imp` ha il nuovo parametro `s_dorso` (solo per il telaio; guancette e cappetta invariate). Build ok, manifold, 14 corpi.
+
+## Giro 7 (livello 1)
+Manicotto di volata rifatto come un unico cilindro tozzo e tondeggiante (D_MAN = 22 mm, vicino all'altezza del telaio, raccordo 4 mm), eliminato l'anello/flangia sottile.
+Prima sembrava un tubicino con un disco; ora la parte anteriore e' paffuta e snubnose. Build OK, STL manifold.
+
+## Giro 8 (livello 1)
+Dorso del telaio sopra il tamburo: la sezione della guaina davanti passa a semicerchio pieno (R_CRESTA_DAV=11, ALZO_CRESTA_DAV=0, interpolati con lo stesso smoothstep del resto), cosi' la cima non e' piu' un piano tagliato dal profilo con spigoli vivi ma una volta con raccordi ampi sui fianchi. Dietro (cane) invariato. Build ok.

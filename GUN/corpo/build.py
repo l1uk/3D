@@ -74,7 +74,7 @@ def arco_imp(cs, cd, r, t0, t1, n=N_ARCO):
     return [(cs + r * math.sin(t0 + (t1 - t0) * i / n), cd + r * math.cos(t0 + (t1 - t0) * i / n))
             for i in range(n + 1)]
 
-def profilo_imp(rientro=0.0, s0=0.0, s1=L_IMP):
+def profilo_imp(rientro=0.0, s0=0.0, s1=L_IMP, s_dorso=None):
     """Contorno chiuso dell'impugnatura: frontale in discesa, punta raccordata,
     fondo, tallone a grande raggio, dorso a pancia in salita."""
     f = F_IMP - rientro
@@ -91,7 +91,8 @@ def profilo_imp(rientro=0.0, s0=0.0, s1=L_IMP):
               for i in range(N_IMP + 1)]
     punta = arco_imp(s_p, f - r_p, r_p, 0, math.pi / 2)[1:]
     tallone = arco_imp(s_t, -b_t + r_t, r_t, math.pi / 2, math.pi)
-    retro = [(s_t - (s_t - s0) * i / N_IMP, -dorso(s_t - (s_t - s0) * i / N_IMP, rientro))
+    s_fine = s0 if s_dorso is None else s_dorso   # il dorso puo' fermarsi prima (fusione con la gobba)
+    retro = [(s_t - (s_t - s_fine) * i / N_IMP, -dorso(s_t - (s_t - s_fine) * i / N_IMP, rientro))
              for i in range(1, N_IMP + 1)]
     return [imp_xz(s, d) for (s, d) in fronte + punta + tallone + retro]
 
@@ -105,20 +106,36 @@ dorso_telaio = [(X_DORSO0 + (X_DORSO1 - X_DORSO0) * (1 - math.cos(math.pi / 2 * 
                 for i in range(N_DORSO + 1)]
 # Blocco sopra la canna: spigolo alto-anteriore raccordato con un quarto d'ellisse
 # (la cinghia scende dolcemente verso il frontale) e angolo basso-anteriore ad arco.
-A_FRONTE = 24.0             # lunghezza (X) del raccordo superiore anteriore
+A_FRONTE = 44.0             # lunghezza (X) del raccordo superiore anteriore: la cinghia scende dal tamburo alla volata
 Z_FRONTE = 9.5              # quota del frontale dove l'ellisse arriva verticale (> bordo sede canna)
 N_FRONTE = 8
-R_FONDO_F = 9.0             # raggio dell'angolo basso-anteriore del frontale
+R_FONDO_F = 11.0            # raggio dell'angolo basso-anteriore del frontale (rastremazione sotto la canna)
 fronte_alto = [(x_front - A_FRONTE + A_FRONTE * math.sin(math.pi / 2 * i / N_FRONTE),
                 Z_FRONTE + (12.5 - Z_FRONTE) * math.cos(math.pi / 2 * i / N_FRONTE))
                for i in range(N_FRONTE + 1)]
 fronte_basso = [(x_front - R_FONDO_F + R_FONDO_F * math.cos(math.pi / 2 * i / N_FRONTE),
                  -12.0 - R_FONDO_F * math.sin(math.pi / 2 * i / N_FRONTE))
                 for i in range(N_FRONTE + 1)]
+# Fusione gobba-impugnatura: il dorso dell'impugnatura si ferma a S_FUSIONE e una curva di
+# Hermite (tangenti continue) lo porta alla gobba posteriore del telaio: niente gradino.
+S_FUSIONE = 8.0             # dove il dorso dell'impugnatura cede il posto alla curva di raccordo
+N_FUSO = 10
+_p0 = imp_xz(S_FUSIONE, -dorso(S_FUSIONE))
+_p0b = imp_xz(S_FUSIONE + 1, -dorso(S_FUSIONE + 1))
+_t0 = (_p0[0] - _p0b[0], _p0[1] - _p0b[1])               # tangente in salita lungo il dorso
+_p1, _t1 = (X_DORSO0, Z_DORSO0), (0.0, 1.0)              # la gobba parte in verticale
+_k = math.dist(_p0, _p1)
+_t0 = (_t0[0] / math.hypot(*_t0) * _k, _t0[1] / math.hypot(*_t0) * _k)
+_t1 = (_t1[0] * _k, _t1[1] * _k)
+def _hermite(u):
+    h00, h10, h01, h11 = 2*u**3 - 3*u**2 + 1, u**3 - 2*u**2 + u, -2*u**3 + 3*u**2, u**3 - u**2
+    return (h00*_p0[0] + h10*_t0[0] + h01*_p1[0] + h11*_t1[0],
+            h00*_p0[1] + h10*_t0[1] + h01*_p1[1] + h11*_t1[1])
+dorso_fuso = [_hermite(i / N_FUSO) for i in range(1, N_FUSO)]
 telaio_pts = (
     dorso_telaio + [(30, 12), (q.x_cam - 1, 12.5)] + fronte_alto + fronte_basso + [
      (q.x_spal + 3, -23), (q.x_spal + 1.5, -30), (q.x_spal, -37),
-     (26, -38)] + profilo_imp() + [(-21, -31), (-27, -22)])
+     (26, -38)] + profilo_imp(s_dorso=S_FUSIONE) + dorso_fuso)
 # ---------------- SEZIONE VARIABILE DEL TELAIO (guaina in loft) ----------------
 # Prima il telaio era il profilo laterale estruso a larghezza fissa W: due piani
 # paralleli, "una tavola". Ora il profilo laterale (telaio_pts) dice DOVE c'e'
@@ -134,6 +151,8 @@ X_PIENO = q.x_cam - 10      # da qui in avanti la larghezza e' W
 BOMBA_DIETRO = 0.8          # bombatura dei fianchi oltre la larghezza [mm], dietro
 BOMBA_DAVANTI = 1.2         # ... e davanti
 R_CRESTA = 6.0              # raggio della cresta del dorso in sezione
+R_CRESTA_DAV = 11.0         # davanti (sopra il tamburo): cresta = semicerchio pieno, raccordo ampio sui fianchi
+ALZO_CRESTA_DAV = 0.0       # davanti la volta arriva esattamente al profilo: niente piano piatto con spigoli
 ALZO_CRESTA = 3.0           # la guaina chiude sopra il profilo: dorso a volta, non a spigolo
 PASSO_SEZ = 6.0             # distanza tra le sezioni del loft
 DILATA_X = 4.0              # la cresta segue il dorso con questo margine in X (niente tagli)
@@ -172,8 +191,9 @@ def _sezione(x):
     w = W_DIETRO / 2 + (W2 - W_DIETRO / 2) * t          # semi-larghezza sotto la cresta
     b = BOMBA_DIETRO + (BOMBA_DAVANTI - BOMBA_DIETRO) * t
     zt = _z_cresta(x)
-    zc0 = max(zt - R_CRESTA, Z_INNESTO + 4)              # inizio della cresta
-    zmax = zt + ALZO_CRESTA
+    r_cr = R_CRESTA + (R_CRESTA_DAV - R_CRESTA) * t
+    zc0 = max(zt - r_cr, Z_INNESTO + 4)                  # inizio della cresta
+    zmax = zt + ALZO_CRESTA + (ALZO_CRESTA_DAV - ALZO_CRESTA) * t
     lato = []
     for u in (0.25, 0.5, 0.75, 1.0):                     # fianco: da W2 a w, con pancia
         lato.append((W2 + (w - W2) * _liscio(u) + b * math.sin(math.pi * u),
@@ -203,6 +223,19 @@ _sotto = Box(400, 100, 300, align=(Align.CENTER, Align.CENTER, Align.MAX)).trans
 telaio = (profilo(telaio_pts, W_EST, r2d=2.5) & guaina & _sopra) \
     + (profilo(telaio_pts, W, r2d=2.5, r3d=1.8) & _sotto)
 
+# apertura sopra e sotto il tamburo: ai lati restano solo un ponte superiore sottile
+# e un'anima inferiore centrale, cosi' si vede la rotondita' del cilindro (lato e 3/4)
+PONTE_SUP_W = 6.0           # larghezza Y del ponte superiore sopra il tamburo
+ANIMA_INF_W = 6.0           # larghezza Y dell'anima sotto il tamburo
+Z_APRI_SUP = za + 0.45 * q.R_tamb   # il taglio parte da questa quota e sale
+Z_APRI_INF = za - 0.45 * q.R_tamb   # e da questa scende
+X_APRI0, L_APRI = q.x_cam - p.g_tamb, q.finestra_L
+for _s in (1, -1):
+    telaio -= Box(L_APRI, W, 40, align=(Align.MIN, Align.CENTER, Align.MIN)).translate(
+        (X_APRI0, _s * (PONTE_SUP_W / 2 + W / 2), Z_APRI_SUP))
+    telaio -= Box(L_APRI, W, 40, align=(Align.MIN, Align.CENTER, Align.MAX)).translate(
+        (X_APRI0, _s * (ANIMA_INF_W / 2 + W / 2), Z_APRI_INF))
+
 def y_superficie(solido, x, z, lato):
     """Y della superficie esterna del solido sul fianco +1 (sinistro) o -1 (destro)."""
     hit = solido.find_intersection_points(Axis((x, lato * 80, z), (0, -lato, 0)))
@@ -211,10 +244,17 @@ def y_superficie(solido, x, z, lato):
         return lato * W2
     return max(ys) if lato > 0 else min(ys)
 
-# ponticello tondo fuso nel frontale dell'impugnatura
+# ponticello: anello pieno e tondeggiante, infilato nel telaio e raccordato davanti e dietro
 cx_p, cz_p = 36, -46
-pont = Pos(cx_p, 0, cz_p) * Rot(90, 0, 0) * (Cylinder(16.5, 7) - Cylinder(13, 8))
-pont -= Box(60, 20, 30, align=(Align.CENTER, Align.CENTER, Align.MIN)).translate((cx_p, 0, -37.5))
+R_PONT, r_PONT = 17.5, 12.0   # raggio esterno / interno (parete 5.5 mm, prima 3.5)
+W_PONT = 10.0                 # larghezza in Y (prima 7)
+Z_PONT_TOP = -30.3            # l'anello rientra nel telaio: nessun pezzo appeso
+pont = Pos(cx_p, 0, cz_p) * Rot(90, 0, 0) * (Cylinder(R_PONT, W_PONT) - Cylinder(r_PONT, W_PONT + 1))
+pont -= Box(60, 20, 30, align=(Align.CENTER, Align.CENTER, Align.MIN)).translate((cx_p, 0, Z_PONT_TOP))
+# gattoni di raccordo: davanti verso il frontale, dietro verso l'impugnatura
+for pts in ([(45.3, -33), (60.2, -33), (56.2, -42), (52.7, -50), (47.1, -52.3)],
+            [(26.7, -33), (12.3, -33), (16.2, -42), (21.7, -50), (25.1, -51.3)]):
+    pont += Pos(0, W_PONT / 2, 0) * Rot(90, 0, 0) * extrude(Polygon(*pts, align=None), W_PONT)
 telaio += pont
 
 # scudo posteriore tondo
@@ -296,18 +336,13 @@ for i in range(10):
     perno -= cil_x(1.2, x_front + 0.2, 4, z=za + 4.6 * math.cos(a), y=4.6 * math.sin(a))
 
 # ---------------- MANICOTTO DI VOLATA SNUBNOSE: un solo manicotto corto, tozzo, tondo ----------------
-SP_MAN = 5.0                # spessore radiale del manicotto oltre la canna
+D_MAN = 22.0                # diametro del manicotto: ~ altezza del telaio (paffuto, snubnose)
 R_MAN = 4.0                 # raccordo delle due testate (tondeggiante)
 # parte poco oltre la testa del perno del tamburo (x_front+0.3+3.5), cosi' non la ingloba
 x_m0, x_m1 = x_front + 4.5, x_bocca - 7     # dal davanti del perno fin quasi alla volata
-D_man = p.canna_D + 2 * SP_MAN
-manicotto = cil_x(D_man, x_m0, x_m1 - x_m0)
+D_man = D_MAN
+manicotto = cil_x(D_man, x_m0, x_m1 - x_m0)  # un solo manicotto tozzo, senza flangia/anello
 manicotto = fillet(manicotto.edges(), R_MAN)
-# anello di rinforzo alla bocca (stile d'epoca), subito dietro la volata
-AN_W, AN_SP = 4.0, 2.0                      # larghezza e sporgenza radiale dell'anello
-manicotto += cil_x(D_man + 2 * AN_SP, x_m1 - AN_W, AN_W)
-manicotto = fillet(manicotto.edges().group_by(Axis.X)[-1]
-                   + manicotto.edges().group_by(Axis.X)[0], 1.0)
 manicotto -= cil_x(p.canna_D + p.gioco, x_m0 - 1, x_m1 - x_m0 + 2)
 # astina: solo un pomello tondo decorativo sul fianco destro del manicotto
 astina = Pos((x_m0 + x_m1) / 2 - 4, -D_man / 2 + 0.5, 0) * Rot(90, 0, 0) * Cylinder(3.0, 2.5)
