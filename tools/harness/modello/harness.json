@@ -1,0 +1,23 @@
+{
+  "nome": "modello",
+  "build": "../../../.venv/bin/python build.py",
+  "build_timeout_s": 600,
+  "livelli": ["funzione e ingombri", "forme principali", "raccordi e proporzioni", "ornamenti", "micro-dettagli"],
+  "plateau": 4,
+  "pezzi": [
+    {"nome": "piastra", "stl": "stl/piastra.stl", "senza_supporti": true, "corpi_max": 1,
+     "max_minuti": 90, "max_grammi": 40, "slice": []}
+  ],
+  "interferenze": [],
+  "spec": [],
+  "render": {
+    "pezzi": [{"stl": "stl/piastra.stl", "colore": "#8a6a4a", "ruvidita": 0.6}],
+    "viste": {"3q": [35, 30], "fronte": [0, 8], "lato": [90, 8], "alto": [0, 89]},
+    "dettagli": [],
+    "risoluzione": [800, 600],
+    "campioni": 48
+  },
+  "budget": {"giri_totali": 60, "minuti_sessione": 600, "max_fallimenti_di_fila": 5, "checkpoint_ogni_accettati": 8},
+  "designer_timeout_min": 30,
+  "critico_timeout_min": 10
+}

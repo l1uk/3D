@@ -13,6 +13,7 @@ Calibrazione della stampante: [`CALIBRATION/README.md`](CALIBRATION/README.md).
 | Stampabilità e interferenze | `tools/check_stampa.py` |
 | Tempo di stampa, filamento, supporti | `tools/slice_stima.py` (CuraEngine 5.12) |
 | Forme scultoree, render | Blender |
+| Raffinamento automatico con agenti | [`tools/harness/`](tools/harness/README.md) |
 
 ## Ambiente Python
 

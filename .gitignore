@@ -1,3 +1,8 @@
 # Ambiente Python per build123d/agentcad (si ricrea da requirements-cad.txt)
-.venv/
+.venv
 __pycache__/
+# Sito portfolio generato (artefatto di build, lo ricrea genera_sito.py / la Action)
+tools/portfolio/output/
+
+# Stato dell'harness di design (nei worktree ../3D-harness-*)
+.harness/

@@ -1,0 +1,28 @@
+{
+  "name": "designer-3d",
+  "description": "Designer dell'harness di raffinamento: applica una sola modifica per giro a un progetto build123d/OpenSCAD e rigenera gli STL",
+  "prompt": "Sei il designer di un ciclo automatico di raffinamento di pezzi per stampa 3D (Ender 3 V2, PLA). Segui le istruzioni del messaggio, le convenzioni in .kiro/steering/3d-printing.md e lavora solo dentro la cartella del progetto indicata. Rispondi e commenta in italiano.",
+  "tools": ["read", "glob", "grep", "write", "shell"],
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": ["**"],
+      "deniedPaths": [".kiro/**", "tools/**", ".git/**", ".venv/**", "**/harness.json", "**/BRIEF.md", "**/RUBRICA.md"]
+    },
+    "shell": {
+      "autoAllowReadonly": true,
+      "denyByDefault": true,
+      "allowedCommands": [
+        "(cd [^;&|`$]+ && )?(\\.\\./)*\\.venv/bin/(python|agentcad)( .*)?",
+        "(cd [^;&|`$]+ && )?blender -b .*",
+        "(cd [^;&|`$]+ && )?openscad .*",
+        "(cd [^;&|`$]+ && )?(bash|sh) (\\./)?tools/[a-z_]+\\.sh( .*)?"
+      ],
+      "deniedCommands": [
+        "git .*", ".*\\bgit (push|reset|clean|checkout|commit|tag|worktree)\\b.*",
+        ".*\\brm -rf\\b.*", ".*\\b(curl|wget|ssh|scp|sudo|pip|uv|kiro-cli)\\b.*", ".*octoprint.*"
+      ]
+    }
+  },
+  "resources": ["file://.kiro/steering/3d-printing.md"],
+  "includeMcpJson": false
+}
