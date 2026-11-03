@@ -77,6 +77,8 @@ class Harness:
         self.P = self.wt / self.rel                 # progetto dentro il worktree
         self.S = self.wt / ".harness" / self.nome   # stato (non versionato)
         self.py = self.wt / ".venv/bin/python"
+        # chi giudica: "ai" (agente critico-3d) o "umano" (tu, dal terminale)
+        self.modo_critico = getattr(args, "critico", None) or self.conf.get("critico", "ai")
 
     # ------------------------------------------------------------ setup
     def prepara(self):
@@ -132,7 +134,7 @@ class Harness:
         f = self.P / "BACKLOG.md"
         f.write_text(f.read_text().replace(f"- [ ] {voce}", f"- [x] {voce}", 1))
 
-    def aggiungi_voci(self, voci):
+    def aggiungi_voci(self, voci, origine="critico"):
         """Suggerimenti del critico in coda al livello corrente (senza duplicati)."""
         f = self.P / "BACKLOG.md"
         testo = f.read_text()
@@ -149,7 +151,7 @@ class Harness:
         i = testo.index(tit)
         j = testo.find("\n## ", i + 1)
         j = len(testo) if j < 0 else j
-        blocco = "".join(f"- [ ] {v} (critico, giro {self.stato['giro']})\n" for v in nuove[:3])
+        blocco = "".join(f"- [ ] {v} ({origine}, giro {self.stato["giro"]})\n" for v in nuove[:3])
         testo = testo[:j].rstrip("\n") + "\n" + blocco + testo[j:]
         f.write_text(testo)
 
@@ -310,7 +312,7 @@ class Harness:
         rc, out = sh(cmd, self.wt, timeout=timeout_min * 60, log=log)
         return rc, out
 
-    def designer(self, cartella, voce, ultimo_errore):
+    def designer(self, cartella, voce, ultimo_errore, variante=""):
         prompt = (QUI / "prompt_designer.md").read_text().format(
             progetto=self.rel, livello=self.stato["livello"],
             nome_livello=self.livelli()[self.stato["livello"] - 1],
@@ -318,12 +320,63 @@ class Harness:
                          "coerente con BRIEF.md e RUBRICA.md, e aggiungila al BACKLOG come [x])",
             build=self.conf["build"], ultimo_errore=ultimo_errore or "nessuno",
             diario=self.coda_diario(), cartella=cartella)
+        if variante:
+            prompt += "\n" + variante + "\n"
         (cartella / "prompt_designer.md").write_text(prompt)
         if self.args.simula_designer:
             return sh(self.args.simula_designer, self.P, log=cartella / "designer.log")
         return self.kiro("designer-3d", prompt, cartella / "designer.log", self.conf.get("designer_timeout_min", 30))
 
+    @staticmethod
+    def affianca(fogli, etichette, out):
+        """Mette i fogli uno accanto all'altro con un'etichetta grande sopra ciascuno."""
+        from PIL import Image, ImageDraw, ImageFont
+        imm = [Image.open(f).convert("RGB") for f in fogli]
+        scala = 900 / imm[0].width
+        imm = [i.resize((int(i.width * scala), int(i.height * scala))) for i in imm]
+        w, h = imm[0].size
+        tela = Image.new("RGB", (w * len(imm) + 20 * (len(imm) - 1), h + 60), "white")
+        d = ImageDraw.Draw(tela)
+        try:
+            font = ImageFont.load_default(size=32)
+        except TypeError:
+            font = ImageFont.load_default()
+        for k, (i, e) in enumerate(zip(imm, etichette)):
+            tela.paste(i, (k * (w + 20), 60))
+            d.text((k * (w + 20) + 10, 12), e, fill="black", font=font)
+        tela.save(out)
+        return out
+
+    def note_designer(self):
+        f = self.P / "NOTE_DESIGNER.md"
+        return f.read_text().strip() if f.exists() else "(nessuna nota)"
+
+    def critico_umano(self, cartella, foglio_best, foglio_cand):
+        """Tu sei il critico: vedi le due versioni affiancate e scegli dal terminale."""
+        conf = self.affianca([foglio_best, foglio_cand], ["A  attuale (la migliore finora)", "B  nuova"],
+                             cartella / "confronto.png")
+        if not os.environ.get("HARNESS_NO_OPEN"):
+            subprocess.Popen(["xdg-open", str(conf)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        print(f"\n=== Giro {self.stato['giro']}, livello {self.stato['livello']} "
+              f"({self.livelli()[self.stato['livello'] - 1]})")
+        print(f"Confronto: {conf}\nViste singole: {cartella / 'render'}")
+        print(f"Note del designer:\n{self.note_designer()}\n")
+        while (r := input("Quale tieni? [a] attuale / [b] nuova / [p] pari / [s] stop: ").strip().lower()[:1]) \
+                not in ("a", "b", "p", "s"):
+            pass
+        if r == "s":
+            (self.S / "STOP").touch()
+            r = "p"
+        motivo = input("Perché, o cosa non va (lo legge il designer al prossimo giro): ").strip()
+        sugg = input("Prossime modifiche da mettere nel backlog, separate da ';' (invio = nessuna): ")
+        v = {"vincitore": {"a": "attuale", "b": "nuova", "p": "pari"}[r], "motivo": motivo or "(nessun motivo)",
+             "suggerimenti": [s for s in sugg.split(";") if s.strip()], "critico": "umano"}
+        (cartella / "verdetto.json").write_text(json.dumps(v, indent=1, ensure_ascii=False))
+        return r == "b", v
+
     def critico(self, cartella, foglio_best, foglio_cand):
+        if self.modo_critico == "umano":
+            return self.critico_umano(cartella, foglio_best, foglio_cand)
         # ordine casuale: il critico non sa quale sia la versione nuova
         nuova_e_x = random.random() < 0.5
         x, y = (foglio_cand, foglio_best) if nuova_e_x else (foglio_best, foglio_cand)
@@ -409,7 +462,7 @@ class Harness:
                 foglio = self.render(c)
                 migliore, verd = self.critico(c, self.S / "best" / "foglio.png", foglio)
                 esito["verdetto"] = verd
-                self.aggiungi_voci(verd.get("suggerimenti", []))
+                self.aggiungi_voci(verd.get("suggerimenti", []), "tu" if verd.get("critico") == "umano" else "critico")
                 if migliore:
                     if voce:
                         self.spunta_voce(voce)
@@ -486,18 +539,149 @@ class Harness:
                     json.dumps(st["best_metriche"]["pezzi"], indent=1), "```"]
         (self.S / "RIEPILOGO.md").write_text("\n".join(txt) + "\n")
 
+    # ------------------------------------------------------------ proposte (critico umano asincrono)
+    def ramo_proposta(self, k):
+        # non sotto harness/<nome>/: un ramo non puo' essere anche "cartella" di altri rami
+        return f"harness-proposte/{self.nome}/g{self.stato['giro']:03d}-p{k}"
+
+    def genera_proposte(self, K):
+        """K alternative per la stessa voce, tutte dalla versione migliore. Poi si aspetta la tua scelta."""
+        st = self.stato
+        st["giro"] += 1
+        c = self.S / "giri" / f"{st['giro']:03d}"
+        c.mkdir(parents=True, exist_ok=True)
+        voce = self.prossima_voce()
+        base = f"harness/{self.nome}"
+        proposte, scartate, note_prec = [], [], []
+        for k in range(1, K + 1):
+            ck = c / f"p{k}"
+            ck.mkdir(exist_ok=True)
+            variante = (f"Questa è la proposta {k} di {K} per la stessa voce: l'utente sceglierà la migliore. "
+                        "Proponi un'interpretazione chiaramente diversa dalle precedenti, sempre dentro il BRIEF.")
+            if note_prec:
+                variante += "\nNote delle proposte già fatte (non ripeterle):\n" + "\n---\n".join(note_prec)
+            print(f"proposta {k}/{K}: designer...", flush=True)
+            self.designer(ck, voce, st.get("ultimo_errore"), variante)
+            toccati = [f for f in self.file_toccati() if not f.startswith(".harness/") and f != ".venv"]
+            v = self.violazioni(toccati)
+            motivi = (["nessuna modifica"] if not toccati else
+                      ["file non consentiti: " + ", ".join(v)] if v else None)
+            if motivi is None:
+                ok, motivi, met = self.cancelli(ck)
+                motivi = None if ok else motivi
+            if motivi:
+                scartate.append({"k": k, "motivi": motivi})
+                self.scarta()
+                print(f"  scartata: {'; '.join(motivi)[:200]}")
+                continue
+            foglio = self.render(ck)
+            note = self.note_designer()
+            ramo = self.ramo_proposta(k)
+            git(["checkout", "-q", "-b", ramo], self.wt)
+            git(["add", "-A", "--", str(self.rel)], self.wt)
+            git(["commit", "-q", "-m", f"proposta {k} giro {st['giro']}: {voce or 'modifica libera'}"], self.wt)
+            git(["checkout", "-q", base], self.wt)
+            proposte.append({"k": k, "ramo": ramo, "foglio": str(foglio), "note": note, "metriche": met})
+            note_prec.append(f"Proposta {k}: {note}")
+            print("  pronta")
+        st["in_attesa"] = {"giro": st["giro"], "voce": voce, "proposte": proposte, "scartate": scartate}
+        if not proposte:
+            st["in_attesa"] = None
+            st["fallimenti_di_fila"] += 1
+            self.diario(f"Voce: {voce}\nNessuna delle {K} proposte ha passato i cancelli: {scartate}")
+        else:
+            st["fallimenti_di_fila"] = 0
+            self.pagina_proposte()
+        self.salva()
+        self.riepilogo()
+
+    def pagina_proposte(self):
+        att = self.stato["in_attesa"]
+        fogli = [self.S / "best" / "foglio.png"] + [Path(p["foglio"]) for p in att["proposte"]]
+        etich = ["0  attuale"] + [f"{p['k']}  proposta" for p in att["proposte"]]
+        conf = self.affianca(fogli, etich, self.S / "PROPOSTE.png")
+        righe = [f"# Proposte del giro {att['giro']}", "", f"Voce: {att['voce'] or 'modifica libera'}", "",
+                 f"Confronto: `{conf}`", ""]
+        for p in att["proposte"]:
+            righe += [f"## Proposta {p['k']}", f"Foglio: `{p['foglio']}`", "", p["note"], "",
+                      "```", json.dumps(p["metriche"]["pezzi"], ensure_ascii=False), "```", ""]
+        for s in att["scartate"]:
+            righe += [f"- proposta {s['k']} scartata dai cancelli: {'; '.join(s['motivi'])[:300]}"]
+        nums = "|".join(str(p["k"]) for p in att["proposte"])
+        righe += ["", "Per scegliere:", "```",
+                  f".venv/bin/python tools/harness/harness.py {self.rel} --scegli {nums}|nessuna "
+                  "--motivo \"perche'\" --suggerimenti \"modifica 1; modifica 2\"", "```"]
+        (self.S / "PROPOSTE.md").write_text("\n".join(righe) + "\n")
+        if not os.environ.get("HARNESS_NO_OPEN"):
+            subprocess.Popen(["xdg-open", str(conf)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    def scegli(self, scelta, motivo, suggerimenti):
+        st, att = self.stato, self.stato.get("in_attesa")
+        if not att:
+            sys.exit("Nessuna proposta in attesa.")
+        st["giro"] = att["giro"]
+        sugg = [s for s in (suggerimenti or "").split(";") if s.strip()]
+        voce = att["voce"]
+        esito = {"giro": att["giro"], "livello": st["livello"], "voce": voce, "critico": "umano",
+                 "verdetto": {"scelta": scelta, "motivo": motivo, "suggerimenti": sugg}}
+        if scelta == "nessuna":
+            st["plateau"] += 1
+            st["ultimo_errore"] = f"l'utente ha scartato tutte le proposte: {motivo}"
+            self.diario(f"Voce: {voce}\nTUTTE LE PROPOSTE RIFIUTATE dall'utente: {motivo}")
+            esito["esito"] = "proposte rifiutate dall'utente"
+        else:
+            p = next((p for p in att["proposte"] if str(p["k"]) == str(scelta)), None)
+            if not p:
+                sys.exit(f"Proposta {scelta} inesistente: scegli tra {[p['k'] for p in att['proposte']]}")
+            git(["merge", "-q", "--ff-only", p["ramo"]], self.wt)
+            st["accettati"] += 1
+            if voce:
+                self.spunta_voce(voce)
+            git(["tag", "-f", f"harness/{self.nome}/best-{st['accettati']:03d}"], self.wt)
+            shutil.copy(p["foglio"], self.S / "best" / "foglio.png")
+            shutil.copy(p["foglio"], self.S / "best" / f"best-{st['accettati']:03d}.png")
+            st.update(best_metriche=p["metriche"], plateau=0, ultimo_errore=None)
+            self.diario(f"Voce: {voce}\nACCETTATA dall'utente la proposta {scelta} (best-{st['accettati']:03d}): "
+                        f"{motivo}\nNote del designer: {p['note']}")
+            esito["esito"] = f"accettata proposta {scelta}"
+        self.aggiungi_voci(sugg, "tu")
+        git(["commit", "-q", "-am", f"harness {self.nome}: scelta dell'utente al giro {att['giro']}"],
+            self.wt, check=False)
+        st["best_commit"] = git(["rev-parse", "HEAD"], self.wt)
+        for q in att["proposte"]:
+            git(["branch", "-q", "-D", q["ramo"]], self.wt, check=False)
+        st["in_attesa"] = None
+        if st["plateau"] >= self.conf.get("plateau", 4):
+            st["plateau"] = 0
+            st["livello"] += 1
+            self.diario(f"Plateau: passo al livello {st['livello']}")
+        with open(self.S / "giri.jsonl", "a") as f:
+            f.write(json.dumps(esito, ensure_ascii=False) + "\n")
+        self.salva()
+        self.riepilogo()
+        print(esito["esito"])
+
     def esegui(self):
         self.prepara()
         if self.args.stato:
             self.riepilogo()
             print((self.S / "RIEPILOGO.md").read_text())
             return
+        if self.args.scegli:
+            return self.scegli(self.args.scegli, self.args.motivo or "", self.args.suggerimenti)
+        if self.stato.get("in_attesa"):
+            sys.exit(f"Ci sono proposte in attesa della tua scelta: vedi {self.S / 'PROPOSTE.md'}")
         if not (self.args.simula_designer or os.environ.get("KIRO_API_KEY")):
             sys.exit("KIRO_API_KEY non impostata: serve per kiro-cli in modalita' headless.")
         (self.S / "STOP").unlink(missing_ok=True)
         if not self.stato["best_commit"]:
             print("Giro 0: baseline")
             self.baseline()
+        if self.args.proposte:
+            self.genera_proposte(self.args.proposte)
+            if self.stato.get("in_attesa"):
+                print(f"Proposte pronte: {self.S / 'PROPOSTE.md'} (confronto in PROPOSTE.png)")
+            return
         t0, n = time.time(), 0
         self.stato["fine_motivo"] = None
         while not (motivo := self.motivo_stop(t0, n)):
@@ -516,6 +700,13 @@ def main():
     ap.add_argument("--giri", type=int, help="massimo giri in questa sessione")
     ap.add_argument("--stato", action="store_true", help="mostra il riepilogo ed esce")
     ap.add_argument("--no-slice", action="store_true", help="salta lo slicing nei cancelli (piu' veloce)")
+    ap.add_argument("--critico", choices=["ai", "umano"],
+                    help="chi giudica ogni giro: l'agente (default) o tu dal terminale")
+    ap.add_argument("--proposte", type=int, metavar="K",
+                    help="genera K alternative per la prossima voce e aspetta la tua scelta")
+    ap.add_argument("--scegli", metavar="N|nessuna", help="scegli una proposta in attesa (o nessuna)")
+    ap.add_argument("--motivo", help="con --scegli: perche' (lo legge il designer)")
+    ap.add_argument("--suggerimenti", help="con --scegli: prossime modifiche per il backlog, separate da ';'")
     ap.add_argument("--simula-designer", help="comando shell al posto del designer (test)")
     ap.add_argument("--simula-critico", choices=["nuova", "vecchia", "caso"], help="critico finto (test)")
     a = ap.parse_args()

@@ -52,6 +52,33 @@ Si ferma da solo per: file STOP, `giri_totali`, `minuti_sessione`, `max_fallimen
 bocciature consecutive, checkpoint ogni `checkpoint_ogni_accettati` versioni accettate (rivedi
 `best/`, aggiorna la RUBRICA, riordina il BACKLOG, poi rilancia), plateau sull'ultimo livello.
 
+## Tu come critico
+
+Due modi, entrambi senza l'agente critico (puoi metterlo fisso con `"critico": "umano"` in harness.json):
+
+**Interattivo**: a ogni giro si apre il confronto A (attuale) | B (nuova) con le note del designer;
+rispondi dal terminale `a`/`b`/`p`/`s` (s = fermati a fine giro), il perché e le prossime modifiche.
+Il perché finisce nel diario e il designer lo legge al giro dopo; le modifiche vanno nel backlog.
+```bash
+.venv/bin/python tools/harness/harness.py BOMBONIERA/v8 --critico umano
+```
+
+**Proposte (asincrono)**: gli agenti preparano K alternative per la stessa voce, tutte dalla
+versione migliore e già passate dai cancelli, poi l'harness si ferma. Lo lanci la sera, scegli la
+mattina guardando `PROPOSTE.png` (attuale + proposte affiancate) e `PROPOSTE.md` (note e metriche):
+```bash
+.venv/bin/python tools/harness/harness.py BOMBONIERA/v8 --proposte 4
+.venv/bin/python tools/harness/harness.py BOMBONIERA/v8 --scegli 3 \
+  --motivo "volute piu' leggere, ma il bracciolo e' troppo grosso" \
+  --suggerimenti "assottigliare il bracciolo; voluta piu' stretta sul piede"
+.venv/bin/python tools/harness/harness.py BOMBONIERA/v8 --scegli nessuna --motivo "tutte troppo cariche"
+```
+Ogni proposta è un ramo `harness-proposte/<nome>/gNNN-pK`; la scelta fa fast-forward, crea il tag
+`best-N` e cancella gli altri rami. Finché c'è una scelta in sospeso l'harness non riparte.
+
+Si possono mescolare: qualche notte con il critico AI per sgrossare, poi proposte quando contano le
+scelte di gusto (ornamenti, dettagli).
+
 ## Test senza agenti
 
 ```bash
