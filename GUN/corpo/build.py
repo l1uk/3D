@@ -6,7 +6,9 @@
 # smussi, cane con sperone rigato, ponticello fuso nel frontale
 # dell'impugnatura, guancette zigrinate con medaglione a stella, finte
 # viti (coprono i perni in filamento dei gusci), anello per il cordino.
-# Meccanica da meccanica.py; involucro da qui. Colori da giocattolo.
+# Quote di tamburo/canna da meccanica.py; meccanismo a molla verticale (cinematica, pezzi
+# mobili, vani) da meccanismo.py; qui solo il DESIGN: involucro, telaio, decori, montaggio,
+# export. Colori da giocattolo.
 import os, sys, math
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # meccanica.py e concetti.py sono qui
 # show_object e' iniettato solo dentro agentcad; qui giriamo con Python puro
@@ -17,6 +19,7 @@ from build123d import (Align, Axis, Box, SortBy, Sketch, Rectangle, mirror, Cyli
                        Plane, extrude, fillet)
 import concetti as C
 import meccanica as M
+import meccanismo as MEC     # meccanismo a molla verticale nel manico (MECCANISMO.md)
 from concetti import p, q, arco, profilo, cil_x
 
 # ---------------- palette e misure d'involucro ----------------
@@ -28,16 +31,14 @@ x_front = q.L_tel           # frontale del telaio (fine sede canna)
 x_bocca = x_front + CANNA_VISTA
 L_CANNA = x_bocca - (q.x_spal + p.t_sp)   # lunghezza canna accorciata (sede invariata)
 r_scudo = q.R_tamb + 1.0    # scudo posteriore tondo
-t_scudo = 4.0
-x_scudo1 = q.x_cam - p.g_tamb          # faccia anteriore dello scudo
-x_scudo0 = x_scudo1 - t_scudo
+t_scudo = MEC.T_SCUDO                  # il retro dello scudo e' la battuta del cane
+x_scudo1 = MEC.X_SCUDO1                # faccia anteriore dello scudo
+x_scudo0 = MEC.X_SCUDO
 camera_carica = 4                       # camera allineata allo sportello (lato destro, -Y)
 L_car = 6.0                             # scanalatura di carica dietro lo scudo
 a_car = 2 * math.pi * camera_carica / p.n_camere
 y_car, z_car = q.r_passo * math.sin(a_car), za + q.r_passo * math.cos(a_car)
-slot_cane = 8 + p.gioco_rot             # cane spesso 8
-slot_gril = 6 + p.gioco_rot             # grilletto spesso 6
-z_fondo_cane = p.canale_D / 2 + p.parete_min   # sotto c'e' il canale del percussore
+slot_cane = MEC.SLOT_CANE               # feritoia del cane (serve alla cresta, sotto)
 
 # ---------------- IMPUGNATURA (profilo parametrico inclinato) ----------------
 # Coordinate locali dell'impugnatura: s lungo l'asse (verso il calcio), d di traverso
@@ -98,6 +99,10 @@ def profilo_imp(rientro=0.0, s0=0.0, s1=L_IMP, s_dorso=None):
 
 # ---------------- TELAIO ----------------
 # Dorso del telaio: un quarto di ellisse convessa dal calcio (dietro il cane) alla cinghia superiore
+# Dorso NON accorciato (MECCANISMO.md modifica 17, facoltativa): (-1,-23) con i vani finali lascia
+# sede molla/grilletto 19 mm^2 fuori dalla parete minima; i valori intermedi validi in XZ
+# (fino a ~(-3.7,-21.9)) rompono il loft della guaina (intersezione vuota o solido non valido).
+# Per accorciarlo va prima reso robusto il loft (vedi riassunto del lavoro).
 X_DORSO0, Z_DORSO0 = -28.0, -12.0    # dorso piu' pieno dietro il cane (prima -14,-8)
 X_DORSO1, Z_DORSO1 = 22.0, 12.3      # dove la curva si appiattisce sulla cinghia
 N_DORSO = 8
@@ -134,7 +139,9 @@ def _hermite(u):
 dorso_fuso = [_hermite(i / N_FUSO) for i in range(1, N_FUSO)]
 telaio_pts = (
     dorso_telaio + [(30, 12), (q.x_cam - 1, 12.5)] + fronte_alto + fronte_basso + [
-     (q.x_spal + 3, -23), (q.x_spal + 1.5, -30), (q.x_spal, -37),
+     # spigolo basso anteriore: davanti alla finestra del tamburo e all'apertura inferiore (che
+     # finiscono a x_spal) restano >= 1.8 mm (prima (x_spal+1.5,-30), (x_spal,-37): lamella da 0 a 1.5)
+     (q.x_spal + 3, -23), (q.x_spal + 2.6, -30), (q.x_spal + 1.8, -37),
      (26, -38)] + profilo_imp(s_dorso=S_FUSIONE) + dorso_fuso)
 # ---------------- SEZIONE VARIABILE DEL TELAIO (guaina in loft) ----------------
 # Prima il telaio era il profilo laterale estruso a larghezza fissa W: due piani
@@ -252,8 +259,9 @@ Z_PONT_TOP = -30.3            # l'anello rientra nel telaio: nessun pezzo appeso
 pont = Pos(cx_p, 0, cz_p) * Rot(90, 0, 0) * (Cylinder(R_PONT, W_PONT) - Cylinder(r_PONT, W_PONT + 1))
 pont -= Box(60, 20, 30, align=(Align.CENTER, Align.CENTER, Align.MIN)).translate((cx_p, 0, Z_PONT_TOP))
 # gattoni di raccordo: davanti verso il frontale, dietro verso l'impugnatura
-for pts in ([(45.3, -33), (60.2, -33), (56.2, -42), (52.7, -50), (47.1, -52.3)],
-            [(26.7, -33), (12.3, -33), (16.2, -42), (21.7, -50), (25.1, -51.3)]):
+GATTONI = ([(45.3, -33), (60.2, -33), (56.2, -42), (52.7, -50), (47.1, -52.3)],
+           [(26.7, -33), (12.3, -33), (16.2, -42), (21.7, -50), (25.1, -51.3)])
+for pts in GATTONI:
     pont += Pos(0, W_PONT / 2, 0) * Rot(90, 0, 0) * extrude(Polygon(*pts, align=None), W_PONT)
 telaio += pont
 
@@ -265,23 +273,58 @@ telaio -= Box(q.x_cam + q.L_tamb - 6, 1.6, 1.0, align=(Align.MIN, Align.CENTER, 
 telaio -= Pos(4, 0, 12.6) * Rot(0, 0, 0) * Box(2.5, 2.2, 2.0, align=(Align.CENTER, Align.CENTER, Align.MAX))
 
 # finte viti: coprono le teste dei perni in filamento che uniscono i gusci
-viti = [(10, -10), (16, -28), (30, -6), (q.x_spal + 8, -19.5), (4, -36)]
+# (le vecchie (10,-10), (30,-6), (4,-36) cadevano nei vani del meccanismo; (16,-28) e (30.5,-20) sono
+#  le teste finte delle spine d'acciaio di grilletto e cane: forate, la spina passa)
+viti = [(6.1, -7.8), MEC.PT, (8.7, -0.3), (74.6, -19.5), (14.8, -42.3), MEC.P]
+PERNI_SPINA = MEC.PERNI_SPINA           # (x, z) del perno -> diametro della spina
 # i fianchi ora sono curvi: ogni testa si appoggia sulla superficie reale, non su y = W/2
 _fianchi = {(vx, vz, s): y_superficie(telaio, vx, vz, s) for (vx, vz) in viti for s in (1, -1)}
 for (vx, vz) in viti:
     for s in (1, -1):
         ys = _fianchi[(vx, vz, s)]
-        testa = Pos(vx, ys, vz) * Rot(90, 0, 0) * Cylinder(2.6, 1.6)
+        # sulle spine d'acciaio la testa e' un anello: almeno 1.6 di parete attorno al foro
+        r_testa = max(2.6, PERNI_SPINA[(vx, vz)] / 2 + 1.6) if (vx, vz) in PERNI_SPINA else 2.6
+        testa = Pos(vx, ys, vz) * Rot(90, 0, 0) * Cylinder(r_testa, 1.6)
         taglio = Box(4.4, 0.6, 0.8 * 2, align=(Align.CENTER, Align.CENTER, Align.CENTER))
         taglio = Pos(vx, ys + s * 0.8, vz) * Rot(0, 35, 0) * taglio
-        telaio = telaio + testa - taglio
+        if (vx, vz) in PERNI_SPINA:
+            # testa forata: la spina del perno passa. Niente taglio del cacciavite: attraverso il
+            # foro lascerebbe due mezzelune da 0.4 mm
+            telaio = telaio + testa - Pos(vx, ys, vz) * Rot(90, 0, 0) * Cylinder(PERNI_SPINA[(vx, vz)] / 2, 4)
+        else:
+            telaio = telaio + testa - taglio
 
-# meccanica comune (finestra tamburo, canale percussore, sede canna)
-telaio = telaio - M.vuoto_finestra_tamburo() - M.vuoto_canale() - M.vuoto_canna(x_bocca)
-telaio -= M.vuoto_asse_tamburo(q.x_cam - 12, x_front + 1)
-# feritoie del cane e del grilletto
-telaio -= Box(34, slot_cane, 40, align=(Align.MIN, Align.CENTER, Align.MIN)).translate((-18, 0, z_fondo_cane))
-telaio -= Box(15, slot_gril, 20, align=(Align.MIN, Align.CENTER, Align.MIN)).translate((28, 0, -42))
+# meccanica comune (finestra tamburo, sede canna). Il canale orizzontale percussore+molla
+# (M.vuoto_canale) non c'e' piu': la molla sta nel manico (MECCANISMO.md, modifica approvata).
+# Resta solo il foro del percussore nello scudo.
+telaio = telaio - M.vuoto_finestra_tamburo() - M.vuoto_canna(x_bocca)
+telaio -= cil_x(MEC.D_PERC_FORO, x_scudo0 - 0.1, t_scudo + 0.2)
+# il foro del perno del tamburo sbuca nella feritoia del cane (niente setto sottile)
+telaio -= M.vuoto_asse_tamburo(MEC.X_FORO_TAMB, x_front + 1)
+# vani del meccanismo (feritoie di cane e grilletto, sede molla, spianatura della cresta, raccordi
+# dei setti sottili): li calcola meccanismo.py dalla sagoma di questo telaio. Sono prismi simmetrici
+# in Y gia' uniti per larghezza: un solo booleano per larghezza (niente T-junction nella mesh STL).
+from shapely.geometry import MultiPoint as _SMulti, Point as _SPoint, box as _sbox  # noqa: E402
+_cache_sez = {}
+def semi_larghezza(x, z):
+    """Semi-larghezza Y del telaio nel punto (x, z), dalla sezione della guaina."""
+    if z <= Z_INNESTO:
+        return W2
+    k = round(x)
+    if k not in _cache_sez:
+        _cache_sez[k] = _SMulti([((e @ (i / 40)).Y, (e @ (i / 40)).Z) for e in _sezione(float(k)).edges()
+                                 for i in range(41)]).convex_hull
+    g = _cache_sez[k].intersection(_SLine([(-60, z), (60, z)]))
+    return 0.0 if g.is_empty else min(-g.bounds[0], g.bounds[2])
+
+_anello_pont = _SPoint(cx_p, cz_p).buffer(R_PONT, 64).difference(_SPoint(cx_p, cz_p).buffer(r_PONT, 64)) \
+    .difference(_sbox(-200, Z_PONT_TOP, 200, 200))
+ponticello_xz = _anello_pont.union(_SPoly(GATTONI[0]).buffer(0)).union(_SPoly(GATTONI[1]).buffer(0))
+VANI_MEC = MEC.vani_telaio(_sagoma, ponticello_xz, _SPoint(cx_p, cz_p).buffer(r_PONT, 64),
+                           semi_larghezza, _z_cima, W)
+for _w, _g in VANI_MEC.items():
+    telaio -= MEC.estrudi(_g, _w)
+telaio -= MEC.foro_spine()
 # scanalatura di carica sul fianco destro + passaggio nello scudo
 car = cil_x(q.camera_d, x_scudo0 - L_car, x_scudo1 - x_scudo0 + L_car + 0.1, z=z_car, y=y_car)
 car += Box(x_scudo1 - x_scudo0 + L_car + 0.1, 20, q.camera_d, align=(Align.MIN, Align.MAX, Align.CENTER)) \
@@ -329,7 +372,8 @@ def tamburo():
 G_TESTA_PERNO = 0.3         # luce tra la testa del perno e il frontale del telaio
 L_TESTA_PERNO = 3.5
 # il gambo entra di 1 mm nella testa: prima finiva sul frontale e i due erano corpi staccati
-perno = cil_x(p.tamb_asse_d, q.x_cam - 10, x_front + G_TESTA_PERNO + 1 - (q.x_cam - 10), z=za) \
+# parte davanti alla feritoia del cane (MEC.X_PERNO_TAMB, x 39.6): appoggio 4.4 nello scudo
+perno = cil_x(p.tamb_asse_d, MEC.X_PERNO_TAMB, x_front + G_TESTA_PERNO + 1 - MEC.X_PERNO_TAMB, z=za) \
     + cil_x(9, x_front + G_TESTA_PERNO, L_TESTA_PERNO, z=za)
 for i in range(10):
     a = 2 * math.pi * i / 10
@@ -347,29 +391,22 @@ manicotto -= cil_x(p.canna_D + p.gioco, x_m0 - 1, x_m1 - x_m0 + 2)
 # astina: solo un pomello tondo decorativo sul fianco destro del manicotto
 astina = Pos((x_m0 + x_m1) / 2 - 4, -D_man / 2 + 0.5, 0) * Rot(90, 0, 0) * Cylinder(3.0, 2.5)
 
-# ---------------- CANE (sperone compatto a uncino, stile d'epoca) ----------------
-# Revolver western: cane basso e pieno che esce dallo scudo, sale poco e
-# forma uno sperone a uncino rivolto all'indietro (verso -X), con il
-# "becco" che scende verso il dorso. La faccia posteriore, inclinata verso
-# il tiratore, porta l'unghiatura rigata. Niente collo di cigno alto.
-cane = profilo(
-    [(3, 7), (14, 7), (15.5, 11),            # base e ventre sopra lo scudo
-     (14, 15.5), (9, 18.5),                  # spalla anteriore
-     (1, 20), (-7, 20.5),                    # tetto quasi piatto dello sperone
-     (-13, 19.5), (-16.5, 17),               # becco che scende all'indietro
-     (-14.5, 14), (-10, 15),                 # sotto il becco (concavo)
-     (-9, 11), (-6, 8)],                     # ritorno verso lo scudo
-    8, r2d=1.0, r3d=0.8)
-# unghiatura: solchi sulla faccia posteriore-alta dello sperone (verso -X)
-# il primo solco parte 1 mm piu' avanti: a -15.5 staccava la punta del becco (scheggia)
-for i in range(5):
-    gx = -14.0 + 1.5 * i
-    gz = 17.35 + 0.35 * i
-    cane -= Pos(gx, 0, gz) * Rot(0, 35, 0) * Box(0.8, 10, 1.8)
-
-# ---------------- GRILLETTO ----------------
-grilletto = profilo([(33, -27), (40, -27), (39.5, -36), (38, -44), (35, -51), (31.5, -55.5),
-                     (29.5, -54.5), (32, -48), (33.5, -40)], 6, r2d=1.2, r3d=0.8)
+# ---------------- MECCANISMO A MOLLA VERTICALE (meccanismo.py, MECCANISMO.md) ----------------
+# Pezzi funzionali, tutti A RIPOSO (cane abbattuto sullo scudo, naso del grilletto sulla camma):
+# profili, quote e cinematica stanno in meccanismo.py; qui solo i colori e il montaggio.
+COL_ACCIAIO = "#9aa0a6"                            # solo per i pezzi di riferimento (acciaio / filamento)
+cane = MEC.cane()
+grilletto = MEC.grilletto()
+rullino = MEC.rullino()
+perno_rullino = MEC.perno_rullino()                # filamento PLA 1.75 (riferimento)
+percussore = MEC.percussore()
+coppa = MEC.coppa()
+distanziale = MEC.distanziale()
+pistone = MEC.pistone()
+molla = MEC.molla()                                # acciaio: riferimento
+# spine d'acciaio (riferimento): lunghe quanto il telaio sul perno, 0.2 sotto ogni fianco
+spina_cane = MEC.spina_cane(2 * semi_larghezza(*MEC.P) - 0.4)
+spina_gril = MEC.spina_grilletto(2 * semi_larghezza(*MEC.PT) - 0.4)
 
 # ---------------- GUANCETTE ----------------
 RIENTRO_G = 2.5             # bordo telaio lasciato attorno alla guancetta
@@ -409,23 +446,27 @@ def guancia_sx():
     return g + vite
 
 # ---------------- CAPPETTA DEL CALCIO (ottone, manico d'aratro) ----------------
-# Guscio sottile in ottone che avvolge il fondo del manico: si ricava
-# intersecando una fetta spessa del profilo dell'impugnatura (dal tallone
-# in su per CAP_H lungo l'asse) con il volume del telaio, poi svuotando
-# l'interno. Segue l'inclinazione perche' usa profilo_imp/imp_xz.
+# Guscio in ottone che avvolge il tallone: la fetta del profilo dell'impugnatura dal fondo in su
+# per CAP_H lungo l'asse, svuotata di CAP_T davanti, dietro e SUL FONDO. Il telaio ha la battuta
+# corrispondente (rientra di CAP_T + G_CAP sotto la cappetta): esterno a filo come prima.
+# Prima l'interno rientrava solo davanti e dietro: la cappetta non aveva fondo (pareti ~0 mm al
+# tallone, z ~ -100) e si compenetrava col telaio per 2.2 mm. Segue l'inclinazione (profilo_imp/imp_xz).
 CAP_H = 16.0               # quanto risale la cappetta lungo l'asse del manico
-CAP_T = 2.2                # spessore del guscio
+CAP_T = 2.2                # spessore del guscio (fianchi, fronte, retro, fondo)
+G_CAP = 0.1                # luce di incollaggio fra cappetta e telaio
 S_CAP = L_IMP - CAP_H      # da dove parte la cappetta lungo l'asse
-# solido pieno del manico dal tallone fino a S_CAP (un po' piu' largo del telaio
-# per avvolgerlo), poi lo intersechiamo col telaio per prenderne la forma esatta
 cap_pieno = profilo(profilo_imp(s0=S_CAP), W + 2 * CAP_T, r2d=2.5, r3d=1.8)
-cap_dentro = profilo(profilo_imp(CAP_T, s0=S_CAP - 0.5), W, r2d=2.5, r3d=1.4)
+cap_dentro = profilo(profilo_imp(CAP_T, s0=S_CAP - 0.5, s1=L_IMP - CAP_T), W + 2 * G_CAP, r2d=2.5, r3d=1.4)
 # taglio netto in alto (perpendicolare all'asse del manico) per il bordo della cappetta
 x_cut, z_cut = imp_xz(S_CAP, 0)
 piano_alto = Box(80, W + 12, 80, align=(Align.MIN, Align.CENTER, Align.CENTER))
 piano_alto = Pos(x_cut, 0, z_cut) * Rot(0, ANG_IMP, 0) * piano_alto.translate((0, 0, 0))
 cappetta = (cap_pieno - cap_dentro) - piano_alto
-# bottone del cordino: foro passante attraverso la cappetta (lo riempie l'anello)
+# battuta nel telaio: sotto la cappetta il calcio resta al profilo interno meno G_CAP (i fianchi
+# del telaio, piani a y = +-W/2, non si toccano: la cappetta li copre con G_CAP di luce)
+_nucleo_cap = profilo(profilo_imp(CAP_T + G_CAP, s0=S_CAP - 1, s1=L_IMP - CAP_T - G_CAP), W + 12, r2d=2.5)
+# (l'esterno del taglio e' il profilo allargato di 3 mm: a filo del telaio lasciava schegge da 0.1 mm3)
+telaio -= (profilo(profilo_imp(-3, s0=S_CAP, s1=L_IMP + 3), W + 12) - _nucleo_cap) - piano_alto
 
 # ---------------- ANELLO PER IL CORDINO ----------------
 x_cor, z_cor = imp_xz(L_IMP + H_TALL + 6, -2)    # occhiello sotto il tallone
@@ -448,8 +489,18 @@ show_object(astina, id="astina", name="Astina (estetica)", options={"color": COL
 g_sx = guancia_sx()
 show_object(g_sx, id="guancia_sx", options={"color": COL_AVORIO})
 show_object(mirror(g_sx, Plane.XZ), id="guancia_dx", options={"color": COL_AVORIO})
-show_object(cane, id="cane", name="Cane", options={"color": COL_OTTONE})
-show_object(grilletto, id="grilletto", name="Grilletto", options={"color": COL_OTTONE})
+show_object(cane, id="cane", name="Cane (imperniato, spina d3)", options={"color": COL_OTTONE})
+show_object(grilletto, id="grilletto", name="Grilletto (con forcella del rullino)", options={"color": COL_OTTONE})
+show_object(rullino, id="rullino", name="Rullino d7", options={"color": COL_AVORIO})
+show_object(percussore, id="percussore", name="Percussore flottante", options={"color": COL_AVORIO})
+show_object(coppa, id="coppa", name="Coppa della molla", options={"color": COL_AVORIO})
+show_object(distanziale, id="distanziale", name="Distanziale 4 mm", options={"color": COL_AVORIO})
+show_object(pistone, id="pistone", name="Pistone + pattino", options={"color": COL_AVORIO})
+# riferimento, non PLA: non vanno nell'assieme dei pezzi da stampare
+show_object(molla, id="molla_rif", name="Molla inox 1.0x8 L0 60 (riferimento)", options={"color": COL_ACCIAIO, "floating": True})
+show_object(spina_cane, id="spina_cane_rif", name="Spina d3 x 24 (acciaio, riferimento)", options={"color": COL_ACCIAIO})
+show_object(spina_gril, id="spina_gril_rif", name="Spina d2 x 23.4 (acciaio, riferimento)", options={"color": COL_ACCIAIO})
+show_object(perno_rullino, id="perno_rullino_rif", name="Perno rullino, filamento 1.75 (riferimento)", options={"color": COL_ACCIAIO})
 show_object(cappetta, id="cappetta", name="Cappetta calcio", options={"color": COL_OTTONE})
 show_object(cordino, id="cordino", name="Anello cordino", options={"color": COL_OTTONE})
 show_object(volata, id="volata", name="Volata", options={"color": COL_VOLATA})
@@ -462,7 +513,12 @@ show_object(volata, id="volata", name="Volata", options={"color": COL_VOLATA})
 from build123d import Compound, export_stl  # noqa: E402
 
 _pezzi_harness = [telaio, tamb, perno, sportello, canna, manicotto, astina,
-                  g_sx, mirror(g_sx, Plane.XZ), cane, grilletto, cappetta, cordino, volata]
-os.makedirs("stl", exist_ok=True)
-export_stl(Compound(_pezzi_harness), "stl/assieme.stl")
-print("export harness: stl/assieme.stl")
+                  g_sx, mirror(g_sx, Plane.XZ), cane, grilletto, cappetta, cordino, volata,
+                  rullino, percussore, coppa, distanziale, pistone]
+# pezzi di riferimento (acciaio / filamento, non si stampano): file a parte
+_rif_acciaio = [molla, spina_cane, spina_gril, perno_rullino]
+_STL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "stl")   # sempre GUN/corpo/stl, da qualunque cwd
+os.makedirs(_STL, exist_ok=True)
+export_stl(Compound(_pezzi_harness), os.path.join(_STL, "assieme.stl"))
+export_stl(Compound(_rif_acciaio), os.path.join(_STL, "riferimento_acciaio.stl"))
+print("export harness: stl/assieme.stl (+ stl/riferimento_acciaio.stl, solo riferimento)")
