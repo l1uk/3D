@@ -157,20 +157,34 @@ X_STRETTO = X_DORSO0        # da qui all'indietro la larghezza e' W_DIETRO
 X_PIENO = q.x_cam - 10      # da qui in avanti la larghezza e' W
 BOMBA_DIETRO = 0.8          # bombatura dei fianchi oltre la larghezza [mm], dietro
 BOMBA_DAVANTI = 1.2         # ... e davanti
-R_CRESTA = 6.0              # raggio della cresta del dorso in sezione
-R_CRESTA_DAV = 11.0         # davanti (sopra il tamburo): cresta = semicerchio pieno, raccordo ampio sui fianchi
-ALZO_CRESTA_DAV = 0.0       # davanti la volta arriva esattamente al profilo: niente piano piatto con spigoli
-ALZO_CRESTA = 3.0           # la guaina chiude sopra il profilo: dorso a volta, non a spigolo
-PASSO_SEZ = 6.0             # distanza tra le sezioni del loft
-DILATA_X = 4.0              # la cresta segue il dorso con questo margine in X (niente tagli)
+# Cresta del dorso in sezione: "schiena d'asino" (non piu' un'ellisse larga troncata dal profilo,
+# che dava un piano largo ~13 mm con spigoli vivi). Dall'alto: VOLTA di raggio R_VOLTA, poi FIANCO
+# rettilineo inclinato di ANG_FIANCO sull'orizzontale, poi SPALLA di raggio R_SPALLA tangente al
+# fianco verticale y = w. Tutto tangente (G1): nessuno spigolo. Le tracce variano lungo X:
+#  - dietro il cane (gobba):         volta stretta r 6, fianchi a 45 gradi
+#  - feritoia del cane (x 5.5..40):  volta r 12 a 28 gradi che resta larga >= HW_MIN fino a 0.3 sopra il profilo
+#                                    (altrimenti meccanismo.py "spiana" la cresta a piano): la volta
+#                                    supera il profilo di ALZO, cosi' le guance della feritoia sono
+#                                    tonde in cima invece che tagliate in piano
+#  - scudo, tamburo, blocco anteriore: volta r 8, fianchi a 55 gradi, spalla r 6 (quasi un
+#    semicerchio); il ponte sopra il tamburo ha in piu' il suo dorso tondo (vedi APERTURA, B_PONTE)
+_TR_X     = (-40.0, -9.0, 0.0, 5.0, 41.0, 47.0, 100.0)
+_TR_VOLTA = (6.0,   6.0,  9.0, 12.0, 12.0,  8.0,   8.0)   # R_VOLTA [mm]
+_TR_ANG   = (45.0, 45.0, 35.0, 28.0, 28.0, 55.0,  55.0)   # ANG_FIANCO [gradi]
+_TR_SPAL  = (5.0,   5.0,  5.5,  6.0,  6.0,  6.0,   6.0)   # R_SPALLA [mm]
+_TR_ALZO  = (0.3,   0.3,  1.2,  1.8,  1.8,  0.0,   0.0)   # ALZO sul profilo [mm]
+R_CRESTA = 6.0              # (solo quota minima della cresta fuori dal profilo)
+# Il profilo laterale NON tronca piu' la cresta fra X_TETTO0 e X_TETTO1: li' lo si estrude alzato di
+# ALZA_TETTO e il tetto lo disegna la guaina (volta tonda). Fuori (retro della gobba, frontale) il
+# profilo resta il taglio, con rampe dolci per non lasciare gradini.
+ALZA_TETTO = 5.0
+X_TETTO0, X_TETTO1 = (-22.0, -8.0), (68.0, 81.0)   # rampe (inizio, pieno) dietro e (pieno, fine) davanti
+PASSO_SEZ = 3.5             # distanza tra le sezioni del loft (prima 6: con DILATA 4 la guaina stava
+                            # 2-3 mm sopra la gobba e il profilo la troncava in un piano largo)
+DILATA_X = 1.75             # la cresta segue il dorso con questo margine in X (= meta' passo: niente tagli)
+                            # (passo 3.0 esatto: una sezione cade sul bordo del profilo e l'intersezione fallisce)
 Z_FONDO_GUAINA = -150.0
 W_EST = W + 2 * BOMBA_DAVANTI + 4   # il profilo si estrude piu' largo: la larghezza la decide la guaina
-
-# parete minima ai lati della feritoia del cane (aperta in alto): la cresta non deve
-# assottigliarla sotto parete_min neanche dove e' piu' stretta
-_h_cima = (W_DIETRO / 2) * math.sqrt(1 - (R_CRESTA / (R_CRESTA + ALZO_CRESTA)) ** 2)
-assert _h_cima - slot_cane / 2 >= p.parete_min, \
-    f"cresta troppo stretta sulla feritoia del cane: {_h_cima - slot_cane / 2:.2f} mm"
 
 from shapely.geometry import LineString as _SLine, Polygon as _SPoly  # noqa: E402
 from build123d import Edge, Wire, Solid  # noqa: E402
@@ -185,36 +199,82 @@ def _z_cima(x):
 def _z_cresta(x):
     """Quota della cresta: il massimo del dorso in un intorno di x, cosi' il loft non
     scende mai sotto il profilo tra una sezione e l'altra."""
-    zs = [z for k in range(-int(DILATA_X), int(DILATA_X) + 1) if (z := _z_cima(x + k)) is not None]
+    zs = [z for k in (-1, -0.5, 0, 0.5, 1) if (z := _z_cima(x + k * DILATA_X)) is not None]
+    if not zs:                         # fuori dal profilo (sezioni di testa del loft): si prosegue con la
+        b0, _, b1, _ = _sagoma.bounds  # quota del bordo piu' vicino, niente salti che ripiegano il loft
+        zs = [_z_cima(min(max(x, b0 + 0.01), b1 - 0.01))]
     return max(zs + [Z_INNESTO + R_CRESTA + 2])
 
 def _liscio(u):
     u = min(max(u, 0.0), 1.0)
     return u * u * (3 - 2 * u)
 
+def _traccia(x, valori):
+    """Valore di una traccia lungo X: raccordo liscio (smoothstep) fra i nodi _TR_X."""
+    if x <= _TR_X[0]:
+        return valori[0]
+    for xa, xb, va, vb in zip(_TR_X, _TR_X[1:], valori, valori[1:]):
+        if x <= xb:
+            return va + (vb - va) * _liscio((x - xa) / (xb - xa))
+    return valori[-1]
+
+def _cresta(w, z_top, r_v, ang, r_s, n=13):
+    """Meta' destra (y >= 0) della cresta, dall'apice (0, z_top) alla spalla (w, z_s) dove il
+    fianco torna verticale: volta r_v -> fianco rettilineo inclinato di ang -> spalla r_s.
+    Restituisce (punti campionati a passo d'arco costante, apice escluso, z_s)."""
+    f = math.radians(ang)
+    r_s = min(r_s, w - 0.5)
+    r_v = min(r_v, (w - r_s * (1 - math.sin(f))) / math.sin(f))   # la volta non supera la spalla
+    cz = z_top - r_v
+    ay, az = r_v * math.sin(f), cz + r_v * math.cos(f)            # fine volta / inizio fianco
+    L = max(0.0, (w - r_s + (r_s - r_v) * math.sin(f)) / math.cos(f))
+    by, bz = ay + L * math.cos(f), az - L * math.sin(f)           # fine fianco / inizio spalla
+    sz = bz - r_s * math.cos(f)                                   # centro spalla (w - r_s, sz)
+    tratti = [r_v * f, L, r_s * (math.pi / 2 - f)]
+    tot = sum(tratti)
+    def punto(d):
+        if d <= tratti[0]:
+            a = d / r_v
+            return (r_v * math.sin(a), cz + r_v * math.cos(a))
+        d -= tratti[0]
+        if d <= tratti[1]:
+            return (ay + d * math.cos(f), az - d * math.sin(f))
+        a = f + (d - tratti[1]) / r_s
+        return (w - r_s + r_s * math.sin(a), sz + r_s * math.cos(a))
+    return [punto(tot * k / n) for k in range(1, n + 1)], sz
+
 def _sezione(x):
     """Sezione trasversale chiusa (piano YZ) della guaina alla coordinata x."""
     t = _liscio((x - X_STRETTO) / (X_PIENO - X_STRETTO))
-    w = W_DIETRO / 2 + (W2 - W_DIETRO / 2) * t          # semi-larghezza sotto la cresta
+    w = W_DIETRO / 2 + (W2 - W_DIETRO / 2) * t          # semi-larghezza alla spalla
     b = BOMBA_DIETRO + (BOMBA_DAVANTI - BOMBA_DIETRO) * t
-    zt = _z_cresta(x)
-    r_cr = R_CRESTA + (R_CRESTA_DAV - R_CRESTA) * t
-    zc0 = max(zt - r_cr, Z_INNESTO + 4)                  # inizio della cresta
-    zmax = zt + ALZO_CRESTA + (ALZO_CRESTA_DAV - ALZO_CRESTA) * t
+    z_top = _z_cresta(x) + _traccia(x, _TR_ALZO)
+    forma = (_traccia(x, _TR_VOLTA), _traccia(x, _TR_ANG), _traccia(x, _TR_SPAL))
+    cresta, z_sp = _cresta(w, z_top, *forma)
+    if z_sp < Z_INNESTO + 12:         # sezioni fuori dal profilo (quota di ripiego): la cresta resta
+        z_top += Z_INNESTO + 12 - z_sp  # sopra l'innesto, se no la spline si incrocia (le taglia il profilo)
+        cresta, z_sp = _cresta(w, z_top, *forma)
+    zc0 = z_sp                                           # fine del fianco, inizio della spalla
     lato = []
-    for u in (0.25, 0.5, 0.75, 1.0):                     # fianco: da W2 a w, con pancia
+    for u in (0.25, 0.5, 0.75):                          # fianco: da W2 a w, con pancia
         lato.append((W2 + (w - W2) * _liscio(u) + b * math.sin(math.pi * u),
                      Z_INNESTO + (zc0 - Z_INNESTO) * u))
-    for k in (1, 2, 3, 4):                               # cresta ellittica
-        a = math.pi / 2 * k / 5
-        lato.append((w * math.cos(a), zc0 + (zmax - zc0) * math.sin(a)))
-    punti = ([(x, W2, Z_INNESTO)] + [(x, h, z) for h, z in lato] + [(x, 0.0, zmax)]
+    lato += list(reversed(cresta))                       # spalla -> fianco inclinato -> volta
+    punti = ([(x, W2, Z_INNESTO)] + [(x, h, z) for h, z in lato] + [(x, 0.0, z_top)]
              + [(x, -h, z) for h, z in reversed(lato)] + [(x, -W2, Z_INNESTO)])
     curva = Edge.make_spline(punti, tangents=[(0, 0, 1), (0, 0, -1)])
     return Wire([Edge.make_line((x, -W2, Z_FONDO_GUAINA), (x, W2, Z_FONDO_GUAINA)),
                  Edge.make_line((x, W2, Z_FONDO_GUAINA), (x, W2, Z_INNESTO)),
                  curva,
                  Edge.make_line((x, -W2, Z_INNESTO), (x, -W2, Z_FONDO_GUAINA))])
+
+def _alza_tetto(x):
+    """Di quanto si alza il profilo da estrudere: dove e' alzato, il tetto lo fa la guaina."""
+    return ALZA_TETTO * _liscio((x - X_TETTO0[0]) / (X_TETTO0[1] - X_TETTO0[0])) \
+        * (1 - _liscio((x - X_TETTO1[0]) / (X_TETTO1[1] - X_TETTO1[0])))
+
+_N_TETTO = len(dorso_telaio) + 2 + len(fronte_alto)   # i primi punti di telaio_pts sono il tetto
+telaio_est_pts = [(x, z + _alza_tetto(x)) for x, z in telaio_pts[:_N_TETTO]] + list(telaio_pts[_N_TETTO:])
 
 _x0, _x1 = _sagoma.bounds[0] - PASSO_SEZ, _sagoma.bounds[2] + PASSO_SEZ
 _n_sez = int(math.ceil((_x1 - _x0) / PASSO_SEZ)) + 1
@@ -227,7 +287,7 @@ guaina = Solid.make_loft([_sezione(_x0 + i * (_x1 - _x0) / (_n_sez - 1)) for i i
 #    troncato a meta' contorno e il solido non si chiudeva.
 _sopra = Box(400, 100, 300, align=(Align.CENTER, Align.CENTER, Align.MIN)).translate((0, 0, Z_INNESTO))
 _sotto = Box(400, 100, 300, align=(Align.CENTER, Align.CENTER, Align.MAX)).translate((0, 0, Z_INNESTO))
-telaio = (profilo(telaio_pts, W_EST, r2d=2.5) & guaina & _sopra) \
+telaio = (profilo(telaio_est_pts, W_EST, r2d=2.5) & guaina & _sopra) \
     + (profilo(telaio_pts, W, r2d=2.5, r3d=1.8) & _sotto)
 
 # apertura sopra e sotto il tamburo: ai lati restano solo un ponte superiore sottile
@@ -237,9 +297,27 @@ ANIMA_INF_W = 6.0           # larghezza Y dell'anima sotto il tamburo
 Z_APRI_SUP = za + 0.45 * q.R_tamb   # il taglio parte da questa quota e sale
 Z_APRI_INF = za - 0.45 * q.R_tamb   # e da questa scende
 X_APRI0, L_APRI = q.x_cam - p.g_tamb, q.finestra_L
+# Il ponte superiore non e' piu' una barretta a cima piatta con spigoli: la sua sezione e' un
+# rettangolo largo PONTE_SUP_W chiuso in alto da una semi-ellisse (semiasse orizzontale = PONTE_SUP_W/2,
+# quindi tangente ai fianchi verticali del ponte: niente spigolo) alta B_PONTE, con l'apice 0.3 sotto la
+# volta della guaina. Il taglio laterale toglie tutto cio' che e' fuori da questo dorso tondo.
+# Parete sopra la finestra ai fianchi del ponte (y = 3): z_apice - B_PONTE - 8.06 >= parete_min (assert).
+B_PONTE = 2.0               # altezza della semi-ellisse del dorso del ponte
+def _sez_ponte(x):
+    a, zp = PONTE_SUP_W / 2, _z_cresta(x) + _traccia(x, _TR_ALZO) - 0.3
+    zc, zb = zp - B_PONTE, Z_APRI_SUP - 5
+    arco_p = Edge.make_spline([(x, a * math.cos(math.pi * k / 8), zc + B_PONTE * math.sin(math.pi * k / 8))
+                               for k in range(9)], tangents=[(0, 0, 1), (0, 0, -1)])
+    return Wire([Edge.make_line((x, -a, zb), (x, a, zb)), Edge.make_line((x, a, zb), (x, a, zc)), arco_p,
+                 Edge.make_line((x, -a, zc), (x, -a, zb))])
+_xp = [X_APRI0 - 1 + k * (L_APRI + 2) / 6 for k in range(7)]
+_z_finestra_y3 = za + math.sqrt(q.finestra_R ** 2 - (PONTE_SUP_W / 2) ** 2)
+_par_ponte = min(_z_cresta(x) + _traccia(x, _TR_ALZO) - 0.3 - B_PONTE - _z_finestra_y3 for x in _xp)
+assert _par_ponte >= p.parete_min, f"ponte troppo sottile sopra la finestra: {_par_ponte:.2f} mm"
+ponte_tondo = Solid.make_loft([_sez_ponte(x) for x in _xp])
+telaio -= Box(L_APRI, 2 * W + PONTE_SUP_W, 40, align=(Align.MIN, Align.CENTER, Align.MIN)).translate(
+    (X_APRI0, 0, Z_APRI_SUP)) - ponte_tondo
 for _s in (1, -1):
-    telaio -= Box(L_APRI, W, 40, align=(Align.MIN, Align.CENTER, Align.MIN)).translate(
-        (X_APRI0, _s * (PONTE_SUP_W / 2 + W / 2), Z_APRI_SUP))
     telaio -= Box(L_APRI, W, 40, align=(Align.MIN, Align.CENTER, Align.MAX)).translate(
         (X_APRI0, _s * (ANIMA_INF_W / 2 + W / 2), Z_APRI_INF))
 
@@ -268,9 +346,16 @@ telaio += pont
 # scudo posteriore tondo
 telaio += cil_x(2 * r_scudo, x_scudo0, t_scudo, z=za)
 
-# cinghia superiore: scanalatura di mira e tacca posteriore
-telaio -= Box(q.x_cam + q.L_tamb - 6, 1.6, 1.0, align=(Align.MIN, Align.CENTER, Align.MAX)).translate((6, 0, 12.6))
-telaio -= Pos(4, 0, 12.6) * Rot(0, 0, 0) * Box(2.5, 2.2, 2.0, align=(Align.CENTER, Align.CENTER, Align.MAX))
+# cinghia superiore: scanalatura di mira e tacca posteriore. La cresta ora e' tonda e la sua quota
+# varia lungo X: il taglio segue la cresta (guaina abbassata di PROF_MIRA), invece di un piano a z 12.6
+# che sotto la volta alzata avrebbe lasciato un tunnel chiuso.
+PROF_MIRA, PROF_TACCA = 1.2, 1.0      # (sul ponte, 0.3 sotto la guaina, la mira resta 0.9)
+X_TACCA = 2.4              # la tacca a x 4 (prima incideva 0.1 mm) ora che la cresta e' piena lasciava
+                           # 0.2 mm di setto contro la feritoia del cane (x 5.45): arretrata, setto >= 1.7
+telaio -= Box(q.x_cam + q.L_tamb - 6, 1.6, 30, align=(Align.MIN, Align.CENTER, Align.MIN)).translate((6, 0, 0)) \
+    - guaina.translate((0, 0, -PROF_MIRA))
+telaio -= Box(2.5, 2.2, 30, align=(Align.CENTER, Align.CENTER, Align.MIN)).translate((X_TACCA, 0, 0)) \
+    - guaina.translate((0, 0, -PROF_TACCA))
 
 # finte viti: coprono le teste dei perni in filamento che uniscono i gusci
 # (le vecchie (10,-10), (30,-6), (4,-36) cadevano nei vani del meccanismo; (16,-28) e (30.5,-20) sono
