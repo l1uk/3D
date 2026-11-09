@@ -6,6 +6,7 @@ Uso (dalla root del workspace):
   .venv/bin/python tools/slice_stima.py pezzo.stl --supporti
   .venv/bin/python tools/slice_stima.py pezzo.stl -s infill_sparse_density=30 -s layer_height=0.12
   .venv/bin/python tools/slice_stima.py pezzo.stl --gcode out.gcode   # tiene il G-code
+  .venv/bin/python tools/slice_stima.py pezzo.stl --profilo p1s_abs --supporti   # Bambu P1S, ABS
 
 Ogni file e' affettato da solo, centrato sul piatto, nell'orientamento del file.
 Il profilo e' quello PLA di CALIBRATION/README.md (sezione "Profilo Cura PLA di partenza");
@@ -54,6 +55,37 @@ PROFILO_PLA = {
     "support_angle": 55,
     "center_object": True,
 }
+
+
+# Bambu Lab P1S + ABS. Cura non ha una definizione Bambu: si parte dalla catena Ender-3 e si
+# sovrascrive cio' che conta per la stima (volume, cinematica CoreXY, direct drive, ABS).
+# Valori presi dal profilo "0.20mm Standard @BBL P1S" + "Generic ABS" di Bambu Studio.
+# Il G-code prodotto serve per le stime: per stampare sulla P1S usare Bambu Studio/Orca
+# (start G-code, livellamento e purga sono specifici Bambu e qui non ci sono).
+PROFILO_P1S_ABS = dict(PROFILO_PLA)
+PROFILO_P1S_ABS.update({
+    "machine_width": 256, "machine_depth": 256, "machine_height": 256,
+    "machine_max_feedrate_x": 500, "machine_max_feedrate_y": 500, "machine_max_feedrate_z": 20,
+    "machine_max_acceleration_x": 20000, "machine_max_acceleration_y": 20000,
+    "machine_max_acceleration_z": 500, "machine_acceleration": 10000,
+    "machine_start_gcode": ";P1S: start G-code Bambu non incluso (solo stima)",
+    "machine_end_gcode": "M104 S0\nM140 S0",
+    "material_print_temperature": 260, "material_print_temperature_layer_0": 260,
+    "material_bed_temperature": 90, "material_bed_temperature_layer_0": 90,
+    "cool_fan_enabled": True, "cool_fan_speed": 30, "cool_fan_speed_min": 10,
+    "cool_fan_speed_max": 80, "cool_fan_full_layer": 4, "cool_min_layer_time": 8,
+    "speed_print": 250, "speed_wall_0": 200, "speed_wall_x": 300, "speed_infill": 270,
+    "speed_topbottom": 200, "speed_layer_0": 50, "speed_travel": 500, "speed_support": 150,
+    "acceleration_enabled": True, "acceleration_print": 10000, "acceleration_wall_0": 5000,
+    "acceleration_layer_0": 500, "acceleration_travel": 10000, "acceleration_topbottom": 2000,
+    "jerk_enabled": False,
+    "retraction_amount": 0.8, "retraction_speed": 30,
+    "wall_line_count": 2, "top_thickness": 1.0, "bottom_thickness": 0.6,
+    "infill_sparse_density": 15, "infill_pattern": "grid",
+    "adhesion_type": "brim", "brim_width": 5,
+    "xy_offset_layer_0": 0,
+})
+PROFILI = {"pla_ender3": (PROFILO_PLA, 1.24), "p1s_abs": (PROFILO_P1S_ABS, 1.04)}
 
 
 def carica_catena(nome, cartelle):
@@ -145,13 +177,13 @@ def formatta(v):
     return str(v)
 
 
-def impostazioni_complete(extra):
+def impostazioni_complete(extra, base=PROFILO_PLA):
     global RIS
     impost, _ = carica_catena(MACCHINA, [DEF_DIR])
     imp_e, _ = carica_catena(ESTRUSORE, [EXT_DIR, DEF_DIR])
     for k, v in imp_e.items():
         impost.setdefault(k, v).update(v) if k in impost else None
-    profilo = dict(PROFILO_PLA)
+    profilo = dict(base)
     profilo.update(extra)
     RIS = Risolutore(impost, profilo)
     tutte = {k: RIS.valore(k) for k in impost if impost[k].get("type") not in ("category", None)}
@@ -170,7 +202,7 @@ def leggi_extra(lista):
     return extra
 
 
-def affetta(stl, impost, gcode_out=None):
+def affetta(stl, impost, gcode_out=None, densita=DENSITA_PLA):
     with tempfile.TemporaryDirectory() as tmp:
         out = gcode_out or os.path.join(tmp, "out.gcode")
         args = [str(ENGINE), "slice", "-j", str(DEF_DIR / "fdmprinter.def.json")]
@@ -192,7 +224,7 @@ def affetta(stl, impost, gcode_out=None):
     supporto = ";TYPE:SUPPORT" in g
     area_filo = math.pi * (impost["material_diameter"] / 2) ** 2
     metri = mm3 / area_filo / 1000
-    grammi = mm3 / 1000 * DENSITA_PLA
+    grammi = mm3 / 1000 * densita
     return {"file": str(stl), "tempo_s": tempo, "tempo": f"{tempo // 3600}h {tempo % 3600 // 60:02d}m",
             "filamento_m": round(metri, 2), "filamento_g": round(grammi, 1),
             "layer": layer, "supporti_generati": supporto}
@@ -205,24 +237,28 @@ def main():
     ap.add_argument("-s", dest="set", action="append", help="impostazione Cura chiave=valore")
     ap.add_argument("--gcode", help="salva il G-code (solo con un file)")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--profilo", choices=sorted(PROFILI), default="pla_ender3",
+                    help="macchina+materiale (default pla_ender3)")
     a = ap.parse_args()
     if not ENGINE.exists():
         sys.exit(f"CuraEngine non trovato in {ENGINE} (vedi steering: sezione Cura)")
     extra = leggi_extra(a.set)
     if a.supporti:
         extra["support_enable"] = True
-    impost = impostazioni_complete(extra)
+    base, densita = PROFILI[a.profilo]
+    impost = impostazioni_complete(extra, base)
     risultati, errore = [], False
     for f in a.files:
         try:
-            risultati.append(affetta(Path(f).resolve(), impost, a.gcode if len(a.files) == 1 else None))
+            risultati.append(affetta(Path(f).resolve(), impost, a.gcode if len(a.files) == 1 else None,
+                                      densita))
         except Exception as e:
             risultati.append({"file": f, "errore": str(e)})
             errore = True
     if a.json:
         print(json.dumps(risultati, indent=1))
     else:
-        print(f"Profilo: layer {impost['layer_height']} mm, {impost['wall_line_count']} pareti, "
+        print(f"Profilo {a.profilo}: layer {impost['layer_height']} mm, {impost['wall_line_count']} pareti, "
               f"infill {impost['infill_sparse_density']}% {impost['infill_pattern']}, "
               f"supporti {'si' if impost['support_enable'] else 'no'}")
         for r in risultati:

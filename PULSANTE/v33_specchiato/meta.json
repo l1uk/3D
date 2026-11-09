@@ -508,5 +508,10 @@
       "budget_s": 30,
       "duration_ms": 76
     }
+  },
+  "renders": {
+    "tasto_3q": "v33_specchiato/renders/tasto_3q.png",
+    "tasto_sotto_3q": "v33_specchiato/renders/tasto_sotto_3q.png",
+    "tasto_testa": "v33_specchiato/renders/tasto_testa.png"
   }
 }
