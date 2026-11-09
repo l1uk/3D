@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_e80695ee963b46eda09b112841575a5d",
+  "parent_revision_id": "r_aa8d0e3cac6f46fc8f11d94319619988",
+  "selection_generation": 4,
+  "started_ns": 1794239391145733085,
+  "command": "run",
+  "label": "tetto_loft",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "volta2",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_e80695ee963b46eda09b112841575a5d/source.py",
+    "sha256": "93b5edfd822ee2be3de466486e0ac242e61ffff902a1ee98a00a7a5bbdda6666",
+    "size_bytes": 4652
+  },
+  "content_sha256": "0aa5ac09ddc2202ee349ca90033ccbbb625d942d06d84da6888cf196fcd76501"
+}

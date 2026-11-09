@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_bffd9809f4574dbe8d47cdb39de34235",
+  "parent_revision_id": "r_05a3aba71c674ba6a169dc90b56a952b",
+  "selection_generation": 28,
+  "started_ns": 1794242729328485740,
+  "command": "run",
+  "label": "trombetta_manico",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "trombetta",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_bffd9809f4574dbe8d47cdb39de34235/source.py",
+    "sha256": "43e18b3f67107d62f3bcd0a09476a2b1ce4414ba7e461cf25345dc09ef2d72b8",
+    "size_bytes": 16151
+  },
+  "content_sha256": "058509817cf38c5c2e151eaea20bf128e119fc6c16aa06423dad8a1b14838b8a"
+}

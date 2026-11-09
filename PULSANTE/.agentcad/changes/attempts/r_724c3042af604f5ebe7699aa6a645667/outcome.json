@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_outcome",
+  "core_sha256": "cd230c37695036a07dae03b73a16ab5fbeb4da201f6ba3c224375954f9b9baa9",
+  "response": {
+    "command": "run",
+    "status": "failed",
+    "version": 9,
+    "label": "decori",
+    "error": "Script execution failed: ValueError: Null TopoDS_Shape object",
+    "path": "v9_decori_failed/",
+    "runtime": "build123d",
+    "runtime_source": "project",
+    "script_output": "fillet bordo saltato: BRep_Tool:: no parameter on edge\nshell fallito, uso cavita' booleana: offset Error, an alternative kind may resolve this error\n",
+    "outputs": {
+      "step": null
+    },
+    "artifact_created": false,
+    "message": "No STEP was created. Fix tasto.py and rerun the command.",
+    "next_actions": [
+      "agentcad run tasto.py --label decori"
+    ]
+  },
+  "artifacts": [],
+  "unavailable_artifacts": [],
+  "content_sha256": "fe256de8dea98cd527da372e9dc5efe443daf9397da94693b5347503591d1827"
+}

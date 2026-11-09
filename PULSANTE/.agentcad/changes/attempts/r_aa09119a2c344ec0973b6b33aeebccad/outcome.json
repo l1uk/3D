@@ -1,0 +1,604 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_outcome",
+  "core_sha256": "a48acb9285d9bc9906bf49cf3f6162c17a08b788280fe0e0f049aefca1d70636",
+  "response": {
+    "command": "run",
+    "status": "success",
+    "core": {
+      "status": "success",
+      "committed_at": "2026-11-09T16:06:10.760833+00:00"
+    },
+    "artifacts": {
+      "geometry_manifest": {
+        "status": "success"
+      },
+      "mesh_exports": {
+        "status": "skipped",
+        "message": "No optional mesh exports requested."
+      },
+      "renders": {
+        "status": "skipped",
+        "message": "No explicit renders requested."
+      },
+      "preview": {
+        "status": "success"
+      },
+      "parts_preview": {
+        "status": "success"
+      },
+      "viewer_glb": {
+        "status": "success"
+      },
+      "diff": {
+        "status": "success"
+      },
+      "viewer": {
+        "status": "success"
+      },
+      "browser": {
+        "status": "skipped",
+        "message": "Browser launch disabled with --no-view."
+      }
+    },
+    "runtime": "build123d",
+    "output_type": "single_part",
+    "version": 20,
+    "label": "horn3",
+    "outputs": {
+      "step": "v20_horn3/output.step",
+      "script": "v20_horn3/script.py",
+      "geometry_manifest": "v20_horn3/geometry_manifest.json"
+    },
+    "geometry_manifest": {
+      "path": "v20_horn3/geometry_manifest.json",
+      "manifest_id": "c36413bf6b3cf7523bbd99c86ef96118b54bd81a865dd4452293591325c12a9b",
+      "version": 20,
+      "baseline_sha256": "c4417ec1403e25a168ef007b1e1aab0a1704c753c5f5d37d6145582302c8931a",
+      "counts": {
+        "solids": 1,
+        "faces": 118,
+        "edges": 316,
+        "part_definitions": 1,
+        "assembly_definitions": 0,
+        "part_occurrences": 1,
+        "assembly_occurrences": 0
+      },
+      "recognition": {
+        "status": "not_available"
+      },
+      "root_occurrence_ids": [
+        "occurrence_v20_1"
+      ],
+      "root_occurrences_total": 1,
+      "sample_ids": {
+        "face": "face_v20_1",
+        "edge": "edge_v20_1"
+      },
+      "id_scope": "version_local",
+      "cross_version_correspondence": "not_available",
+      "lookup_example": "agentcad inspect v20_horn3/output.step --id occurrence_v20_1",
+      "image_example": "agentcad inspect v20_horn3/output.step --image"
+    },
+    "next_actions": [
+      "agentcad inspect v20_horn3/output.step --report",
+      "agentcad inspect v20_horn3/output.step --id occurrence_v20_1"
+    ],
+    "metrics": {
+      "bounding_box": {
+        "x": [
+          0.001,
+          38.919
+        ],
+        "y": [
+          -0.0,
+          23.2774
+        ],
+        "z": [
+          -9.0,
+          11.5318
+        ]
+      },
+      "dimensions": {
+        "x": 38.918,
+        "y": 23.2774,
+        "z": 20.5318
+      },
+      "volume": 3243.3043,
+      "surface_area": 4061.5936,
+      "center_of_mass": {
+        "x": 20.9449,
+        "y": 11.4118,
+        "z": 5.061
+      },
+      "face_count": 118,
+      "edge_count": 316,
+      "is_valid": true,
+      "reliable": true
+    },
+    "validation": {
+      "profile": "deliverable",
+      "is_valid": true,
+      "first_failure": null,
+      "undetermined_layer": null,
+      "layers": {
+        "file_parse": {
+          "status": "pass",
+          "duration_ms": 0
+        },
+        "kernel_load": {
+          "status": "pass",
+          "duration_ms": 0
+        },
+        "brep_check": {
+          "status": "pass",
+          "errors": [],
+          "entities": [],
+          "entity_count": 0,
+          "evidence_truncated": false,
+          "duration_ms": 80
+        },
+        "shell_closure": {
+          "status": "pass",
+          "closed_shell_count": 1,
+          "open_shell_count": 0,
+          "loose_face_count": 0,
+          "loose_face_ids": [],
+          "free_edge_count": 0,
+          "free_edge_ids": [],
+          "free_edges": [],
+          "evidence_truncated": false,
+          "duration_ms": 1
+        },
+        "mesh_manifold": {
+          "deflection_mm": 0.050509,
+          "triangle_count": 5340,
+          "vertex_count": 2672,
+          "status": "pass",
+          "ladder_divisor": 1,
+          "requested_deflection_mm": 0.050509,
+          "worker": "in_process",
+          "duration_ms": 143
+        },
+        "structure": {
+          "status": "pass",
+          "solid_count": 1,
+          "shell_count": 1,
+          "face_count": 118,
+          "edge_count": 316,
+          "faces_outside_solids": 0,
+          "solids": [
+            {
+              "id": 1,
+              "volume": 3243.3164,
+              "bbox": {
+                "x": [
+                  0.001,
+                  38.919
+                ],
+                "y": [
+                  -0.0,
+                  23.2774
+                ],
+                "z": [
+                  -9.0,
+                  11.5318
+                ]
+              }
+            }
+          ],
+          "evidence_truncated": false,
+          "duration_ms": 208
+        },
+        "advisory": {
+          "status": "pass",
+          "min_face_area_mm2": 0.0675,
+          "max_tolerance_mm": 0.0,
+          "flags": [],
+          "duration_ms": 90
+        }
+      },
+      "message": "The shape passed every deliverable validation layer.",
+      "repairs": [],
+      "worker": "subprocess",
+      "budget_s": 120.0,
+      "step_round_trip": {
+        "status": "pass",
+        "matches": true,
+        "before": {
+          "is_valid": true,
+          "solid_count": 1,
+          "layers": {
+            "brep_check": "pass",
+            "shell_closure": "pass",
+            "mesh_manifold": "pass",
+            "structure": "pass",
+            "advisory": "pass"
+          }
+        },
+        "after": {
+          "is_valid": true,
+          "solid_count": 1,
+          "layers": {
+            "brep_check": "pass",
+            "shell_closure": "pass",
+            "mesh_manifold": "pass",
+            "structure": "pass",
+            "advisory": "pass"
+          }
+        },
+        "differences": [],
+        "skipped_layers": [],
+        "skipped_reason": null,
+        "message": "STEP layer outcomes and solid count match the source."
+      }
+    },
+    "validation_profile": "deliverable",
+    "parts": [
+      {
+        "id": "part_0",
+        "id_source": "generated",
+        "part_of": null,
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              0.001,
+              38.919
+            ],
+            "y": [
+              -0.0,
+              23.2774
+            ],
+            "z": [
+              -9.0,
+              11.5318
+            ]
+          },
+          "dimensions": {
+            "x": 38.918,
+            "y": 23.2774,
+            "z": 20.5318
+          },
+          "volume": 3243.3043,
+          "surface_area": 4061.5936,
+          "center_of_mass": {
+            "x": 20.9449,
+            "y": 11.4118,
+            "z": 5.061
+          },
+          "face_count": 118,
+          "edge_count": 316,
+          "is_valid": true
+        },
+        "preview": "v20_horn3/parts/part_0.png"
+      }
+    ],
+    "comparison_phases": {
+      "source_loading": {
+        "status": "success",
+        "duration_ms": 175
+      },
+      "comparison_rendering": {
+        "status": "success",
+        "duration_ms": 330
+      },
+      "projection_comparison": {
+        "status": "success",
+        "duration_ms": 270
+      },
+      "exact_3d_comparison": {
+        "status": "unavailable",
+        "duration_ms": 6332,
+        "message": "Boolean results did not conserve the input solid volumes."
+      },
+      "approximate_3d_comparison": {
+        "status": "success",
+        "duration_ms": 4464
+      },
+      "difference_artifact_export": {
+        "status": "success",
+        "duration_ms": 1220
+      },
+      "viewer_generation": {
+        "status": "success",
+        "duration_ms": 11
+      }
+    },
+    "preview": "v20_horn3/preview.png",
+    "diff": {
+      "against": "fuso2",
+      "side_by_side": "v20_horn3/diff_side.png",
+      "overlay": "v20_horn3/diff_overlay.png",
+      "projection_comparison": {
+        "method": "four_view_image_mask",
+        "scope": "2d_projected_pixels",
+        "alignment": {
+          "mode": "bounding_box_center",
+          "rotation": "preserved",
+          "relative_scale": "preserved"
+        },
+        "score": {
+          "metric": "projection_intersection_over_union",
+          "value": 1.0,
+          "classification": "high",
+          "aggregation": "foreground_union_pixel_weighted_across_views"
+        },
+        "meaning": "Visual silhouette overlap across four rendered viewpoints; not shared physical volume or model correctness.",
+        "limitations": [
+          "Does not establish shared 3D geometry.",
+          "Does not identify physical material additions or removals."
+        ],
+        "views": [
+          {
+            "view": "top",
+            "coincident_fraction_of_union": 1.0,
+            "reference_only_fraction_of_union": 0.0,
+            "candidate_only_fraction_of_union": 0.0
+          },
+          {
+            "view": "bottom",
+            "coincident_fraction_of_union": 1.0,
+            "reference_only_fraction_of_union": 0.0,
+            "candidate_only_fraction_of_union": 0.0
+          },
+          {
+            "view": "upper_iso",
+            "coincident_fraction_of_union": 0.9999,
+            "reference_only_fraction_of_union": 0.0001,
+            "candidate_only_fraction_of_union": 0.0
+          },
+          {
+            "view": "lower_iso",
+            "coincident_fraction_of_union": 1.0,
+            "reference_only_fraction_of_union": 0.0,
+            "candidate_only_fraction_of_union": 0.0
+          }
+        ]
+      },
+      "comparison_3d": {
+        "method": "approximate_voxel_volume",
+        "accuracy": "approximate",
+        "status": "success",
+        "classification": "partial_shared_volume",
+        "alignment": {
+          "mode": "source_frame",
+          "transform_applied": false
+        },
+        "units": {
+          "length": "mm",
+          "volume": "mm^3"
+        },
+        "resolution_mm": 0.431018,
+        "grid": {
+          "dimensions": [
+            92,
+            55,
+            49
+          ],
+          "sampled_cells": 247940,
+          "max_sampled_cells": 250000,
+          "sampling": "voxel_center_occupancy",
+          "surface_tessellation_mm": 0.107754
+        },
+        "error_estimate": {
+          "method": "boundary_voxel_count",
+          "unit": "mm^3",
+          "absolute_volume": {
+            "reference_only": 5.6051,
+            "candidate_only": 4.3239,
+            "shared": 1536.2806,
+            "reference": 1536.2005,
+            "candidate": 1536.4407,
+            "union": 1536.3607
+          },
+          "is_strict_bound": false,
+          "interpretation": "These are heuristic absolute errors for the named volume measurements, not additional measured volumes. Zero for an empty sampled region is not proof that sub-resolution features are absent."
+        },
+        "volume_semantics": {
+          "measurement": "sampled_voxel_occupancy"
+        },
+        "volumes": {
+          "reference": 3310.0577,
+          "candidate": 3308.7765,
+          "shared": 3304.4526,
+          "reference_only": 5.6051,
+          "candidate_only": 4.3239,
+          "union": 3314.3816
+        },
+        "ratios": {
+          "volume_iou": 0.997,
+          "reference_coverage": 0.9983,
+          "candidate_coverage": 0.9987
+        },
+        "meaning": {
+          "shared": "Approximate volume occupied by both models.",
+          "reference_only": "Approximate volume occupied only by the reference.",
+          "candidate_only": "Approximate volume occupied only by the candidate."
+        },
+        "limitations": [
+          "Volumes come from voxel-center samples, not exact CAD Booleans.",
+          "Input surfaces are tessellated at the reported grid surface tolerance before occupancy classification.",
+          "The error estimate counts boundary voxels and is not a strict bound.",
+          "Features thinner than the reported resolution may be missed.",
+          "Requested resolution is coarsened when needed to keep the grid bounded.",
+          "Models were compared at the positions stored in their files; no alignment was applied."
+        ],
+        "exact_attempt": {
+          "method": "source_frame_boolean_volume",
+          "alignment": {
+            "mode": "source_frame",
+            "transform_applied": false
+          },
+          "units": {
+            "length": "mm",
+            "volume": "mm^3"
+          },
+          "tolerance": {
+            "linear": 1e-07,
+            "unit": "mm"
+          },
+          "status": "unavailable",
+          "reason": {
+            "code": "volume_conservation_failed",
+            "message": "Boolean results did not conserve the input solid volumes."
+          },
+          "suggestion": "Review the exact failure reason and comparison_3d.kernel when present. Run an explicit `agentcad diff --visual` for the same saved models to retain the independent projection comparison; an unavailable exact result does not mean the CAD build failed.",
+          "kernel": {
+            "engine": "OpenCascade",
+            "non_destructive": true,
+            "exact_partition_runs": 1,
+            "operations": [
+              {
+                "operation": "exact 3D partition",
+                "non_destructive": true,
+                "errors": [],
+                "warnings": [
+                  {
+                    "message": "BOPAlgo_AlertUnableToOrientTheShape",
+                    "count": 26
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "volume_glb": "v20_horn3/diff_volume.glb",
+      "volume_png": "v20_horn3/diff_volume.png"
+    },
+    "viewer": "v20_horn3/viewer.html",
+    "viewer_glb": "v20_horn3/output.glb",
+    "viewer_opened": false,
+    "hint": "Review v20_horn3/viewer.html in the browser \u2014 A is the previous run, B is this run, with side-by-side and overlay ready.",
+    "timings": {
+      "validation_ms": 25,
+      "script_exec_ms": 9926,
+      "metrics_ms": 438,
+      "source_validation_ms": 693,
+      "export_write_ms": 64,
+      "reload_ms": 634,
+      "delivered_validation_ms": 523,
+      "export_step_ms": 2084,
+      "geometry_manifest_ms": 857,
+      "preview_ms": 209,
+      "parts_preview_ms": 76,
+      "export_viewer_glb_ms": 94,
+      "source_loading_ms": 175,
+      "comparison_rendering_ms": 330,
+      "projection_comparison_ms": 270,
+      "exact_3d_comparison_ms": 6332,
+      "approximate_3d_comparison_ms": 4464,
+      "difference_artifact_export_ms": 1220,
+      "viewer_generation_ms": 11,
+      "total_ms": 26605
+    },
+    "completed_phases": [
+      "validation",
+      "script_exec",
+      "metrics",
+      "export_step",
+      "geometry_manifest",
+      "preview",
+      "parts_preview",
+      "export_viewer_glb",
+      "source_loading",
+      "comparison_rendering",
+      "projection_comparison",
+      "exact_3d_comparison",
+      "approximate_3d_comparison",
+      "difference_artifact_export",
+      "viewer_generation"
+    ],
+    "phase_timings": {
+      "validation_ms": 25,
+      "script_exec_ms": 9926,
+      "metrics_ms": 438,
+      "source_validation_ms": 693,
+      "export_write_ms": 64,
+      "reload_ms": 634,
+      "delivered_validation_ms": 523,
+      "export_step_ms": 2084,
+      "geometry_manifest_ms": 857,
+      "preview_ms": 209,
+      "parts_preview_ms": 76,
+      "export_viewer_glb_ms": 94,
+      "source_loading_ms": 175,
+      "comparison_rendering_ms": 330,
+      "projection_comparison_ms": 270,
+      "exact_3d_comparison_ms": 6332,
+      "approximate_3d_comparison_ms": 4464,
+      "difference_artifact_export_ms": 1220,
+      "viewer_generation_ms": 11,
+      "total_ms": 26605
+    },
+    "runtime_source": "project",
+    "artifact_created": true
+  },
+  "artifacts": [
+    {
+      "name": "outputs.geometry_manifest",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_aa09119a2c344ec0973b6b33aeebccad/artifacts/5e92818d05d4c1b5d4de.json",
+      "sha256": "08759ab5c46866e3fa61c2694cc3197612bd8c25dab5822ab547b66473ed62f4",
+      "size_bytes": 227992
+    },
+    {
+      "name": "preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_aa09119a2c344ec0973b6b33aeebccad/artifacts/58bff9a3028dad9b3fb8.png",
+      "sha256": "e227ced2dac6856cf815e2f2d03ac665a2e685e5511b5398cde1beda458b7947",
+      "size_bytes": 128446
+    },
+    {
+      "name": "viewer",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_aa09119a2c344ec0973b6b33aeebccad/artifacts/47d2a279207adbb0f8f4.html",
+      "sha256": "c5253d5d8926593d2742e911e57c821902b5af2f6203b1b65d67947ad0f3b50e",
+      "size_bytes": 1145492
+    },
+    {
+      "name": "viewer_glb",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_aa09119a2c344ec0973b6b33aeebccad/artifacts/282fe146462346668e1f.glb",
+      "sha256": "47dd69f2fb3e513e00d249ba3b093366b73e44960dcd4a8bb6ade3c053ef282e",
+      "size_bytes": 142524
+    },
+    {
+      "name": "parts.0.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_aa09119a2c344ec0973b6b33aeebccad/artifacts/81c90862b722dcdb1334.png",
+      "sha256": "95bd313caf0f0c69e2ec197a6d8be941b97aaf0b2c1d5dffeb80c3f0a0f603de",
+      "size_bytes": 70650
+    },
+    {
+      "name": "diff.side_by_side",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_aa09119a2c344ec0973b6b33aeebccad/artifacts/590e25a3f6489b7dd2a6.png",
+      "sha256": "425ed4774dfa18837a66c2352a7951cdb42bf008a6ac5d309d83e80712dbbac2",
+      "size_bytes": 245585
+    },
+    {
+      "name": "diff.overlay",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_aa09119a2c344ec0973b6b33aeebccad/artifacts/009e9f7385dc7049424e.png",
+      "sha256": "544119b973ddb8eba9371d18cc0b26383ff66f5824a7fc8f8de37e0880f49a11",
+      "size_bytes": 61258
+    },
+    {
+      "name": "diff.volume_glb",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_aa09119a2c344ec0973b6b33aeebccad/artifacts/b7a894de3b0ec18051d0.glb",
+      "sha256": "93850d66465da53290d9c6afed2585b5a1fe3766d9e5f21cf047b2e1e2fd667f",
+      "size_bytes": 2001940
+    },
+    {
+      "name": "diff.volume_png",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_aa09119a2c344ec0973b6b33aeebccad/artifacts/e605c1b339603a9b027e.png",
+      "sha256": "5cda85b6756b6942a485359d6dca24cb8d4f6c531c7de22a8ffc2c00abf5f3cb",
+      "size_bytes": 34435
+    }
+  ],
+  "unavailable_artifacts": [],
+  "content_sha256": "f80fd76215544dba05fd5e24df84e717ecca5af212324bc8522e347ef30a3d9a"
+}

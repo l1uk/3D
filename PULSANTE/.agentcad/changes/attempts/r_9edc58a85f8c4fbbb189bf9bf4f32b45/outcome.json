@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_outcome",
+  "core_sha256": "33b2fe6d0b8bcbe1426ab8bd8c800d1c141bc0332612b33347c0d47674f159d5",
+  "response": {
+    "command": "run",
+    "status": "failed",
+    "version": 30,
+    "label": "tetto_falda2",
+    "error": "Script execution failed: ValueError: Dimensions of objects to subtract from are inconsistent",
+    "path": "v30_tetto_falda2_failed/",
+    "runtime": "build123d",
+    "runtime_source": "project",
+    "outputs": {
+      "step": null
+    },
+    "artifact_created": false,
+    "message": "No STEP was created. Fix tasto.py and rerun the command.",
+    "next_actions": [
+      "agentcad run tasto.py --label tetto_falda2"
+    ]
+  },
+  "artifacts": [],
+  "unavailable_artifacts": [],
+  "content_sha256": "043f59268448844742571719cef271b7ed6343538040f3e35a8ff01baeeffb30"
+}

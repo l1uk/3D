@@ -1,0 +1,38 @@
+{
+  "content_sha256": "1a832d312cde2b411c0196e0f97ed89bf8af3fb9f2b304ef496f190ebdbb133e",
+  "deliverables": {
+    "cad": []
+  },
+  "inputs": [
+    {
+      "name": "tasto.py",
+      "path": ".agentcad/changes/attempts/r_9edc58a85f8c4fbbb189bf9bf4f32b45/source.py",
+      "role": "source",
+      "sha256": "3ef6a6ca98cb6fe355701cc2534fecfce0edcdf6c835449cb447d095155141a8",
+      "size_bytes": 16007
+    }
+  ],
+  "kind": "candidate",
+  "metadata": {
+    "command": "run",
+    "source_name": "tasto.py"
+  },
+  "model": {
+    "params": null,
+    "runtime": "build123d",
+    "validation_profile": "deliverable"
+  },
+  "model_fingerprint": "fec9bbae215b9b019cda6073c74c31543ff86b0e799f8cd5d07d0e5f8c58dada",
+  "parent_revision_id": "r_9e0b3eab8d3649dfa3278f66f2f9df19",
+  "promotion_mode": "automatic",
+  "requested_change": "tetto_falda2",
+  "revision_id": "r_9edc58a85f8c4fbbb189bf9bf4f32b45",
+  "schema_version": 1,
+  "target_policies": {
+    "cad": {
+      "policy_id": "legacy-core-retention-deliverable",
+      "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+      "version": 1
+    }
+  }
+}

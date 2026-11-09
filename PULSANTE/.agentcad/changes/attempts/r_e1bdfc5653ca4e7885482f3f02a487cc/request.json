@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_e1bdfc5653ca4e7885482f3f02a487cc",
+  "parent_revision_id": "r_ba6fd8c796824a07bdc1099cd842a9cf",
+  "selection_generation": 14,
+  "started_ns": 1794239880294652642,
+  "command": "run",
+  "label": "decori3",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "cav_curva",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_e1bdfc5653ca4e7885482f3f02a487cc/source.py",
+    "sha256": "e1995f58abe7a6c429c6081f6b6f8b9fe7c6934e0c00dd4121af0743f061ff57",
+    "size_bytes": 11931
+  },
+  "content_sha256": "97826857a4e33780d9c1223e78568e40bfa442f3543421cc1186f0ef2817275c"
+}

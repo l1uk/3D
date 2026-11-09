@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_9e0b3eab8d3649dfa3278f66f2f9df19",
+  "parent_revision_id": "r_bffd9809f4574dbe8d47cdb39de34235",
+  "selection_generation": 29,
+  "started_ns": 1794243036424916712,
+  "command": "run",
+  "label": "tetto_falda",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "trombetta_manico",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_9e0b3eab8d3649dfa3278f66f2f9df19/source.py",
+    "sha256": "f51865bd0bac7397d68d8febead04547f0c52c920d4f300c6d88e9e66f687334",
+    "size_bytes": 15958
+  },
+  "content_sha256": "2289571bf87efc525b9a4bffe59c8debe864d56d241bc5411b2afed1ab8ff2f8"
+}

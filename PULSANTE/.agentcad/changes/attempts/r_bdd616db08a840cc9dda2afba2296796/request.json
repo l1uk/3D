@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_bdd616db08a840cc9dda2afba2296796",
+  "parent_revision_id": "r_99484391b954478499f38199f52ccbbc",
+  "selection_generation": 6,
+  "started_ns": 1794239479859090876,
+  "command": "run",
+  "label": "guscio",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "cupola",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_bdd616db08a840cc9dda2afba2296796/source.py",
+    "sha256": "986d8f17171c540cd49f4c3544f5421f5228faed52f0c072ce5bd10f0bcd3c45",
+    "size_bytes": 6097
+  },
+  "content_sha256": "5192f4146e837b9cbdd9d8fc6f6aebc597648ec8dde723a78ce808fb791ccdfd"
+}

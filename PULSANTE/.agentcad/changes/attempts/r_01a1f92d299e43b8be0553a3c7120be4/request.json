@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_01a1f92d299e43b8be0553a3c7120be4",
+  "parent_revision_id": "r_0d28c8da2bb84680b16c6298670b75af",
+  "selection_generation": 19,
+  "started_ns": 1794240250949387267,
+  "command": "run",
+  "label": "fuso2",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "fuso",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_01a1f92d299e43b8be0553a3c7120be4/source.py",
+    "sha256": "739c864b3ff893431f9021634e29579a6f27e4ff48aaf9d1bdb615cf939bace0",
+    "size_bytes": 14098
+  },
+  "content_sha256": "0d5d0817a556d9c1dfd2ddc652fe4f864f46b9df943704ecf540d8ab83bf3a30"
+}

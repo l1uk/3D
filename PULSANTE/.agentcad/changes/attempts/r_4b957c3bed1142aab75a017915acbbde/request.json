@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_4b957c3bed1142aab75a017915acbbde",
+  "parent_revision_id": "r_9bb9991de95f458d9c9fa2f8cd0e7bb2",
+  "selection_generation": 8,
+  "started_ns": 1794239567693830889,
+  "command": "run",
+  "label": "clip2",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "clip",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_4b957c3bed1142aab75a017915acbbde/source.py",
+    "sha256": "4935fcc2d3a278c678bb505dd6673f0292de8d59bf2181d6b766ca3c07f90431",
+    "size_bytes": 8897
+  },
+  "content_sha256": "ddaf7a44a8cd38753a502430bd2496fef3c0117126657cd0ab28c8f31685de6a"
+}

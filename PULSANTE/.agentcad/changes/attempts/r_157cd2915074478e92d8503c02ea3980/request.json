@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_157cd2915074478e92d8503c02ea3980",
+  "parent_revision_id": "r_1f461b33c4aa4773a7863fcfc837661c",
+  "selection_generation": 16,
+  "started_ns": 1794240005446206384,
+  "command": "run",
+  "label": "clacson",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "bollini_ray",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_157cd2915074478e92d8503c02ea3980/source.py",
+    "sha256": "521351688b0a99c888042f303d88540cc2337f02fc8eca6b7e1246db1ebfddfe",
+    "size_bytes": 13571
+  },
+  "content_sha256": "2c4a726e77959ef0070f74db4a4f2bfa58d43207b0ce6f617daeaca54e5ef6fc"
+}

@@ -1,0 +1,38 @@
+{
+  "content_sha256": "83d584965e1d8d57fdfb27b9e67da409a5e148fcdc1aa71d715b1cafd343ee43",
+  "deliverables": {
+    "cad": []
+  },
+  "inputs": [
+    {
+      "name": "tasto.py",
+      "path": ".agentcad/changes/attempts/r_724c3042af604f5ebe7699aa6a645667/source.py",
+      "role": "source",
+      "sha256": "56b371b04c485ea128365820162bf4845e5d560ca051046e8dff75dc89b8926b",
+      "size_bytes": 10825
+    }
+  ],
+  "kind": "candidate",
+  "metadata": {
+    "command": "run",
+    "source_name": "tasto.py"
+  },
+  "model": {
+    "params": null,
+    "runtime": "build123d",
+    "validation_profile": "deliverable"
+  },
+  "model_fingerprint": "83a28374f017b9975a96435e1589a49dc04ab7892c66591e2d07f3ef6e57faf6",
+  "parent_revision_id": "r_4b957c3bed1142aab75a017915acbbde",
+  "promotion_mode": "automatic",
+  "requested_change": "decori",
+  "revision_id": "r_724c3042af604f5ebe7699aa6a645667",
+  "schema_version": 1,
+  "target_policies": {
+    "cad": {
+      "policy_id": "legacy-core-retention-deliverable",
+      "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+      "version": 1
+    }
+  }
+}

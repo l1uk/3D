@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_core",
+  "candidate_sha256": "7d514d5a525dfbef2864a4fcb4fedf52306bcd03d825a073277623e2e0b08490",
+  "receipt_sha256": "dab7c538c8f44577fdd3c59db01eb1d56d499eb6f0db6fd2e18ea99a59fa472d",
+  "policy_sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+  "response": {
+    "version": 10,
+    "label": "decori",
+    "status": "failed",
+    "created": "2026-11-09T15:54:02.135721+00:00",
+    "error": "Script execution failed: ValueError: Null TopoDS_Shape object",
+    "script": "v10_decori_failed/script.py",
+    "runtime": "build123d",
+    "runtime_source": "project"
+  },
+  "content_sha256": "52eb61fa9ac818d0d0fea1e41032b55d2d67a8621d07cad36050b4923f85065e"
+}

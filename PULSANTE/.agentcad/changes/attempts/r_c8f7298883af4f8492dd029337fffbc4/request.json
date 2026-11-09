@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_c8f7298883af4f8492dd029337fffbc4",
+  "parent_revision_id": "r_ec17150299c748ffaee5a1417463c291",
+  "selection_generation": 32,
+  "started_ns": 1794243414998187351,
+  "command": "run",
+  "label": "fossette",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "tetto_falda3",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_c8f7298883af4f8492dd029337fffbc4/source.py",
+    "sha256": "2406461607c404d68525126e26a0edc678832fa16750ae66a9942a7a7223124e",
+    "size_bytes": 15752
+  },
+  "content_sha256": "8f5421e597f270b5640e6aba42b27ebccd7c8d7610264aaad1d1e19ed93d46d4"
+}

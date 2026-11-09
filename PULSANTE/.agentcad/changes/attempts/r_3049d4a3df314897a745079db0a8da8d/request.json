@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_3049d4a3df314897a745079db0a8da8d",
+  "parent_revision_id": "r_aa09119a2c344ec0973b6b33aeebccad",
+  "selection_generation": 21,
+  "started_ns": 1794241633429988468,
+  "command": "run",
+  "label": "test",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "horn3",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_3049d4a3df314897a745079db0a8da8d/source.py",
+    "sha256": "58bb26fab9a2c3e2c52786452ad2ec129a7eb8b6127daefbe315d93620ed30aa",
+    "size_bytes": 14583
+  },
+  "content_sha256": "de7dfa79d98196df1c49f0d27acd0473e6cd47c09ac324a3fc4f3421e4ff8698"
+}

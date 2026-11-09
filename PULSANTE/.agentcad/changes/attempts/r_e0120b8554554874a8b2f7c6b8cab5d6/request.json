@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_e0120b8554554874a8b2f7c6b8cab5d6",
+  "parent_revision_id": "r_79a1289afebd48ee8fdba058d8e2ee73",
+  "selection_generation": 12,
+  "started_ns": 1794239748161465352,
+  "command": "run",
+  "label": "shell_ok",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "decori2",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_e0120b8554554874a8b2f7c6b8cab5d6/source.py",
+    "sha256": "b0b394a4ed59294a3e07f78c7ec7e969c47cbfc83729a3134cb52aba56f8bb02",
+    "size_bytes": 11514
+  },
+  "content_sha256": "2f49480b4bdd8e795a48ddf8ecb1e0d7943be1050d5312e6dfad864a52b0ff44"
+}

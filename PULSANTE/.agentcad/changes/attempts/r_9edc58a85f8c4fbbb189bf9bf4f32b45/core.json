@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_core",
+  "candidate_sha256": "1a832d312cde2b411c0196e0f97ed89bf8af3fb9f2b304ef496f190ebdbb133e",
+  "receipt_sha256": "2f0449f20c7d3cde7b140ea875e222544b70fd965dc0534a05f66ef6e84194ea",
+  "policy_sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+  "response": {
+    "version": 30,
+    "label": "tetto_falda2",
+    "status": "failed",
+    "created": "2026-11-09T16:52:23.203706+00:00",
+    "error": "Script execution failed: ValueError: Dimensions of objects to subtract from are inconsistent",
+    "script": "v30_tetto_falda2_failed/script.py",
+    "runtime": "build123d",
+    "runtime_source": "project"
+  },
+  "content_sha256": "33b2fe6d0b8bcbe1426ab8bd8c800d1c141bc0332612b33347c0d47674f159d5"
+}

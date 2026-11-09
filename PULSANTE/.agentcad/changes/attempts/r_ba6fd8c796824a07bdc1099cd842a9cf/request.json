@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_ba6fd8c796824a07bdc1099cd842a9cf",
+  "parent_revision_id": "r_e0120b8554554874a8b2f7c6b8cab5d6",
+  "selection_generation": 13,
+  "started_ns": 1794239806945053457,
+  "command": "run",
+  "label": "cav_curva",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "shell_ok",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_ba6fd8c796824a07bdc1099cd842a9cf/source.py",
+    "sha256": "6aa311fe71fff8bcd71d2b3455d4844a355e90d28530c351322a92cc919e9ef7",
+    "size_bytes": 12047
+  },
+  "content_sha256": "bfa8ba05df640cff17be8651870d71fc65e731b912eea8d2836071de16e0bf93"
+}

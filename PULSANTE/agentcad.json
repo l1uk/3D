@@ -1,0 +1,201 @@
+{
+  "name": "tasto",
+  "version": "0.7.1",
+  "created": "2026-11-09T15:45:59.385958+00:00",
+  "runtime": "build123d",
+  "versions": [
+    {
+      "version": 1,
+      "label": "corpo_volta",
+      "status": "success",
+      "path": "v1_corpo_volta/"
+    },
+    {
+      "version": 2,
+      "label": "corpo_volta",
+      "status": "success",
+      "path": "v2_corpo_volta/"
+    },
+    {
+      "version": 3,
+      "label": "volta2",
+      "status": "success",
+      "path": "v3_volta2/"
+    },
+    {
+      "version": 4,
+      "label": "tetto_loft",
+      "status": "success",
+      "path": "v4_tetto_loft/"
+    },
+    {
+      "version": 5,
+      "label": "cupola",
+      "status": "success",
+      "path": "v5_cupola/"
+    },
+    {
+      "version": 6,
+      "label": "guscio",
+      "status": "success",
+      "path": "v6_guscio/"
+    },
+    {
+      "version": 7,
+      "label": "clip",
+      "status": "success",
+      "path": "v7_clip/"
+    },
+    {
+      "version": 8,
+      "label": "clip2",
+      "status": "success",
+      "path": "v8_clip2/"
+    },
+    {
+      "version": 9,
+      "label": "decori",
+      "status": "failed",
+      "path": "v9_decori_failed/"
+    },
+    {
+      "version": 10,
+      "label": "decori",
+      "status": "failed",
+      "path": "v10_decori_failed/"
+    },
+    {
+      "version": 11,
+      "label": "decori2",
+      "status": "success",
+      "path": "v11_decori2/"
+    },
+    {
+      "version": 12,
+      "label": "shell_ok",
+      "status": "success",
+      "path": "v12_shell_ok/"
+    },
+    {
+      "version": 13,
+      "label": "cav_curva",
+      "status": "success",
+      "path": "v13_cav_curva/"
+    },
+    {
+      "version": 14,
+      "label": "decori3",
+      "status": "success",
+      "path": "v14_decori3/"
+    },
+    {
+      "version": 15,
+      "label": "bollini_ray",
+      "status": "success",
+      "path": "v15_bollini_ray/"
+    },
+    {
+      "version": 16,
+      "label": "clacson",
+      "status": "success",
+      "path": "v16_clacson/"
+    },
+    {
+      "version": 17,
+      "label": "clacson2",
+      "status": "success",
+      "path": "v17_clacson2/"
+    },
+    {
+      "version": 18,
+      "label": "fuso",
+      "status": "success",
+      "path": "v18_fuso/"
+    },
+    {
+      "version": 19,
+      "label": "fuso2",
+      "status": "success",
+      "path": "v19_fuso2/"
+    },
+    {
+      "version": 20,
+      "label": "horn3",
+      "status": "success",
+      "path": "v20_horn3/"
+    },
+    {
+      "version": 21,
+      "label": "test",
+      "status": "success",
+      "path": "v21_test/"
+    },
+    {
+      "version": 22,
+      "label": "test",
+      "status": "success",
+      "path": "v22_test/"
+    },
+    {
+      "version": 23,
+      "label": "clipfix",
+      "status": "success",
+      "path": "v23_clipfix/"
+    },
+    {
+      "version": 24,
+      "label": "clip_esterne",
+      "status": "success",
+      "path": "v24_clip_esterne/"
+    },
+    {
+      "version": 25,
+      "label": "clip_esterne",
+      "status": "success",
+      "path": "v25_clip_esterne/"
+    },
+    {
+      "version": 26,
+      "label": "clip_esterne2",
+      "status": "success",
+      "path": "v26_clip_esterne2/"
+    },
+    {
+      "version": 27,
+      "label": "trombetta",
+      "status": "success",
+      "path": "v27_trombetta/"
+    },
+    {
+      "version": 28,
+      "label": "trombetta_manico",
+      "status": "success",
+      "path": "v28_trombetta_manico/"
+    },
+    {
+      "version": 29,
+      "label": "tetto_falda",
+      "status": "success",
+      "path": "v29_tetto_falda/"
+    },
+    {
+      "version": 30,
+      "label": "tetto_falda2",
+      "status": "failed",
+      "path": "v30_tetto_falda2_failed/"
+    },
+    {
+      "version": 31,
+      "label": "tetto_falda3",
+      "status": "success",
+      "path": "v31_tetto_falda3/"
+    },
+    {
+      "version": 32,
+      "label": "fossette",
+      "status": "success",
+      "path": "v32_fossette/"
+    }
+  ],
+  "current": "fossette"
+}

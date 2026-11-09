@@ -1,0 +1,53 @@
+{
+  "content_sha256": "65ea45385bb04b929e2fddf6e36fff3e001b76a34055c1cfe9b317ab6f740419",
+  "deliverables": {
+    "cad": [
+      {
+        "name": "output.step",
+        "path": ".agentcad/changes/attempts/r_b74ae314a7944229881c8c04a11fa5e1/geometry/output.step",
+        "role": "geometry",
+        "sha256": "c7788a49ebf79a22bce84aa9d0371641c8e29bdef332cb40f41ebf4253976800",
+        "size_bytes": 1154620
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "name": "tasto.py",
+      "path": ".agentcad/changes/attempts/r_b74ae314a7944229881c8c04a11fa5e1/source.py",
+      "role": "source",
+      "sha256": "3e9665c574d019dd59250a0757c3544196e6e7cce22bb5fb910e85639e31a4af",
+      "size_bytes": 13723
+    },
+    {
+      "name": "output.step",
+      "path": ".agentcad/changes/attempts/r_b74ae314a7944229881c8c04a11fa5e1/geometry/output.step",
+      "role": "geometry",
+      "sha256": "c7788a49ebf79a22bce84aa9d0371641c8e29bdef332cb40f41ebf4253976800",
+      "size_bytes": 1154620
+    }
+  ],
+  "kind": "candidate",
+  "metadata": {
+    "command": "run",
+    "source_name": "tasto.py"
+  },
+  "model": {
+    "params": null,
+    "runtime": "build123d",
+    "validation_profile": "deliverable"
+  },
+  "model_fingerprint": "61050abc2835507e38e73fda2176a3eba441d08f2aaa271f0255e14950ab7f48",
+  "parent_revision_id": "r_157cd2915074478e92d8503c02ea3980",
+  "promotion_mode": "automatic",
+  "requested_change": "clacson2",
+  "revision_id": "r_b74ae314a7944229881c8c04a11fa5e1",
+  "schema_version": 1,
+  "target_policies": {
+    "cad": {
+      "policy_id": "legacy-core-retention-deliverable",
+      "sha256": "71d0ff21d72a98eb190cd86958dc183e1589ce5178b716c3720e126220d12965",
+      "version": 1
+    }
+  }
+}

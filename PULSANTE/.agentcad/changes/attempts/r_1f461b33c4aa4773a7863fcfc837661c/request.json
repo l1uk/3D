@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_1f461b33c4aa4773a7863fcfc837661c",
+  "parent_revision_id": "r_e1bdfc5653ca4e7885482f3f02a487cc",
+  "selection_generation": 15,
+  "started_ns": 1794239950030581893,
+  "command": "run",
+  "label": "bollini_ray",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "decori3",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_1f461b33c4aa4773a7863fcfc837661c/source.py",
+    "sha256": "3ddcf31223ac2b13a4106d567dde96c4c7d819cb01a4d55912a86923546e39b2",
+    "size_bytes": 12185
+  },
+  "content_sha256": "0fa77a9bc803df90993e0c0e87d6b7b2890b18eb31c8ce5f8365faed71a8bde3"
+}

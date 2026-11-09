@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_99484391b954478499f38199f52ccbbc",
+  "parent_revision_id": "r_e80695ee963b46eda09b112841575a5d",
+  "selection_generation": 5,
+  "started_ns": 1794239432044393619,
+  "command": "run",
+  "label": "cupola",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "tetto_loft",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_99484391b954478499f38199f52ccbbc/source.py",
+    "sha256": "53560e4cd534c479355c2b85b1fde34ee52d6559e15a61e8d381113209a1180f",
+    "size_bytes": 4849
+  },
+  "content_sha256": "73a1703f0ac43b1e874bb2db1a8835322b174abf8ae96cbefd25e75598f67084"
+}

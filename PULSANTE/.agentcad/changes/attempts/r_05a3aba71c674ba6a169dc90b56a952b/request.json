@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_05a3aba71c674ba6a169dc90b56a952b",
+  "parent_revision_id": "r_8e48732f9c574527b2730dee450801de",
+  "selection_generation": 27,
+  "started_ns": 1794242431977072489,
+  "command": "run",
+  "label": "trombetta",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "clip_esterne2",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_05a3aba71c674ba6a169dc90b56a952b/source.py",
+    "sha256": "4f18cd6af6623b2b31369551d27950c08a62ade9cd970ef27359086b79135427",
+    "size_bytes": 15166
+  },
+  "content_sha256": "26a8a43d6eb5125e637ae37474856ef2af8bf7e2ea50e58b219be08f5f5686a4"
+}

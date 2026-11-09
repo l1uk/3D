@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_aa8d0e3cac6f46fc8f11d94319619988",
+  "parent_revision_id": "r_1a7940d2a4f44b80afa9be232ff682e3",
+  "selection_generation": 3,
+  "started_ns": 1794239331814053575,
+  "command": "run",
+  "label": "volta2",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "corpo_volta",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_aa8d0e3cac6f46fc8f11d94319619988/source.py",
+    "sha256": "1d92f1f1fda9664ccb8e9e2af6e88310d00ec3f8ff675ac5b9025571f4534b57",
+    "size_bytes": 3491
+  },
+  "content_sha256": "5814565ed36c5581921501d0b192054c07af9c9f4cab4cf79c179858c16457b2"
+}
