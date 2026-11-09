@@ -195,7 +195,13 @@
       "label": "fossette",
       "status": "success",
       "path": "v32_fossette/"
+    },
+    {
+      "version": 33,
+      "label": "specchiato",
+      "status": "success",
+      "path": "v33_specchiato/"
     }
   ],
-  "current": "fossette"
+  "current": "specchiato"
 }

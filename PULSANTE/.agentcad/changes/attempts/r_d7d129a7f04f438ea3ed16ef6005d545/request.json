@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_request",
+  "revision_id": "r_d7d129a7f04f438ea3ed16ef6005d545",
+  "parent_revision_id": "r_c8f7298883af4f8492dd029337fffbc4",
+  "selection_generation": 33,
+  "started_ns": 1794243967917035564,
+  "command": "run",
+  "label": "specchiato",
+  "model": {
+    "runtime": "build123d",
+    "params": null,
+    "validation_profile": "deliverable"
+  },
+  "legacy_baseline": "fossette",
+  "promotion_mode": "automatic",
+  "source": {
+    "name": "tasto.py",
+    "role": "source",
+    "path": ".agentcad/changes/attempts/r_d7d129a7f04f438ea3ed16ef6005d545/source.py",
+    "sha256": "cada1601ab1f63f49dc6bffdb730f0b5f473e1c163f38af05045a2f155b0a01a",
+    "size_bytes": 16219
+  },
+  "content_sha256": "25b62e74a25d98591f59c5b5a0c283154e3d03ce2cbc2ea24d187b083df2eb3c"
+}

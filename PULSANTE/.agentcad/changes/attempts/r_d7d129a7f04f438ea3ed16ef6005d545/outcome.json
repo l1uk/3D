@@ -1,0 +1,547 @@
+{
+  "schema_version": 1,
+  "kind": "attempt_outcome",
+  "core_sha256": "60020b0f681544474de8a24ea0a2771e8206e9cf26774d29c6fa59bf507585df",
+  "response": {
+    "command": "run",
+    "status": "success",
+    "core": {
+      "status": "success",
+      "committed_at": "2026-11-09T17:06:15.508628+00:00"
+    },
+    "artifacts": {
+      "geometry_manifest": {
+        "status": "success"
+      },
+      "mesh_exports": {
+        "status": "skipped",
+        "message": "No optional mesh exports requested."
+      },
+      "renders": {
+        "status": "skipped",
+        "message": "No explicit renders requested."
+      },
+      "preview": {
+        "status": "success"
+      },
+      "parts_preview": {
+        "status": "success"
+      },
+      "viewer_glb": {
+        "status": "success"
+      },
+      "diff": {
+        "status": "success"
+      },
+      "viewer": {
+        "status": "success"
+      },
+      "browser": {
+        "status": "skipped",
+        "message": "Browser launch disabled with --no-view."
+      }
+    },
+    "runtime": "build123d",
+    "output_type": "single_part",
+    "version": 33,
+    "label": "specchiato",
+    "outputs": {
+      "step": "v33_specchiato/output.step",
+      "script": "v33_specchiato/script.py",
+      "geometry_manifest": "v33_specchiato/geometry_manifest.json"
+    },
+    "geometry_manifest": {
+      "path": "v33_specchiato/geometry_manifest.json",
+      "manifest_id": "e21a8fd80b6723e33a6dbb5e634aba8376e3540b834a67d00898da066194c4a5",
+      "version": 33,
+      "baseline_sha256": "42a8dd757a8fd0673ead9759761093d936df9fd39cc6c1d108e59706badcf608",
+      "counts": {
+        "solids": 1,
+        "faces": 119,
+        "edges": 354,
+        "part_definitions": 1,
+        "assembly_definitions": 0,
+        "part_occurrences": 1,
+        "assembly_occurrences": 0
+      },
+      "recognition": {
+        "status": "not_available"
+      },
+      "root_occurrence_ids": [
+        "occurrence_v33_1"
+      ],
+      "root_occurrences_total": 1,
+      "sample_ids": {
+        "face": "face_v33_1",
+        "edge": "edge_v33_1"
+      },
+      "id_scope": "version_local",
+      "cross_version_correspondence": "not_available",
+      "lookup_example": "agentcad inspect v33_specchiato/output.step --id occurrence_v33_1",
+      "image_example": "agentcad inspect v33_specchiato/output.step --image"
+    },
+    "next_actions": [
+      "agentcad inspect v33_specchiato/output.step --report",
+      "agentcad inspect v33_specchiato/output.step --id occurrence_v33_1"
+    ],
+    "metrics": {
+      "bounding_box": {
+        "x": [
+          0.001,
+          38.919
+        ],
+        "y": [
+          -0.0,
+          23.3167
+        ],
+        "z": [
+          -9.0,
+          9.9953
+        ]
+      },
+      "dimensions": {
+        "x": 38.918,
+        "y": 23.3167,
+        "z": 18.9953
+      },
+      "volume": 2659.8471,
+      "surface_area": 3591.0351,
+      "center_of_mass": {
+        "x": 17.8666,
+        "y": 10.5158,
+        "z": 4.0825
+      },
+      "face_count": 119,
+      "edge_count": 354,
+      "is_valid": true,
+      "reliable": true
+    },
+    "validation": {
+      "profile": "deliverable",
+      "is_valid": true,
+      "first_failure": null,
+      "undetermined_layer": null,
+      "layers": {
+        "file_parse": {
+          "status": "pass",
+          "duration_ms": 0
+        },
+        "kernel_load": {
+          "status": "pass",
+          "duration_ms": 0
+        },
+        "brep_check": {
+          "status": "pass",
+          "errors": [],
+          "entities": [],
+          "entity_count": 0,
+          "evidence_truncated": false,
+          "duration_ms": 74
+        },
+        "shell_closure": {
+          "status": "pass",
+          "closed_shell_count": 1,
+          "open_shell_count": 0,
+          "loose_face_count": 0,
+          "loose_face_ids": [],
+          "free_edge_count": 0,
+          "free_edge_ids": [],
+          "free_edges": [],
+          "evidence_truncated": false,
+          "duration_ms": 1
+        },
+        "mesh_manifold": {
+          "deflection_mm": 0.049763,
+          "triangle_count": 4928,
+          "vertex_count": 2466,
+          "status": "pass",
+          "ladder_divisor": 1,
+          "requested_deflection_mm": 0.049763,
+          "worker": "in_process",
+          "duration_ms": 124
+        },
+        "structure": {
+          "status": "pass",
+          "solid_count": 1,
+          "shell_count": 1,
+          "face_count": 119,
+          "edge_count": 354,
+          "faces_outside_solids": 0,
+          "solids": [
+            {
+              "id": 1,
+              "volume": 2659.847,
+              "bbox": {
+                "x": [
+                  0.001,
+                  38.919
+                ],
+                "y": [
+                  -0.0,
+                  23.3167
+                ],
+                "z": [
+                  -9.0,
+                  9.9953
+                ]
+              }
+            }
+          ],
+          "evidence_truncated": false,
+          "duration_ms": 236
+        },
+        "advisory": {
+          "status": "pass",
+          "min_face_area_mm2": 0.0227,
+          "max_tolerance_mm": 0.0,
+          "flags": [],
+          "duration_ms": 47
+        }
+      },
+      "message": "The shape passed every deliverable validation layer.",
+      "repairs": [],
+      "worker": "subprocess",
+      "budget_s": 120.0,
+      "step_round_trip": {
+        "status": "pass",
+        "matches": true,
+        "before": {
+          "is_valid": true,
+          "solid_count": 1,
+          "layers": {
+            "brep_check": "pass",
+            "shell_closure": "pass",
+            "mesh_manifold": "pass",
+            "structure": "pass",
+            "advisory": "pass"
+          }
+        },
+        "after": {
+          "is_valid": true,
+          "solid_count": 1,
+          "layers": {
+            "brep_check": "pass",
+            "shell_closure": "pass",
+            "mesh_manifold": "pass",
+            "structure": "pass",
+            "advisory": "pass"
+          }
+        },
+        "differences": [],
+        "skipped_layers": [],
+        "skipped_reason": null,
+        "message": "STEP layer outcomes and solid count match the source."
+      }
+    },
+    "validation_profile": "deliverable",
+    "parts": [
+      {
+        "id": "part_0",
+        "id_source": "generated",
+        "part_of": null,
+        "metrics": {
+          "bounding_box": {
+            "x": [
+              0.001,
+              38.919
+            ],
+            "y": [
+              -0.0,
+              23.3167
+            ],
+            "z": [
+              -9.0,
+              9.9953
+            ]
+          },
+          "dimensions": {
+            "x": 38.918,
+            "y": 23.3167,
+            "z": 18.9953
+          },
+          "volume": 2659.8471,
+          "surface_area": 3591.0351,
+          "center_of_mass": {
+            "x": 17.8666,
+            "y": 10.5158,
+            "z": 4.0825
+          },
+          "face_count": 119,
+          "edge_count": 354,
+          "is_valid": true
+        },
+        "preview": "v33_specchiato/parts/part_0.png"
+      }
+    ],
+    "comparison_phases": {
+      "source_loading": {
+        "status": "success",
+        "duration_ms": 177
+      },
+      "comparison_rendering": {
+        "status": "success",
+        "duration_ms": 290
+      },
+      "projection_comparison": {
+        "status": "success",
+        "duration_ms": 256
+      },
+      "exact_3d_comparison": {
+        "status": "success",
+        "duration_ms": 7450
+      },
+      "approximate_3d_comparison": {
+        "status": "skipped",
+        "message": "Exact 3D comparison succeeded; approximation was not needed."
+      },
+      "difference_artifact_export": {
+        "status": "success",
+        "duration_ms": 674
+      },
+      "viewer_generation": {
+        "status": "success",
+        "duration_ms": 9
+      }
+    },
+    "preview": "v33_specchiato/preview.png",
+    "diff": {
+      "against": "fossette",
+      "side_by_side": "v33_specchiato/diff_side.png",
+      "overlay": "v33_specchiato/diff_overlay.png",
+      "projection_comparison": {
+        "method": "four_view_image_mask",
+        "scope": "2d_projected_pixels",
+        "alignment": {
+          "mode": "bounding_box_center",
+          "rotation": "preserved",
+          "relative_scale": "preserved"
+        },
+        "score": {
+          "metric": "projection_intersection_over_union",
+          "value": 0.8605,
+          "classification": "high",
+          "aggregation": "foreground_union_pixel_weighted_across_views"
+        },
+        "meaning": "Visual silhouette overlap across four rendered viewpoints; not shared physical volume or model correctness.",
+        "limitations": [
+          "Does not establish shared 3D geometry.",
+          "Does not identify physical material additions or removals."
+        ],
+        "views": [
+          {
+            "view": "top",
+            "coincident_fraction_of_union": 0.9146,
+            "reference_only_fraction_of_union": 0.0427,
+            "candidate_only_fraction_of_union": 0.0427
+          },
+          {
+            "view": "bottom",
+            "coincident_fraction_of_union": 0.9146,
+            "reference_only_fraction_of_union": 0.0427,
+            "candidate_only_fraction_of_union": 0.0427
+          },
+          {
+            "view": "upper_iso",
+            "coincident_fraction_of_union": 0.7735,
+            "reference_only_fraction_of_union": 0.1518,
+            "candidate_only_fraction_of_union": 0.0747
+          },
+          {
+            "view": "lower_iso",
+            "coincident_fraction_of_union": 0.7873,
+            "reference_only_fraction_of_union": 0.0882,
+            "candidate_only_fraction_of_union": 0.1245
+          }
+        ]
+      },
+      "comparison_3d": {
+        "method": "source_frame_boolean_volume",
+        "alignment": {
+          "mode": "source_frame",
+          "transform_applied": false
+        },
+        "units": {
+          "length": "mm",
+          "volume": "mm^3"
+        },
+        "tolerance": {
+          "linear": 1e-07,
+          "unit": "mm"
+        },
+        "status": "success",
+        "classification": "partial_shared_volume",
+        "kernel": {
+          "engine": "OpenCascade",
+          "non_destructive": true,
+          "exact_partition_runs": 1,
+          "operations": [
+            {
+              "operation": "exact 3D partition",
+              "non_destructive": true,
+              "errors": [],
+              "warnings": []
+            }
+          ]
+        },
+        "volume_semantics": {
+          "measurement": "physical_occupied_volume"
+        },
+        "volumes": {
+          "reference": 2659.8467,
+          "candidate": 2659.8471,
+          "shared": 1261.6823,
+          "reference_only": 1398.1657,
+          "candidate_only": 1398.1656,
+          "union": 4058.0114
+        },
+        "ratios": {
+          "volume_iou": 0.3109,
+          "reference_coverage": 0.4743,
+          "candidate_coverage": 0.4743
+        },
+        "meaning": {
+          "shared": "Physical volume occupied by both models.",
+          "reference_only": "Physical volume occupied only by the reference.",
+          "candidate_only": "Physical volume occupied only by the candidate."
+        },
+        "limitations": [
+          "Models were compared at the positions stored in their files.",
+          "No translation, rotation, scaling, or automatic matching was applied."
+        ]
+      },
+      "volume_glb": "v33_specchiato/diff_volume.glb",
+      "volume_png": "v33_specchiato/diff_volume.png"
+    },
+    "viewer": "v33_specchiato/viewer.html",
+    "viewer_glb": "v33_specchiato/output.glb",
+    "viewer_opened": false,
+    "hint": "Review v33_specchiato/viewer.html in the browser \u2014 A is the previous run, B is this run, with side-by-side and overlay ready.",
+    "timings": {
+      "validation_ms": 30,
+      "script_exec_ms": 5337,
+      "metrics_ms": 367,
+      "source_validation_ms": 553,
+      "export_write_ms": 68,
+      "reload_ms": 615,
+      "delivered_validation_ms": 483,
+      "export_step_ms": 1873,
+      "geometry_manifest_ms": 961,
+      "preview_ms": 175,
+      "parts_preview_ms": 56,
+      "export_viewer_glb_ms": 80,
+      "source_loading_ms": 177,
+      "comparison_rendering_ms": 290,
+      "projection_comparison_ms": 256,
+      "exact_3d_comparison_ms": 7450,
+      "difference_artifact_export_ms": 674,
+      "viewer_generation_ms": 9,
+      "total_ms": 17829
+    },
+    "completed_phases": [
+      "validation",
+      "script_exec",
+      "metrics",
+      "export_step",
+      "geometry_manifest",
+      "preview",
+      "parts_preview",
+      "export_viewer_glb",
+      "source_loading",
+      "comparison_rendering",
+      "projection_comparison",
+      "exact_3d_comparison",
+      "difference_artifact_export",
+      "viewer_generation"
+    ],
+    "phase_timings": {
+      "validation_ms": 30,
+      "script_exec_ms": 5337,
+      "metrics_ms": 367,
+      "source_validation_ms": 553,
+      "export_write_ms": 68,
+      "reload_ms": 615,
+      "delivered_validation_ms": 483,
+      "export_step_ms": 1873,
+      "geometry_manifest_ms": 961,
+      "preview_ms": 175,
+      "parts_preview_ms": 56,
+      "export_viewer_glb_ms": 80,
+      "source_loading_ms": 177,
+      "comparison_rendering_ms": 290,
+      "projection_comparison_ms": 256,
+      "exact_3d_comparison_ms": 7450,
+      "difference_artifact_export_ms": 674,
+      "viewer_generation_ms": 9,
+      "total_ms": 17829
+    },
+    "runtime_source": "project",
+    "artifact_created": true
+  },
+  "artifacts": [
+    {
+      "name": "outputs.geometry_manifest",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_d7d129a7f04f438ea3ed16ef6005d545/artifacts/5ac56438c9d69435a178.json",
+      "sha256": "4a52a7e71c1a9714b6e60aa5e7db8aa58d17d30053dec159caafb31c0720c958",
+      "size_bytes": 246871
+    },
+    {
+      "name": "preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_d7d129a7f04f438ea3ed16ef6005d545/artifacts/e0da69c0d0ec58a4685f.png",
+      "sha256": "5436ccd3ddaad005d6f3fa8effd8fd19db1cb0ddad049bcddf0dd1ad9a3a9f72",
+      "size_bytes": 93799
+    },
+    {
+      "name": "viewer",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_d7d129a7f04f438ea3ed16ef6005d545/artifacts/cee9d7a414907d3951e0.html",
+      "sha256": "899acdd5e8c4d6cc6f050a106770b7f4f8ea7286c0d54c3d6ddb0dd7360c9867",
+      "size_bytes": 1194104
+    },
+    {
+      "name": "viewer_glb",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_d7d129a7f04f438ea3ed16ef6005d545/artifacts/34f796f754ba80f6a8b3.glb",
+      "sha256": "ae56da5ba15a746504f9a22879eaa280cb3ae34151cafe2c683a2814b0eb76a1",
+      "size_bytes": 156856
+    },
+    {
+      "name": "parts.0.preview",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_d7d129a7f04f438ea3ed16ef6005d545/artifacts/2d3f2bd880e9572a517a.png",
+      "sha256": "b34ef8c9999ebedb718f127be19f9e088962b49e85d43ae5bc80429d55ef1494",
+      "size_bytes": 60794
+    },
+    {
+      "name": "diff.side_by_side",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_d7d129a7f04f438ea3ed16ef6005d545/artifacts/ff5bf81de672322403d6.png",
+      "sha256": "e4cd211e534b87758dce72d82fcbc47174899f4d6f16972688981e4589968400",
+      "size_bytes": 192489
+    },
+    {
+      "name": "diff.overlay",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_d7d129a7f04f438ea3ed16ef6005d545/artifacts/6257b5818e1a32f7f756.png",
+      "sha256": "59b30f8c5aa0355c446ef8c409163f61d9da3c397ca1a026ca0bab1e1a3548d8",
+      "size_bytes": 80790
+    },
+    {
+      "name": "diff.volume_glb",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_d7d129a7f04f438ea3ed16ef6005d545/artifacts/49761f365568c67e0625.glb",
+      "sha256": "acbaf67de65f11c1b0b4c677e6ef29ac2904bcd25ea8254b7435f0b5cf5a5d88",
+      "size_bytes": 612860
+    },
+    {
+      "name": "diff.volume_png",
+      "role": "input",
+      "path": ".agentcad/changes/attempts/r_d7d129a7f04f438ea3ed16ef6005d545/artifacts/f44b7b0524f0f8870679.png",
+      "sha256": "e665876cf56e09bd72502c377915dd227b96cf603150d9c5fc28c8ddbe181485",
+      "size_bytes": 109555
+    }
+  ],
+  "unavailable_artifacts": [],
+  "content_sha256": "840a0ac1fefc206a067beddf7643a57dd3570774ecccb49c9eb0bdef65f09bd2"
+}

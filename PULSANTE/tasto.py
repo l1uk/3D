@@ -357,4 +357,14 @@ if horn:
     if solco.volume > 1e-3:
         corpo = corpo - solco
 
+# =====================================================================
+#  Versione SPECCHIATA lungo il lato corto
+# =====================================================================
+# Specchio rispetto al piano parallelo al lato corto (YZ) passante per meta'
+# lunghezza: sinistra e destra si scambiano, la sagoma resta in X 0..L.
+# specchiato=False ridà la versione originale.
+specchiato = True
+if specchiato:
+    corpo = corpo.mirror(Plane.YZ.offset(L / 2))
+
 show_object(corpo)
