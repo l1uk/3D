@@ -149,6 +149,26 @@ progetti:
       tempo_stampa: "5h 42m"
     sorgente: MORSETTO_MICROFONO/morsetto_completo.scad
 
+  - id: tasto-clacson
+    titolo: "Copritasto clacson"
+    descrizione: >
+      Copritasto di ricambio per il pulsante del clacson, ricostruito in build123d da
+      foto e misure col calibro. Il tetto è una falda inclinata con fossette e una
+      trombetta incisa; quattro clip a scatto partono a filo del fianco negli angoli.
+      Disponibile anche in versione specchiata.
+    tag: [ricambio, auto, clip, build123d]
+    materiale: PLA
+    ugello: "0.4"
+    copertina: PULSANTE/png/tasto_3q.png
+    immagini:
+      - { src: PULSANTE/png/tasto_sotto_3q.png, didascalia: "Da sotto: cavità e clip a scatto" }
+      - { src: PULSANTE/png/tasto_testa.png, didascalia: "Di testa: la falda del tetto" }
+    metriche:
+      ingombro_mm: "38.9 × 23.3 × 19"
+      massa_g: "5.3"                # supporti inclusi, stampato con le clip in giù
+      tempo_stampa: "0h 52m"
+    sorgente: PULSANTE/tasto.py
+
   - id: tappo-flacone
     titolo: "Tappo filettato per flacone"
     descrizione: >
