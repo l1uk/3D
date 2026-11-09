@@ -47,7 +47,7 @@
 // "fit_test_female": Solo la femmina (sede del corpo): ci provi il collare del fondello gia' stampato: ~15 min
 // "cartuccia"     : Vano imbottitura sospeso (pezzo separato, si infila sullo stelo)
 // "cartuccia_lid" : Coperchio della cartuccia
-mode = "body_only"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test", "cartuccia", "cartuccia_lid"]
+mode = "cap_only"; // ["assembly", "cross_section", "body_only", "cap_only", "test_ring", "lip_test", "cartuccia", "cartuccia_lid"]
 
 // Risoluzione curve
 $fn = $preview ? 48 : 120;
