@@ -203,6 +203,27 @@ progetti:
       tempo_stampa: "0h 41m"
     sorgente: MAPPAMONDO/boccola_mappamondo.scad
 
+  - id: passagatto
+    titolo: "Porta basculante per gattaiola"
+    descrizione: >
+      Porta basculante di ricambio per gattaiola con struttura a nervature, perni di
+      rotazione con collarino e alloggiamento per calamita a U con dentini di tenuta.
+      Progettata per essere stampata in due metà simmetriche sul piano medio (senza
+      supporti) da saldare con acetone in ASA, oppure in pezzo unico con supporti.
+    tag: [ricambio, casa, animali, parametrico]
+    materiale: ASA / PLA
+    ugello: "0.4"
+    copertina: PASSAGATTO/png/porta_3q.png
+    immagini:
+      - { src: PASSAGATTO/png/porta_fronte.png, didascalia: "Vista frontale: sagoma, barra superiore e nervature" }
+      - { src: PASSAGATTO/png/porta_perni_3q.png, didascalia: "Dettaglio dei perni di rotazione e collarini" }
+      - { src: PASSAGATTO/png/mezza_porta_3q.png, didascalia: "Mezza porta simmetrica per stampa piana senza supporti" }
+    metriche:
+      ingombro_mm: "160 × 152.5 × 12"
+      massa_g: "69"                 # 2 copie di mezza porta (34.3 g cad.)
+      tempo_stampa: "7h 12m"        # 2 × 3h 36m (stampa mezza porta, ugello 0.4)
+    sorgente: PASSAGATTO/porta_gattaiola.scad
+
 # Progetti volutamente fuori dal portfolio (con motivo):
 escludi:
   - CALZASCARPE   # solo un STL, nessun sorgente

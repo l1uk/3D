@@ -18,6 +18,7 @@ VOCI=(
   "dosatore_lavastoviglie|dosatore_lavastoviglie.scad|dosatore|part=\"assembly\""
   "dosatore_lavastoviglie|dosatore_lavastoviglie.scad|dosatore_sezione|part=\"section\""
   "TOOTHPASTE SQUEEZER|LUCHIX/ratchet_squeezer.scad|squeezer|part=\"assembly\""
+  "PASSAGATTO|porta_gattaiola.scad|porta|modo=\"intera\""
 )
 
 for voce in "${VOCI[@]}"; do

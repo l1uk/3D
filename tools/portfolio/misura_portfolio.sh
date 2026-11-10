@@ -36,6 +36,8 @@ VOCI=(
   "squeezer|TOOTHPASTE SQUEEZER/LUCHIX/ratchet_squeezer.scad|assieme|squeezer|part=\"assembly\""
   "squeezer|TOOTHPASTE SQUEEZER/LUCHIX/ratchet_squeezer.scad|stampa|piatto|part=\"print_plate\""
   "bomboniera|BOMBONIERA/phone_holder_v7_horta.scad|assieme|panchina|telefono=false"
+  "passagatto|PASSAGATTO/porta_gattaiola.scad|assieme|porta|modo=\"intera\""
+  "passagatto|PASSAGATTO/porta_gattaiola.scad|stampa|mezza_porta|modo=\"meta\""
 )
 
 for v in "${VOCI[@]}"; do
