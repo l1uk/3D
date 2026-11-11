@@ -42,7 +42,8 @@ X_SCUDO = X_SCUDO1 - T_SCUDO          # 40.0 retro dello scudo: battuta del cane
 ZB = 0.0                              # quota dell'asse del percussore (= asse canna)
 
 # --- cane ---
-X_PERNO, Z_PERNO = 30.5, -20.0        # perno del cane: spina d'acciaio d3
+X_PERNO = 30.5                        # perno del cane: spina d'acciaio d3
+Z_PERNO = -20.0
 P = (X_PERNO, Z_PERNO)
 D_PERNO = 3.0
 R_MOZZO = 5.0
@@ -51,7 +52,7 @@ ANG_ARMO = 30.0                       # rotazione da riposo ad armato [gradi]
 CORSA_CODA = 10.35                    # = 2 x L_CODA x sin(15): compressione della molla data dal cane
 R_CONT = 3.2                          # raggio della coda nel contatto con la coppa
 Z_SPERONE = 21.5
-ALLEGG = (1.5, 15.0, 2.2)             # foro di alleggerimento (dx dal perno, z, raggio)
+ALLEGG = None                         # foro di alleggerimento (dx dal perno, z, raggio): tolto, vale +-5 cm di gittata (dinamica.py)
 
 # --- percussore flottante (trascinato dalla forcella del cane) ---
 D_SHANK = 2.6
@@ -108,6 +109,24 @@ HW_MIN = SLOT_CANE / 2 + PARETE       # semi-larghezza minima del telaio attorno
 # =====================================================================
 # MOLLA: modello
 # =====================================================================
+def variante(**quote):
+    """Copia indipendente di questo modulo con alcune QUOTE CINEMATICHE cambiate, per gli studi
+    (studio_cinematica.py): variante(ANG_ARMO=40, CORSA_CODA=9.6). Vale per le costanti scritte
+    a inizio riga come `NOME = valore`. Il modulo vero non cambia: la configurazione ufficiale
+    resta quella scritta in questo file."""
+    import re
+    import types
+    src = open(os.path.abspath(__file__)).read()
+    for nome, val in quote.items():
+        src, n = re.subn(rf"(?m)^{nome} = [^#\n]*", lambda _m: f"{nome} = {val!r}  ", src, count=1)
+        assert n == 1, f"quota non trovata: {nome}"
+    mod = types.ModuleType("meccanismo_variante")
+    mod.__file__ = os.path.abspath(__file__)
+    exec(compile(src, mod.__file__, "exec"), mod.__dict__)
+    mod.QUOTE_VARIANTE = dict(quote)
+    return mod
+
+
 def k_molla(L0=L0_TAGLIO):
     na = L0 / MOLLA_PASSO - MOLLA_NM
     return MOLLA_G * MOLLA_d ** 4 / (8 * MOLLA_Dm ** 3 * na)
@@ -258,12 +277,18 @@ def forza_molla(th=0.0, phi=PHI_CAMMA, k=None):
 P0, P1 = P
 _braccio_cane = SPoly([
     (X_STOP, ZB - 5.5), (X_STOP, ZB + 5.0), (X_STOP - 1.5, ZB + 9.0),
-    (P0 + 6.5, 14.5), (P0 + 4.5, 19.0), (P0 + 1.0, Z_SPERONE),
-    (P0 - 3.0, Z_SPERONE - 0.5), (P0 - 6.0, Z_SPERONE - 2.5), (P0 - 7.5, Z_SPERONE - 5.0),
-    (P0 - 5.0, Z_SPERONE - 5.5), (P0 - 2.5, Z_SPERONE - 8.0), (P0 - 1.5, ZB + 9.0),
+    # cresta e sperone (solo forma, la cinematica non li usa): come nella reference il collo sale
+    # stretto e lo sperone gira all'indietro ad arco, scendendo in punta (a virgola). Da armato la
+    # punta resta in aria dietro la gobba del telaio.
+    (P0 + 6.0, 13.5), (P0 + 4.2, 17.5), (P0 + 1.2, Z_SPERONE - 1.2), (P0 - 2.8, Z_SPERONE - 0.2),
+    (P0 - 7.2, Z_SPERONE - 0.9), (P0 - 11.2, Z_SPERONE - 2.7), (P0 - 13.6, Z_SPERONE - 4.8),
+    (P0 - 13.9, Z_SPERONE - 6.4), (P0 - 12.6, Z_SPERONE - 7.4), (P0 - 10.4, Z_SPERONE - 6.8),
+    (P0 - 7.0, Z_SPERONE - 5.5), (P0 - 3.6, Z_SPERONE - 5.6), (P0 - 1.6, Z_SPERONE - 7.4),
+    (P0 - 1.1, ZB + 12.0), (P0 - 1.9, ZB + 9.0),
     (X_FACE - 3.0, ZB + 6.5),
     (P0 - R_MOZZO * 0.9, P1 + 2), (P0 + R_MOZZO * 0.9, P1 - 2),
 ])
+SPERONE = (P0 - 9.0, Z_SPERONE - 2.0)     # dove preme il pollice (per la forza di armamento)
 _coda_g = LineString([P, coda0]).buffer(R_CONT, 16)
 TH_ALL = [ANG_ARMO * i / 26 for i in range(27)]
 
@@ -283,7 +308,8 @@ fer_sh = unary_union([rotg(perc_2d(tip_armamento(th))[1].buffer(0.2), -th, P) fo
 W_FER_SH = D_SHANK + 0.4              # larghezza della feritoia del gambo nella forcella
 
 cane2d_pieno = _braccio_cane.union(Point(P).buffer(R_MOZZO, 32)).union(_coda_g).union(camma0).simplify(0.03)
-cane2d_pieno = cane2d_pieno.difference(Point(P0 + ALLEGG[0], ALLEGG[1]).buffer(ALLEGG[2], 24))
+if ALLEGG:
+    cane2d_pieno = cane2d_pieno.difference(Point(P0 + ALLEGG[0], ALLEGG[1]).buffer(ALLEGG[2], 24))
 cane2d = cane2d_pieno.difference(fer_col)            # cane a riposo, con la tasca del collare
 
 _naso = sbox(N0[0] - W_NASO - 0.05, N0[1] - 2.6, N0[0] - 0.1, N0[1])
@@ -349,6 +375,32 @@ foro_pg = Point(PT).buffer(D_PERNO_G / 2, 24)
 X_CANE_BAND = vano_cane.intersection(sbox(-50, ZA - p.tamb_asse_d / 2 - 0.5, 200, ZA + p.tamb_asse_d / 2 + 0.5)).bounds[2]
 X_PERNO_TAMB = round(X_CANE_BAND + 0.4, 1)   # il perno del tamburo parte davanti alla feritoia del cane
 X_FORO_TAMB = round(X_CANE_BAND - 0.5, 1)    # il suo foro sbuca nella feritoia (niente setto sottile)
+
+
+# =====================================================================
+# INTERFACCIA COL DESIGN: tutto quello che l'involucro (profili.py, build.py) deve sapere
+# =====================================================================
+# Il design NON legge altre quote da qui: prende questi ingombri, gli assi e i perni, e ci
+# costruisce attorno la sagoma. Se la cinematica cambia, questi cambiano e la sagoma li segue.
+#   INGOMBRO_CHIUSO     : cio' che deve stare DENTRO il telaio con parete attorno (sede molla,
+#                         braccio e mozzo del grilletto, rullino, mozzo/coda/camma del cane in tutte le pose)
+#   INGOMBRO_PERCUSSORE : corsa del percussore dietro lo scudo (conviene coprirla con le guance)
+#   vano_molla          : la sede della molla (la sua cima e' dove sta la gobba del telaio)
+#   vano_cane           : inviluppo del cane intero; la parte alta (cresta, sperone) esce dal dorso
+#   VANO_LAMA           : inviluppo della lama del grilletto, che esce sotto il telaio nel ponticello
+#   CIMA0, U, NF        : origine e direzioni dell'asse della molla = asse naturale del manico
+#   P, PT, PERNI_SPINA  : perni di cane e grilletto (teste delle spine a vista sui fianchi)
+#   X_SCUDO, X_SCUDO1, T_SCUDO, SLOT_CANE, SLOT_GRIL, D_PERC_FORO, X_PERNO_TAMB, X_FORO_TAMB
+_chiuso_cane = unary_union([Point(P).buffer(R_MOZZO, 32), _coda_g, camma0])
+_interno_gril = unary_union([Point(PT).buffer(R_MOZZO_G, 24), _naso, _braccio_naso, _braccio_g])
+INGOMBRO_CHIUSO = unary_union(
+    [vano_molla]
+    + [rotg(_chiuso_cane, th, P).buffer(GIOCO_VANO) for th in TH_ALL]
+    + [rotg(_interno_gril, f, PT).buffer(GIOCO_VANO) for f in PHI_ALL]
+    + [rull_pose(f).buffer(GIOCO_VANO) for f in PHI_ALL])
+INGOMBRO_PERCUSSORE = sbox(tip_armamento(ANG_ARMO) - L_PERC - GIOCO_VANO, ZB - D_COL / 2 - GIOCO_VANO,
+                           X_SCUDO, ZB + D_COL / 2 + GIOCO_VANO)
+VANO_LAMA = unary_union([rotg(_lama, f, PT) for f in PHI_ALL]).buffer(GIOCO_VANO)
 
 
 def vani_telaio(tel, ponticello, vano_pont, semi_larghezza, z_cima, w_telaio):
@@ -476,11 +528,11 @@ def cane():
     """Cane imperniato (spina d3), coda che comprime la molla, forcella del percussore, unghiatura."""
     from build123d import Box, Pos, Rot
     s = estrudi(cane2d, SP_CANE) - estrudi(fer_sh, W_FER_SH) - _cil_y(P, D_PERNO + 0.3, 10)
-    # unghiatura: solchi sulla faccia dietro dello sperone, profondi 0.6
-    for (a, b), t in ((((23.0, 16.5), (24.5, 19.0)), 0.55), (((24.5, 19.0), (27.5, 21.0)), 0.3),
-                      (((24.5, 19.0), (27.5, 21.0)), 0.7)):
+    # unghiatura: solchi sul dorso dello sperone (dove appoggia il pollice), profondi 0.6
+    a, b = (P0 - 6.2, Z_SPERONE - 0.75), (P0 - 11.4, Z_SPERONE - 3.3)
+    ang = math.degrees(math.atan2(b[1] - a[1], b[0] - a[0]))
+    for t in (0.0, 0.33, 0.66, 1.0):
         gx, gz = a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t
-        ang = math.degrees(math.atan2(b[1] - a[1], b[0] - a[0]))
         s -= Pos(gx, 0, gz) * Rot(0, -ang, 0) * Box(0.8, 10, 1.2)
     return s
 

@@ -58,3 +58,26 @@ Prima sembrava un tubicino con un disco; ora la parte anteriore e' paffuta e snu
 
 ## Giro 8 (livello 1)
 Dorso del telaio sopra il tamburo: la sezione della guaina davanti passa a semicerchio pieno (R_CRESTA_DAV=11, ALZO_CRESTA_DAV=0, interpolati con lo stesso smoothstep del resto), cosi' la cima non e' piu' un piano tagliato dal profilo con spigoli vivi ma una volta con raccordi ampi sui fianchi. Dietro (cane) invariato. Build ok.
+
+## Ridisegno v15 — sagoma da revolver, telaio a fianchi piani
+- Abbandonata la guaina in loft (gonfia, lenta, fragile). La silhouette ora si disegna in 2D in `profili.py` (shapely, gira in un attimo: `python profili.py` -> `stl/profili.png`) e `forme.py` ne fa solidi a fianchi piani con gli spigoli tondi (loft rigato fra sezioni rientrate, poche facce: build completa ~2.5 min invece di 6; `GUN_VELOCE=1` salta zigrinatura ed elica della molla).
+- Forma: cinghia superiore dritta, sella dietro lo scudo con il cane a vista, gobba e dorso che seguono la molla (32 gradi) con `MARGINE` 2.4 mm sui vani (`profili.verifica()`), calcio a testa d'uccello, ponticello ovale sottile, tamburo libero nella finestra con scanalature aperte davanti, camicia della canna (canna tonda + bindella + alloggio del perno) fusa nel telaio, testa del perno del tamburo sotto la volata come astina, mirino a rampa, filetto della cartella, leva finta in ottone, guancette bombate.
+- Tolti: manicotto e astina (sostituiti dalla camicia), cappetta e anello del cordino. Canna a vista 20 -> 28 mm.
+- Toccato in `meccanismo.py` solo l'aspetto del cane: sperone allungato all'indietro, unghiatura sul dorso, foro di alleggerimento spostato sotto la sella (z 15 -> 7.6). Perni, angoli, camma, forcella invariati; `verifica_pose()` senza interferenze.
+- Cancelli: tutti i pezzi validi e watertight, assieme manifold, 16 corpi (15 + leva).
+
+## v16 — retro compattato, design derivato dall'interfaccia del meccanismo
+- **Studio della cinematica** (`studio_cinematica.py`, usa `meccanismo.variante()` e `dinamica.py`): aumentare l'angolo di armamento (35-40 gradi, coda piu' corta a pari corsa) accorcia il retro di soli 2-3 mm sulla gobba, alleggerisce grilletto e dente (24 -> 18 N, 52 -> 39 N) ma dimezza o peggio la coppia di ritorno del grilletto (57 -> 34 -> 17 Nmm), allunga il percussore e lascia pareti sottili nella forcella del cane. Gittata invariata (~4.0 m). Il perno del cane non puo' avanzare: la testa della spina finirebbe nella scanalatura di carica. Conclusione: cinematica ufficiale invariata; lo spazio era nella sagoma, non nel meccanismo.
+- **Sagoma**: la gobba stava 7-9 mm dietro a dove serve. Ora scudo -> gobba 37 mm (prima 44), manico spesso 33 mm (prima 38), lunghezza 156, altezza 105.
+- **Indipendenza**: `meccanismo.py` espone una sezione "INTERFACCIA COL DESIGN" (INGOMBRO_CHIUSO, INGOMBRO_PERCUSSORE, vano_cane, VANO_LAMA, vano_molla, asse della molla, perni, scudo). `profili.py` legge solo quella: ogni punto della sagoma nella zona del meccanismo e' "ingombro + costante di stile" (blocco STILE in testa al file) e l'ingombro viene comunque unito alla sagoma, quindi la parete MARGINE e' garantita per costruzione. Cambiando la cinematica la sagoma la segue; cambiando lo stile il meccanismo non si tocca.
+- `dinamica.py`: forze, urto e gittata come modulo a se' (riproduce MECCANISMO.md: 166 mJ, 8.6 m/s, 4.0 m, grilletto 24 N).
+- Cane: tolto il foro di alleggerimento (vale +-5 cm di gittata). Feritoia del cane aperta verso l'alto (`camino_cane2d`): prima restava un velo di 0.04 mm sopra la feritoia.
+- `rendi.py [nome]`: render a colori a quattro viste in `stl/render/<nome>/`.
+- Cancelli: 16 pezzi validi e watertight, assieme manifold, telaio con parete minima 1.5 mm.
+
+## v17 — piu' vicino alla reference
+- Canna: camicia a blocco a fianchi piani (W 20, spigoli tondi) al posto di quella tonda, con fazzoletto diagonale sotto verso il telaio, bindella sopra (0.4 sotto la cinghia: a filo l'unione dei solidi fallisce) e un solco sui fianchi. Canna a vista 28 -> 32.
+- Cane: sperone ad arco "a virgola" (solo forma; perni, camma e forcella invariati). Piu' massa in alto: gittata simulata 3.99 -> 3.85 m.
+- Impugnatura: pancia sul dorso verso il tallone, calcio piu' largo e tondo, frontale piu' incavato.
+- Guancetta con bordo alto ad arco; bottone tondo dietro lo scudo al posto della leva oblunga.
+- Cancelli: 16 pezzi validi e watertight, assieme manifold.
